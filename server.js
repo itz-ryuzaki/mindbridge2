@@ -15,9 +15,14 @@ const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ── Body parsers — both JSON and urlencoded for safety ────────
 app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 
-// Simple in-memory rate limiter: max 10 requests per minute per IP
+// ── Trust Render's proxy so req.ip works correctly ────────────
+app.set('trust proxy', 1);
+
+// ── In-memory rate limiter: max 10 req/min per IP ─────────────
 const rateLimitMap = new Map();
 function isRateLimited(ip) {
   const now = Date.now();
@@ -30,29 +35,39 @@ function isRateLimited(ip) {
   return timestamps.length > max;
 }
 
-// Retry helper with exponential backoff
+// ── Retry with exponential backoff ───────────────────────────
 async function fetchWithRetry(url, options, retries = 2, delayMs = 1500) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     const res = await fetch(url, options);
     if (res.status !== 429 || attempt === retries) return res;
-    console.log(`Rate limited by Gemini, retrying in ${delayMs}ms... (attempt ${attempt + 1})`);
+    console.log(`Gemini rate limited, retrying in ${delayMs}ms... (attempt ${attempt + 1})`);
     await new Promise(r => setTimeout(r, delayMs));
     delayMs *= 2;
   }
 }
 
+// ── Gemini proxy ─────────────────────────────────────────────
 app.post('/api/gemini-flash', async (req, res) => {
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
+  const ip = req.ip || req.headers['x-forwarded-for'] || 'unknown';
+
+  // Debug log — helps diagnose body parsing issues
+  console.log('POST /api/gemini-flash | ip:', ip, '| body:', JSON.stringify(req.body));
 
   if (isRateLimited(ip)) {
     return res.status(429).json({ error: 'rate_limited', message: 'Too many messages. Please wait a moment.' });
   }
 
   try {
-    const userMessage = req.body && req.body.message;
-    if (!userMessage) return res.status(400).json({ error: 'No message provided' });
+    // Support both { message: "..." } and plain string body
+    let userMessage = req.body && (req.body.message || req.body.text || req.body.content);
+    if (typeof req.body === 'string') userMessage = req.body;
 
-    const body = {
+    if (!userMessage || !userMessage.trim()) {
+      console.error('400: Empty message. req.body was:', req.body);
+      return res.status(400).json({ error: 'No message provided', received: req.body });
+    }
+
+    const geminiBody = {
       contents: [
         {
           parts: [
@@ -67,7 +82,7 @@ app.post('/api/gemini-flash', async (req, res) => {
     const apiRes = await fetchWithRetry(GEMINI_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: JSON.stringify(geminiBody)
     });
 
     if (apiRes.status === 429) {
@@ -76,18 +91,19 @@ app.post('/api/gemini-flash', async (req, res) => {
 
     if (!apiRes.ok) {
       const err = await apiRes.text();
-      console.error("Gemini API error:", err);
+      console.error('Gemini API error:', err);
       return res.status(apiRes.status).json({ error: err });
     }
 
     const data = await apiRes.json();
     res.json(data);
   } catch (err) {
-    console.error("FULL ERROR:", err);
+    console.error('FULL ERROR:', err);
     res.status(500).json({ error: 'Gemini proxy error', details: err.message });
   }
 });
 
+// ── Static files & HTML routes ───────────────────────────────
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
