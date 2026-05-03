@@ -4,19 +4,14 @@ const path = require('path');
 
 const fetch = globalThis.fetch || ((...args) => import('node-fetch').then(({ default: f }) => f(...args)));
 
-if (!process.env.GEMINI_API_KEY) {
-  console.error("❌ GEMINI_API_KEY is missing.");
-  process.exit(1);
-}
-
+// ── API Key setup — set whichever you have in Render env vars ─
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// Try multiple models in order — if one quota is exhausted, fall through to next
-const GEMINI_MODELS = [
-  'gemini-2.0-flash',
-  'gemini-1.5-flash',
-  'gemini-1.5-flash-8b',
-];
+if (!GROQ_API_KEY && !GEMINI_API_KEY) {
+  console.error("❌ No API key found. Set GROQ_API_KEY or GEMINI_API_KEY in environment variables.");
+  process.exit(1);
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,72 +20,102 @@ app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 app.set('trust proxy', 1);
 
-// ── Retry a single model URL ──────────────────────────────────
-async function tryModel(modelName, geminiBody) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${GEMINI_API_KEY}`;
-  const res = await fetch(url, {
+// ── Groq API call ─────────────────────────────────────────────
+async function callGroq(userMessage) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(geminiBody)
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${GROQ_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: 'llama-3.1-8b-instant',
+      messages: [
+        {
+          role: 'system',
+          content: 'You are MindBridge AI, a compassionate mental wellness and academic support assistant for college students. Be warm, empathetic, concise, and helpful. Focus on mental health, stress management, academic advice, and student wellbeing. If a user seems in crisis, always recommend speaking to a professional counselor.'
+        },
+        { role: 'user', content: userMessage }
+      ],
+      max_tokens: 500
+    })
   });
   return res;
 }
 
-// ── Gemini proxy — tries each model until one succeeds ────────
+// ── Gemini API call (fallback) ────────────────────────────────
+async function callGemini(userMessage) {
+  const models = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-8b'];
+  for (const model of models) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{
+          parts: [{
+            text: `You are MindBridge AI, a compassionate mental wellness and academic support assistant for college students. Be warm, empathetic, concise, and helpful. If a user seems in crisis, always recommend speaking to a professional counselor.\n\nUser: ${userMessage}`
+          }]
+        }]
+      })
+    });
+    if (res.status !== 429) return { res, model, provider: 'gemini' };
+    console.log(`Gemini ${model} rate limited, trying next...`);
+  }
+  return null;
+}
+
+// ── Main proxy endpoint ───────────────────────────────────────
 app.post('/api/gemini-flash', async (req, res) => {
   console.log('POST /api/gemini-flash | body:', JSON.stringify(req.body));
 
   try {
     let userMessage = req.body && (req.body.message || req.body.text || req.body.content);
     if (typeof req.body === 'string') userMessage = req.body;
-
     if (!userMessage || !userMessage.trim()) {
-      console.error('400: Empty message. req.body:', req.body);
       return res.status(400).json({ error: 'No message provided', received: req.body });
     }
 
-    const geminiBody = {
-      contents: [{
-        parts: [{
-          text: `You are MindBridge AI, a compassionate mental wellness and academic support assistant for college students. Be warm, empathetic, concise, and helpful. Focus on mental health, stress management, academic advice, and student wellbeing. If a user seems in crisis, always recommend speaking to a professional counselor.\n\nUser message: ${userMessage}`
-        }]
-      }]
-    };
+    // ── Try Groq first (if key exists) ──
+    if (GROQ_API_KEY) {
+      console.log('Trying Groq...');
+      const groqRes = await callGroq(userMessage);
 
-    // Try each model, move to next on 429
-    for (const model of GEMINI_MODELS) {
-      console.log(`Trying model: ${model}`);
-      const apiRes = await tryModel(model, geminiBody);
-
-      if (apiRes.status === 429) {
-        console.log(`Model ${model} rate limited, trying next...`);
-        continue; // try next model
+      if (groqRes.ok) {
+        const data = await groqRes.json();
+        // Normalize to Gemini response shape so chat.html works unchanged
+        const text = data.choices?.[0]?.message?.content || "I'm here to help. Could you tell me more?";
+        return res.json({
+          candidates: [{ content: { parts: [{ text }] } }]
+        });
       }
-
-      if (!apiRes.ok) {
-        const err = await apiRes.text();
-        console.error(`Model ${model} error ${apiRes.status}:`, err);
-        continue; // try next model
-      }
-
-      const data = await apiRes.json();
-      console.log(`Success with model: ${model}`);
-      return res.json(data);
+      console.log(`Groq failed with status ${groqRes.status}, falling back to Gemini...`);
     }
 
-    // All models exhausted
+    // ── Fallback to Gemini ──
+    if (GEMINI_API_KEY) {
+      console.log('Trying Gemini...');
+      const result = await callGemini(userMessage);
+      if (result && result.res.ok) {
+        const data = await result.res.json();
+        console.log(`Success with Gemini model: ${result.model}`);
+        return res.json(data);
+      }
+    }
+
+    // ── All providers exhausted ──
     return res.status(429).json({
       error: 'rate_limited',
-      message: 'All AI models are busy right now. Please wait 1 minute and try again.'
+      message: 'AI is busy right now. Please wait 1 minute and try again.'
     });
 
   } catch (err) {
     console.error('FULL ERROR:', err);
-    res.status(500).json({ error: 'Gemini proxy error', details: err.message });
+    res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
 
-// ── Static & routes ───────────────────────────────────────────
+// ── Static & HTML routes ──────────────────────────────────────
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
@@ -103,5 +128,7 @@ app.get('/post-detail', (req, res) => res.sendFile(path.join(__dirname, 'post-de
 app.get('/emotion-detector', (req, res) => res.sendFile(path.join(__dirname, 'emotion_detector.html')));
 
 app.listen(PORT, () => {
-  console.log(`✅ MindBridge server running on port ${PORT}`);
+  console.log(`✅ MindBridge running on port ${PORT}`);
+  console.log(`   Groq: ${GROQ_API_KEY ? '✅ enabled' : '❌ not set'}`);
+  console.log(`   Gemini: ${GEMINI_API_KEY ? '✅ enabled (fallback)' : '❌ not set'}`);
 });
