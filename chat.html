@@ -264,14 +264,18 @@ function sendMessage() {
       container.appendChild(botRow);
       lucide.createIcons();
       workspace.scrollTop = workspace.scrollHeight;
-    }).catch(() => {
+    }).catch((err) => {
       typing.remove();
+      const isRateLimit = err.message && err.message.toLowerCase().includes('rate limit');
+      const errorMsg = isRateLimit
+        ? '⏳ ' + err.message
+        : "Sorry, I couldn't connect right now. Please try again in a moment.";
       const botRow = document.createElement('div');
       botRow.className = 'msg-row bot';
       botRow.innerHTML = `
         <div class="msg-avatar bot"><i data-lucide="bot" style="width:22px;height:22px;"></i></div>
         <div><div class="msg-bubble bot">
-          <p class="msg-text">Sorry, I couldn't connect to Gemini AI right now.</p>
+          <p class="msg-text">${escapeHtml(errorMsg)}</p>
           <span class="msg-time">${currentTime()} • Gemini AI</span>
         </div></div>`;
       container.appendChild(botRow);
@@ -288,9 +292,16 @@ async function fetchGeminiResponse(userMessage) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: userMessage })
   });
-  if (!res.ok) throw new Error("Gemini API error");
+
+  // Handle rate limiting gracefully
+  if (res.status === 429) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.message || 'Rate limited. Please wait a moment and try again.');
+  }
+
+  if (!res.ok) throw new Error("Gemini API error: " + res.status);
+
   const data = await res.json();
-  // Gemini returns: data.candidates[0].content.parts[0].text
   return (
     data && data.candidates && data.candidates[0] &&
     data.candidates[0].content &&
