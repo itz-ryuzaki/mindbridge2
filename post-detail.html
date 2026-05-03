@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindBridge — Post Thread</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-left">
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
+      <i data-lucide="menu" style="width:22px;height:22px;color:var(--primary)"></i>
+    </button>
+    <a href="index.html" class="brand">MindBridge</a>
+  </div>
+  <div class="nav-center">
+    <div class="ad-card ad-card--horizontal ad-card--navbar" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="user-info">
+      <div class="user-text">
+        <span class="user-name">Rakesh Kumar</span>
+        <span class="user-level">Level 12 Explorer</span>
+      </div>
+      <img class="user-avatar"
+    </div>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-profile">
+    <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
+    <div>
+      <div class="sidebar-name">Rakesh Kumar</div>
+      <div class="sidebar-rank">Lvl 12 Explorer</div>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html" class="sidebar-link"><i data-lucide="home"></i> Home</a>
+    <a href="feed.html" class="sidebar-link active"><i data-lucide="message-square"></i> Feed</a>
+    <a href="college.html" class="sidebar-link"><i data-lucide="graduation-cap"></i> College</a>
+    <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
+    <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
+    <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+  </nav>
+  <div class="sidebar-ads">
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main-content">
+  <div id="page-detail" class="page active">
+    <div class="page-inner" style="max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;">
+
+      <!-- Back Header -->
+      <div style="margin-bottom:2.5rem;">
+        <a href="feed.html" class="btn btn-outline" style="display:inline-flex;align-items:center;gap:.5rem;"><i data-lucide="arrow-left"></i> Back to Feed</a>
+      </div>
+
+      <!-- Full Post (dynamic based on ?id=) -->
+class="post-detail fade-up" id="fullPost" style="background:var(--surface);border:1px solid var(--surface-dim);border-radius:1.25rem;padding:2.5rem;box-shadow:var(--shadow-soft);">
+        <!-- Content populated by JS -->
+      </div>
+
+      <!-- Comments Section -->
+      <section class="comments-section fade-up delay-1" id="commentsSection">
+        <div class="section-header">
+          <h3 style="font-size:1.375rem;font-weight:700;margin:0;">Comments (<span id="commentCount">5</span>)</h3>
+        </div>
+        <div class="comments-list" id="commentsList">
+          <!-- Sample comments populated by JS -->
+        </div>
+        <!-- Add Comment Form -->
+        <div class="add-comment-form" style="margin-top:2rem;">
+          <div class="user-avatar" style="width:40px;height:40px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:var(--on-primary);font-weight:700;margin-right:1rem;">AC</div>
+          <textarea placeholder="Share your thoughts... (Be kind and supportive)" rows="3" style="flex:1;background:var(--surface-container-low);border:1px solid var(--surface-dim);border-radius:1rem;padding:1rem;font-family:var(--font-sans);resize:vertical;"></textarea>
+          <button class="btn btn-primary" style="margin-left:1rem;align-self:flex-start;">Post</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">MindBridge</div>
+      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#" class="crisis">Crisis Resources</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Post data matching feed.html (id 1,2,3)
+  const posts = [
+    {
+      id: 1,
+      author: 'Maya S.',
+      avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBlp1n4nQT3Qcv2YYdUb5dBoof5U9mZkHDmpubkt-Yj10Q-ylskA_YZ_7xAAMZ087CF2baXiEiNvmXtDRa7lipsKvjhE__xxS6smdAt4FdZibzXMqchlBHdDDelGRN8AgTK8nCgaYjxsdBoj7DFd-XbEBAfox7SkDL_on_I6sM8hJfP3HXozCBYCM89X9eUVMfzfJMQ8ChPAtcA2riOiI3VC65fo--IZarAWi81NQbEF5BhZXVpdQFJc5lGptz9oFvvEzRxdDABZIIW',
+      major: 'Computer Science',
+      time: '2 hours ago',
+      body: 'Feeling completely overwhelmed with finals approaching. I\'ve spent the last three days in the library and still feel like I haven\'t made a dent in my coursework. Is anyone else struggling to balance sleep and study right now?',
+      tags: ['#ExamStress', '#Wellness'],
+      likes: 24,
+      comments: 8
+    },
+    {
+      id: 2,
+      author: 'James L.',
+      avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7CAC_-L4EUy23sGMB0xkFavjtWiqr9XTAjaknMpS96FuX2YayRP4j4Z7KyZad0gxYbH5pSA7qgKhV-wBqO1l91djkidp58HG6VL5Lz_MIYlKquV1wyOqivHhFlgIYb0Q7y5IJTOmUQ_xt4-4jGofN0K10taiBMsRsl8ahF5RAgNWqaeeqBblk1kmDbdvr6rNPmrZlcc_T6I4Fd1FAVJ3K4p_cCNI3xJow1mMHmHR2UYpG8r-wxSd56JF67GHJSkX4HfUJre2Md-Yl',
+      major: 'Business',
+      time: '5 hours ago',
+      body: 'Just landed my first internship interview! But honestly, the imposter syndrome is hitting hard. How do you all handle that feeling of not being "good enough" for the roles you\'re applying for?',
+      tags: ['#CareerAnxiety', '#FirstSteps'],
+      likes: 42,
+      comments: 15
+    },
+    {
+      id: 3,
+      author: 'Sarah W.',
+      avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDTbbKr-0b104qosCDHx6A97qKgbjhX8cJOxC7esFK6LAGPpvsSEjtN4xPK2Zeyq669LZuFXn837duBZlQHnYq4TLt4s4hoTc9_PmS_9mQHCZEb-FsqZUm_YxmM1RT6BzaXgr7NN5fDj2iFfkWosqaEBNIhslKJRJkjKdGyfloEvJSvSbe1cr5iPzfg-Uk1VUG_5MIddLE9_ZM6wYptaT5E78Y6cSLvf9QNWBInKA1xForwXdLbq10hE7lXOEjMTsSuv_DnBkNwEq_',
+      major: 'Psychology',
+      time: 'Yesterday',
+      body: 'Finally tried the mindfulness exercise from the MindBridge app today before my presentation. Huge difference! My heart rate stayed steady and I felt so much more present. Highly recommend giving it a shot if you\'re nervous about speaking.',
+      tags: ['#Mindfulness', '#SuccessStories'],
+      likes: 128,
+      comments: 31
+    }
+  ];
+
+  // Sample comments for each post
+  const commentsData = {
+    1: [
+      { author: 'Ryan T.', time: '1h ago', body: 'Yes, I\'m in the exact same boat! Pomodoro technique (25min study/5min break) has been a lifesaver. Also try magnesium before bed - helps with sleep quality.' },
+      { author: 'Priya K.', time: '1h ago', body: 'Library all-nighters are brutal. Have you tried the study rooms in the wellness center? They have white noise machines and dim lighting.' },
+      { author: 'Ethan M.', time: '1h ago', body: '@Maya S. Totally get it. I use a "brain dump" journal every morning - write everything swirling in my head on paper first.' },
+      { author: 'Lila R.', time: '2h ago', body: 'Power naps! Even 10-15 minutes can reset you. There\'s a nap pod area in the student union.' },
+      { author: 'You', time: '2h ago', body: 'Same here. The MindBridge breathing exercises before bed have helped me wind down.' }
+    ],
+    2: [
+      { author: 'Sophia L.', time: '2h ago', body: 'Imposter syndrome is SO real. Reminder: they chose you for a reason. Prep 3 stories that show your skills.' },
+      { author: 'Carlos G.', time: '3h ago', body: "Fake it till you make it mentality works. Focus on what you CAN do, not what you cant" },
+      { author: 'Ava P.', time: '4h ago', body: 'Journal your wins daily. Even small ones. Builds confidence over time.' },
+      { author: 'Noah B.', time: '4h ago', body: 'You belong there James! Check out the career center mock interviews.' },
+      { author: 'You', time: '5h ago', body: 'Congrats on the interview! The feeling passes once you start talking.' }
+    ],
+    3: [
+      { author: 'Owen H.', time: '12h ago', body: 'Appreciate you sharing Sarah! Downloading the app now.' },
+      { author: 'Isabella F.', time: '14h ago', body: 'The 4-7-8 breathing technique is magic for presentations.' },
+      { author: 'Liam S.', time: '15h ago', body: 'Mindfulness gang! 🙌 Did the same before my thesis defense.' },
+      { author: 'Emma D.', time: '18h ago', body: 'Which specific exercise? The guided imagery one?' },
+      { author: 'You', time: '20h ago', body: 'Results like this make the app worth it!' }
+    ]
+  };
+
+  // Load post on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = parseInt(urlParams.get('id')) || 1; // Default to post 1
+    const post = posts.find(p => p.id === postId);
+    if (post) {
+      document.getElementById('fullPost').innerHTML = `
+<div class="post-card" style="border:none;box-shadow:none;padding:0;">
+          <div class="post-card-header">
+            <img class="post-card-avatar" src="${post.avatar}" alt="${post.author}" />
+            <div>
+              <div class="post-card-author">${post.author}</div>
+              <div class="post-card-meta">${post.time} • ${post.major}</div>
+            </div>
+            <button class="more-btn"><i data-lucide="more-horizontal"></i></button>
+          </div>
+class="post-card-body" style="-webkit-line-clamp:unset;">${post.body}</div>
+          <div class="post-card-tags">
+            ${post.tags.map(tag => `<span class="tag tag-secondary">${tag}</span>`).join('')}
+          </div>
+          <div class="post-card-footer">
+            <div class="post-actions">
+              <button class="action-btn liked" data-likes="${post.likes}"><i data-lucide="heart"></i><span>${post.likes}</span></button>
+              <button class="action-btn"><i data-lucide="message-circle"></i><span>${post.comments}</span></button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Load comments
+      const comments = commentsData[postId] || [];
+      document.getElementById('commentCount').textContent = comments.length;
+      const commentsList = document.getElementById('commentsList');
+      commentsList.innerHTML = comments.map(c => `
+        <div class="comment-item">
+          <div style="display:flex;align-items:flex-start;gap:1rem;">
+            <div class="user-avatar" style="width:40px;height:40px;border-radius:50%;background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700;font-size:.875rem;display:flex;align-items:center;justify-content:center;">${c.author.charAt(0)}</div>
+            <div style="flex:1;">
+              <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
+                <span style="font-weight:700;font-size:.875rem;">${c.author}</span>
+                <span style="font-size:.75rem;color:var(--on-surface-variant);">${c.time}</span>
+              </div>
+              <p style="margin:0 0 .75rem;font-size:.875rem;line-height:1.65;color:var(--on-surface);">${c.body}</p>
+              <div style="display:flex;align-items:center;gap:.75rem;">
+                <button class="action-btn" style="font-size:.7rem;"><i data-lucide="heart"></i><span>2</span></button>
+                <button style="font-size:.7rem;font-weight:600;color:var(--secondary);">Reply</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+  });
+</script>
+</body>
+</html>

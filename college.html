@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindBridge — College</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-left">
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
+      <i data-lucide="menu" style="width:22px;height:22px;color:var(--primary)"></i>
+    </button>
+    <a href="index.html" class="brand">MindBridge</a>
+  </div>
+  <div class="nav-center">
+    <div class="ad-card ad-card--horizontal ad-card--navbar" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="user-info">
+      <div class="user-text">
+        <span class="user-name">Rakesh Kumar</span>
+        <span class="user-level">Level 12 Explorer</span>
+      </div>
+      <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv" alt="Rakesh Kumar" />
+    </div>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-profile">
+    <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
+    <div>
+      <div class="sidebar-name">Rakesh Kumar</div>
+      <div class="sidebar-rank">Lvl 12 Explorer</div>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html" class="sidebar-link"><i data-lucide="home"></i> Home</a>
+    <a href="feed.html" class="sidebar-link"><i data-lucide="message-square"></i> Feed</a>
+    <a href="college.html" class="sidebar-link active"><i data-lucide="graduation-cap"></i> College</a>
+    <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
+    <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
+    <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+  </nav>
+  <!-- Sidebar Advertisement Blocks -->
+  <div class="sidebar-ads">
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main-content">
+  <div id="page-college" class="page active">
+    <div class="page-inner" style="max-width:1200px;margin:0 auto;padding:3rem 2rem 6rem;">
+
+      <!-- Hero -->
+      <div class="college-hero fade-up">
+        <div class="hero-orb-1"></div>
+        <div class="hero-orb-2"></div>
+        <div class="college-hero-content">
+          <div class="college-hero-title-row">
+            <div class="college-logo"><i data-lucide="landmark"></i></div>
+            <div>
+              <h1>NIET Greater Noida</h1>
+              <p>Engineering Your Future with Empathy</p>
+            </div>
+          </div>
+          <div class="college-stats">
+            <div class="college-stat"><i data-lucide="users"></i> 12.4k Students</div>
+            <div class="college-stat"><i data-lucide="check-circle"></i> Verified Community</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Grid -->
+      <div class="college-grid">
+        <!-- Left: Advice + CTA -->
+        <div>
+          <div class="advice-header">
+            <h2>Pinned Advice</h2>
+            <a href="#" class="archive-link">View Archive <i data-lucide="arrow-right"></i></a>
+          </div>
+
+          <div class="advice-card fade-up delay-1">
+            <div class="advice-inner">
+              <div class="advice-icon academic"><i data-lucide="lightbulb"></i></div>
+              <div style="flex:1;">
+                <div class="advice-meta">
+                  <span class="advice-category academic">Academic Clarity</span>
+                  <span class="advice-pinned">Pinned by HOD</span>
+                </div>
+                <div class="advice-title">Surviving the 3rd Semester: Focus Areas for CSE</div>
+                <p class="advice-body">The jump from 2nd to 3rd semester is intense. Focus heavily on Discrete Mathematics and Data Structures from day one. Here are the curated resources...</p>
+                <div class="advice-footer">
+                  <div class="advice-stat"><i data-lucide="star"></i> 248</div>
+                  <div class="advice-stat"><i data-lucide="message-square"></i> 56 Comments</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="advice-card fade-up delay-2">
+            <div class="advice-inner">
+              <div class="advice-icon wellness"><i data-lucide="wind"></i></div>
+              <div style="flex:1;">
+                <div class="advice-meta">
+                  <span class="advice-category wellness">Mental Wellness</span>
+                  <span class="advice-pinned">Pinned by Wellness Cell</span>
+                </div>
+                <div class="advice-title">Burnout is real: NIET's secret chill spots</div>
+                <p class="advice-body">Feeling overwhelmed? Head to the back garden of Block A during the golden hour. It's the quietest place on campus to reset your mind...</p>
+                <div class="advice-footer">
+                  <div class="advice-stat"><i data-lucide="star"></i> 1,200</div>
+                  <div class="advice-stat"><i data-lucide="message-square"></i> 89 Comments</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ask a Senior CTA -->
+          <div class="ask-senior-cta fade-up delay-3">
+            <div class="ask-cta-text">
+              <h2>Have a burning question?</h2>
+              <p>Our senior mentors are here to guide you through placement prep, exam stress, or campus life. Don't navigate college alone.</p>
+              <button class="ask-cta-btn"><i data-lucide="messages-square" style="width:18px;height:18px;"></i> Ask a Senior Now</button>
+            </div>
+            <div class="ask-cta-img">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmrms2mxmn6G3Na_WbTl4TlveMcjVeoBXxWmbAqQXn3GYmUKlXBvYFcXkJ9NmAHblB8GtCWSk8zEeCCrYJ4knJ96fkdUYdutuQBgoc5P6UK1U_I0LccFWJGR9j7SJzZ3tawiLBfLt6liZtSCyAJOceNFOLgn0cyppgwAdLk1iIx4CE4Ot3GQiAaqHp0N7RAZdQnFX3U0zebgGw_Yz6oPC56q3baY6-vOrIBq-AfVwmC4P4COyZqvsRu3SS4vW4UxCSh8kxiehnCY4M" alt="Students" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Mentors -->
+        <aside>
+          <div class="mentors-header">
+            <h2>Senior Mentors</h2>
+            <i data-lucide="more-horizontal" style="width:20px;height:20px;color:var(--on-surface-variant);cursor:pointer;"></i>
+          </div>
+
+          <div class="mentor-card">
+            <div class="mentor-avatar-wrap">
+              <div class="mentor-avatar-bg"><i data-lucide="users"></i></div>
+              <div class="online-dot"></div>
+            </div>
+            <div style="flex:1;">
+              <div class="mentor-name">Ishaan Verma</div>
+              <div class="mentor-expertise">Data Structures & Placement</div>
+              <div class="mentor-rating">
+                <i data-lucide="star"></i>
+                <span class="mentor-rating-val">4.9</span>
+                <span class="mentor-sessions">(120 sessions)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mentor-card">
+            <div class="mentor-avatar-wrap">
+              <div class="mentor-avatar-bg"><i data-lucide="users"></i></div>
+            </div>
+            <div style="flex:1;">
+              <div class="mentor-name">Priya Sharma</div>
+              <div class="mentor-expertise">Time Management & Wellness</div>
+              <div class="mentor-rating">
+                <i data-lucide="star"></i>
+                <span class="mentor-rating-val">5.0</span>
+                <span class="mentor-sessions">(85 sessions)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mentor-card">
+            <div class="mentor-avatar-wrap">
+              <div class="mentor-avatar-bg"><i data-lucide="users"></i></div>
+              <div class="online-dot"></div>
+            </div>
+            <div style="flex:1;">
+              <div class="mentor-name">Rohan Gupta</div>
+              <div class="mentor-expertise">Machine Learning & Ethics</div>
+              <div class="mentor-rating">
+                <i data-lucide="star"></i>
+                <span class="mentor-rating-val">4.8</span>
+                <span class="mentor-sessions">(150 sessions)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity Stats -->
+          <div class="college-activity">
+            <div class="activity-title">NIET Activity</div>
+            <div class="activity-row">
+              <span class="activity-label">Active Mentors</span>
+              <span class="activity-val">42</span>
+            </div>
+            <div class="activity-bar"><div class="activity-fill" style="width:85%;"></div></div>
+            <div class="activity-row" style="margin-top:.75rem;">
+              <span class="activity-label">Help Requests Resolved</span>
+              <span class="activity-val">1.2k</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- College FAB -->
+<button class="college-fab">
+  <i data-lucide="plus-circle"></i>
+  <span>Ask a Senior</span>
+</button>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">MindBridge</div>
+      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#" class="crisis">Crisis Resources</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

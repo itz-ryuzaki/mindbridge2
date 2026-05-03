@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindBridge — My Sessions</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-left">
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
+      <i data-lucide="menu" style="width:22px;height:22px;color:var(--primary)"></i>
+    </button>
+    <a href="index.html" class="brand">MindBridge</a>
+  </div>
+  <div class="nav-center">
+    <div class="ad-card ad-card--horizontal ad-card--navbar" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="user-info">
+      <div class="user-text">
+        <span class="user-name">Rakesh Kumar</span>
+        <span class="user-level">Level 12 Explorer</span>
+      </div>
+      <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv" alt="Rakesh Kumar" />
+    </div>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-profile">
+    <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
+    <div>
+      <div class="sidebar-name">Rakesh Kumar</div>
+      <div class="sidebar-rank">Lvl 12 Explorer</div>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html" class="sidebar-link"><i data-lucide="home"></i> Home</a>
+    <a href="feed.html" class="sidebar-link"><i data-lucide="message-square"></i> Feed</a>
+    <a href="college.html" class="sidebar-link"><i data-lucide="graduation-cap"></i> College</a>
+    <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
+    <a href="sessions.html" class="sidebar-link active"><i data-lucide="calendar"></i> Sessions</a>
+    <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+  </nav>
+  <!-- Sidebar Advertisement Blocks -->
+  <div class="sidebar-ads">
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main-content">
+  <div id="page-sessions" class="page active">
+    <div class="page-inner" style="max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;">
+
+      <!-- Header -->
+      <div class="sessions-header fade-up">
+        <div>
+          <h1>My Sessions</h1>
+          <p>Manage your upcoming wellness appointments and workshops.</p>
+        </div>
+        <button class="btn btn-primary">
+          <i data-lucide="plus" style="width:18px;height:18px;"></i> Book Session
+        </button>
+      </div>
+
+      <!-- Upcoming -->
+      <div style="margin-bottom:3rem;">
+        <div class="upcoming-label fade-up delay-1">
+          <span class="pulse-dot"></span> Upcoming
+        </div>
+
+        <div class="upcoming-card fade-up delay-1">
+          <div class="upcoming-date-box">
+            <span class="upcoming-month">Oct</span>
+            <span class="upcoming-day">14</span>
+          </div>
+          <div class="upcoming-content">
+            <div class="upcoming-type-row">
+              <span class="upcoming-type">Workshop</span>
+              <span class="confirmed-badge"><i data-lucide="check-circle-2" style="width:10px;height:10px;"></i> CONFIRMED</span>
+            </div>
+            <div class="upcoming-title">Academic Anxiety Workshop</div>
+            <div class="upcoming-details">
+              <div class="upcoming-detail"><i data-lucide="clock"></i> 14:00 – 15:30</div>
+              <div class="upcoming-detail"><i data-lucide="video"></i> Virtual Meeting</div>
+            </div>
+          </div>
+          <div class="upcoming-side">
+            <div>
+              <div class="faculty-label">Faculty</div>
+              <div class="faculty-name">Dr. Sarah Miller</div>
+            </div>
+            <button class="icon-btn"><i data-lucide="more-vertical"></i></button>
+          </div>
+        </div>
+
+        <div class="upcoming-card fade-up delay-2">
+          <div class="upcoming-date-box">
+            <span class="upcoming-month">Oct</span>
+            <span class="upcoming-day">17</span>
+          </div>
+          <div class="upcoming-content">
+            <div class="upcoming-type-row">
+              <span class="upcoming-type">Counseling</span>
+            </div>
+            <div class="upcoming-title">1-on-1 Peer Counseling</div>
+            <div class="upcoming-details">
+              <div class="upcoming-detail"><i data-lucide="clock"></i> 10:00 – 10:45</div>
+              <div class="upcoming-detail"><i data-lucide="video"></i> Virtual Meeting</div>
+            </div>
+          </div>
+          <div class="upcoming-side">
+            <div>
+              <div class="faculty-label">Faculty</div>
+              <div class="faculty-name">Marcus J.</div>
+            </div>
+            <button class="icon-btn"><i data-lucide="more-vertical"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Past -->
+      <div>
+        <div class="history-label fade-up">History</div>
+
+        <div class="past-session fade-up delay-1" id="past-session-3">
+          <div class="past-left">
+            <span class="past-date">Oct 05</span>
+            <div>
+              <div class="past-title">Time Management Essentials</div>
+              <div class="past-subtitle">Workshop • Prof. David K.</div>
+            </div>
+          </div>
+          <div class="past-right">
+            <div id="rating-3">
+              <button class="rate-btn" onclick="openFeedback(3)">Rate Session</button>
+            </div>
+            <button class="notes-btn" onclick="downloadNotes(3, 'Time Management Essentials', 'Oct 05', 'Workshop', 'Prof. David K.', 'Discussed the Pomodoro technique and the importance of prioritizing tasks based on urgency and importance. Set a goal to use a digital planner for the next week.')">
+              <i data-lucide="download"></i> Notes
+            </button>
+          </div>
+        </div>
+
+        <div class="past-session fade-up delay-2" id="past-session-4">
+          <div class="past-left">
+            <span class="past-date">Sep 28</span>
+            <div>
+              <div class="past-title">Stress Management Circle</div>
+              <div class="past-subtitle">Peer Group • Online Circle</div>
+            </div>
+          </div>
+          <div class="past-right">
+            <div id="rating-4">
+              <button class="rate-btn" onclick="openFeedback(4)">Rate Session</button>
+            </div>
+            <button class="notes-btn" onclick="downloadNotes(4, 'Stress Management Circle', 'Sep 28', 'Peer Group', 'Online Circle', 'Shared personal experiences with exam stress. Practiced guided imagery and collective breathing exercises. Feeling more connected with peers after sharing.')">
+              <i data-lucide="download"></i> Notes
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Archive CTA -->
+      <div class="session-archive-cta fade-up">
+        <div class="cta-icon"><i data-lucide="calendar"></i></div>
+        <div class="cta-text">
+          <h3>Missed a session?</h3>
+          <p>Recorded workshops and session summaries are available in the archives.</p>
+        </div>
+        <div class="cta-arrow"><i data-lucide="arrow-right"></i></div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- Feedback Modal -->
+<div class="modal-overlay" id="feedbackModal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeFeedback()"><i data-lucide="x"></i></button>
+    <div class="modal-icon"><i data-lucide="message-square" style="width:30px;height:30px;"></i></div>
+    <h2>How was your session?</h2>
+    <p class="modal-desc">Your feedback helps us match you with the best facilitators and improve the quality of our wellness community.</p>
+    <div class="star-row" id="starRow">
+      <button class="star-btn" data-star="1" onclick="selectStar(1)" onmouseenter="hoverStar(1)" onmouseleave="hoverStar(0)"><i data-lucide="star" style="width:40px;height:40px;"></i></button>
+      <button class="star-btn" data-star="2" onclick="selectStar(2)" onmouseenter="hoverStar(2)" onmouseleave="hoverStar(0)"><i data-lucide="star" style="width:40px;height:40px;"></i></button>
+      <button class="star-btn" data-star="3" onclick="selectStar(3)" onmouseenter="hoverStar(3)" onmouseleave="hoverStar(0)"><i data-lucide="star" style="width:40px;height:40px;"></i></button>
+      <button class="star-btn" data-star="4" onclick="selectStar(4)" onmouseenter="hoverStar(4)" onmouseleave="hoverStar(0)"><i data-lucide="star" style="width:40px;height:40px;"></i></button>
+      <button class="star-btn" data-star="5" onclick="selectStar(5)" onmouseenter="hoverStar(5)" onmouseleave="hoverStar(0)"><i data-lucide="star" style="width:40px;height:40px;"></i></button>
+    </div>
+    <textarea class="feedback-textarea" placeholder="Any specific thoughts on what helped or what could be better? (Optional)"></textarea>
+    <button class="submit-feedback disabled" id="submitFeedback" onclick="submitFeedback()">Submit Feedback</button>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">MindBridge</div>
+      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#" class="crisis">Crisis Resources</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+let currentFeedbackId = null;
+let selectedRating = 0;
+
+function openFeedback(id) {
+  currentFeedbackId = id;
+  selectedRating = 0;
+  updateStars(0);
+  document.getElementById('submitFeedback').className = 'submit-feedback disabled';
+  document.getElementById('feedbackModal').classList.add('open');
+}
+
+function closeFeedback() {
+  document.getElementById('feedbackModal').classList.remove('open');
+  currentFeedbackId = null;
+  selectedRating = 0;
+}
+
+function selectStar(n) {
+  selectedRating = n;
+  updateStars(n);
+  const btn = document.getElementById('submitFeedback');
+  btn.className = 'submit-feedback ready';
+}
+
+function hoverStar(n) {
+  updateStars(n || selectedRating);
+}
+
+function updateStars(n) {
+  document.querySelectorAll('.star-btn').forEach(btn => {
+    const s = parseInt(btn.dataset.star);
+    const svg = btn.querySelector('svg');
+    if (s <= n) {
+      svg.style.color = 'var(--tertiary)';
+      svg.style.fill = 'var(--tertiary)';
+    } else {
+      svg.style.color = 'var(--surface-dim)';
+      svg.style.fill = 'none';
+    }
+  });
+}
+
+function submitFeedback() {
+  if (selectedRating === 0) return;
+  const id = currentFeedbackId;
+  const ratingEl = document.getElementById('rating-' + id);
+  ratingEl.innerHTML = `<div class="rated-badge"><i data-lucide="star" style="width:12px;height:12px;"></i>${selectedRating}/5 Rated</div>`;
+  lucide.createIcons();
+  closeFeedback();
+}
+
+// Download notes as plain text file (no external libs needed)
+function downloadNotes(id, title, date, type, faculty, notes) {
+  const content = [
+    'MindBridge Session Notes',
+    '========================',
+    '',
+    'Session: ' + title,
+    'Date: ' + date,
+    'Type: ' + type,
+    'Facilitator: ' + faculty,
+    '',
+    'Key Takeaways & Notes',
+    '---------------------',
+    notes,
+    '',
+    '© 2024 MindBridge Wellness Hub'
+  ].join('\n');
+
+  const blob = new Blob([content], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'MindBridge_Notes_' + title.replace(/\s+/g, '_') + '.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// Close modal on overlay click
+document.getElementById('feedbackModal').addEventListener('click', function(e) {
+  if (e.target === this) closeFeedback();
+});
+</script>
+</body>
+</html>

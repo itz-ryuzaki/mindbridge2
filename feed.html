@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindBridge — Community Feed</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-left">
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
+      <i data-lucide="menu" style="width:22px;height:22px;color:var(--primary)"></i>
+    </button>
+    <a href="index.html" class="brand">MindBridge</a>
+  </div>
+  <div class="nav-center">
+    <div class="ad-card ad-card--horizontal ad-card--navbar" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="user-info">
+      <div class="user-text">
+        <span class="user-name">Vanshika Srivastava</span>
+        <span class="user-level">Level 12 Explorer</span>
+      </div>
+      <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlp1n4nQT3Qcv2YYdUb5dBoof5U9mZkHDmpubkt-Yj10Q-ylskA_YZ_7xAAMZ087CF2baXiEiNvmXtDRa7lipsKvjhE__xxS6smdAt4FdZibzXMqchlBHdDDelGRN8AgTK8nCgaYjxsdBoj7DFd-XbEBAfox7SkDL_on_I6sM8hJfP3HXozCBYCM89X9eUVMfzfJMQ8ChPAtcA2riOiI3VC65fo--IZarAWi81NQbEF5BhZXVpdQFJc5lGptz9oFvvEzRxdDABZIIW" alt="Vanshika Srivastava" />
+    </div>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-profile">
+    <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
+    <div>
+      <div class="sidebar-name">Vanshika Srivastava</div>
+      <div class="sidebar-rank">Lvl 12 Explorer</div>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html" class="sidebar-link"><i data-lucide="home"></i> Home</a>
+    <a href="feed.html" class="sidebar-link active"><i data-lucide="message-square"></i> Feed</a>
+    <a href="college.html" class="sidebar-link"><i data-lucide="graduation-cap"></i> College</a>
+    <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
+    <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
+    <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+  </nav>
+  <!-- Sidebar Advertisement Blocks -->
+  <div class="sidebar-ads">
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main-content">
+  <div id="page-feed" class="page active">
+    <div class="page-inner" style="max-width:1100px;margin:0 auto;padding:3rem 2rem 6rem;">
+
+      <!-- Header -->
+      <section style="margin-bottom:2.5rem;">
+        <div class="feed-header-row fade-up">
+          <div>
+            <h2 style="font-size:2.25rem;font-weight:800;color:var(--on-surface);margin-bottom:.4rem;">Community Feed</h2>
+            <p style="font-size:.9375rem;color:var(--on-surface-variant);max-width:440px;line-height:1.65;">A safe space for students to share experiences, find support, and realize they aren't alone.</p>
+          </div>
+            <button class="post-btn" id="openPostModal"><i data-lucide="edit-3"></i> Post</button>
+        </div>
+
+        <!-- Search & Filters -->
+        <div class="feed-filters fade-up delay-1">
+          <div class="search-wrap">
+            <i data-lucide="search"></i>
+            <input class="search-input" placeholder="Search topics or keywords..." type="text" id="feedSearch" />
+          </div>
+          <div class="filter-chips">
+            <button class="filter-chip active" data-filter="Exam Stress">Exam Stress</button>
+            <button class="filter-chip" data-filter="Career Anxiety">Career Anxiety</button>
+            <button class="filter-chip" data-filter="Social Life">Social Life</button>
+            <button class="filter-chip" data-filter="All Topics">All Topics</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Posts -->
+      <section class="posts-grid" id="postsGrid"></section>
+
+      <!-- Load More -->
+      <div class="load-more-wrap" style="margin-top:2.5rem;">
+        <button class="btn btn-outline" id="loadOlderPostsBtn" style="border-radius:.875rem;">Load older posts</button>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- Mobile FAB -->
+<button class="fab secondary" aria-label="Write post"><i data-lucide="edit-3"></i></button>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">MindBridge</div>
+      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#" class="crisis">Crisis Resources</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+// --- FEED PAGE DYNAMIC LOGIC ---
+const initialPosts = [
+  {
+    id: 1,
+    author: 'Vishal Sharma',
+    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBlp1n4nQT3Qcv2YYdUb5dBoof5U9mZkHDmpubkt-Yj10Q-ylskA_YZ_7xAAMZ087CF2baXiEiNvmXtDRa7lipsKvjhE__xxS6smdAt4FdZibzXMqchlBHdDDelGRN8AgTK8nCgaYjxsdBoj7DFd-XbEBAfox7SkDL_on_I6sM8hJfP3HXozCBYCM89X9eUVMfzfJMQ8ChPAtcA2riOiI3VC65fo--IZarAWi81NQbEF5BhZXVpdQFJc5lGptz9oFvvEzRxdDABZIIW',
+    major: 'Computer Science',
+    time: '2 hours ago',
+    body: 'Feeling completely overwhelmed with finals approaching. I\'ve spent the last three days in the library and still feel like I haven\'t made a dent in my coursework. Is anyone else struggling to balance sleep and study right now?',
+    tags: ['#ExamStress', '#Wellness'],
+    likes: 24,
+    comments: 8
+  },
+  {
+    id: 2,
+    author: 'Manoj Kumar Yadav',
+    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7CAC_-L4EUy23sGMB0xkFavjtWiqr9XTAjaknMpS96FuX2YayRP4j4Z7KyZad0gxYbH5pSA7qgKhV-wBqO1l91djkidp58HG6VL5Lz_MIYlKquV1wyOqivHhFlgIYb0Q7y5IJTOmUQ_xt4-4jGofN0K10taiBMsRsl8ahF5RAgNWqaeeqBblk1kmDbdvr6rNPmrZlcc_T6I4Fd1FAVJ3K4p_cCNI3xJow1mMHmHR2UYpG8r-wxSd56JF67GHJSkX4HfUJre2Md-Yl',
+    major: 'Business',
+    time: '5 hours ago',
+    body: 'Just landed my first internship interview! But honestly, the imposter syndrome is hitting hard. How do you all handle that feeling of not being "good enough" for the roles you\'re applying for?',
+    tags: ['#CareerAnxiety', '#FirstSteps'],
+    likes: 42,
+    comments: 15
+  },
+  {
+    id: 3,
+    author: 'Sanah Mehraj',
+    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDTbbKr-0b104qosCDHx6A97qKgbjhX8cJOxC7esFK6LAGPpvsSEjtN4xPK2Zeyq669LZuFXn837duBZlQHnYq4TLt4s4hoTc9_PmS_9mQHCZEb-FsqZUm_YxmM1RT6BzaXgr7NN5fDj2iFfkWosqaEBNIhslKJRJkjKdGyfloEvJSvSbe1cr5iPzfg-Uk1VUG_5MIddLE9_ZM6wYptaT5E78Y6cSLvf9QNWBInKA1xForwXdLbq10hE7lXOEjMTsSuv_DnBkNwEq_',
+    major: 'Psychology',
+    time: 'Yesterday',
+    body: 'Finally tried the mindfulness exercise from the MindBridge app today before my presentation. Huge difference! My heart rate stayed steady and I felt so much more present. Highly recommend giving it a shot if you\'re nervous about speaking.',
+    tags: ['#Mindfulness', '#SuccessStories'],
+    likes: 128,
+    comments: 31
+  }
+];
+
+const olderPosts = [
+  {
+    id: 4,
+    author: 'Vaibhav Dixit.',
+    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+    major: 'Mathematics',
+    time: '2 days ago',
+    body: 'Struggling with group projects. Anyone have tips for managing team conflicts and deadlines?',
+    tags: ['#GroupWork', '#TimeManagement'],
+    likes: 12,
+    comments: 4
+  },
+  {
+    id: 5,
+    author: 'Vaibhavi Bisht',
+    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+    major: 'Physics',
+    time: '3 days ago',
+    body: 'Missed a week of classes due to illness. How do you catch up without burning out?',
+    tags: ['#CatchUp', '#Wellness'],
+    likes: 7,
+    comments: 2
+  },
+  {
+    id: 6,
+    author: 'Vivek Kumar',
+    avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+    major: 'English',
+    time: '4 days ago',
+    body: 'Does anyone else get anxious before presentations? What helps you calm nerves?',
+    tags: ['#Anxiety', '#Presentations'],
+    likes: 19,
+    comments: 6
+  }
+];
+
+function getCurrentUser() {
+  const el = document.querySelector('.user-name');
+  return el ? el.textContent.trim() : 'You';
+}
+function getUserAvatar() {
+  const el = document.querySelector('.user-avatar');
+  return el && el.src ? el.src : 'https://randomuser.me/api/portraits/lego/1.jpg';
+}
+
+function renderPostCard(post) {
+  return `
+    <div class="post-card fade-up">
+      <div class="post-card-header">
+        <img class="post-card-avatar" src="${post.avatar}" alt="${post.author}" />
+        <div>
+          <div class="post-card-author">${post.author}</div>
+          <div class="post-card-meta">${post.time} • ${post.major}</div>
+        </div>
+        <button class="more-btn"><i data-lucide="more-horizontal"></i></button>
+      </div>
+      <p class="post-card-body">${post.body}</p>
+      <div class="post-card-tags">
+        ${post.tags.map(tag => `<span class="tag tag-secondary">${tag}</span>`).join('')}
+      </div>
+      <div class="post-card-footer">
+        <div class="post-actions">
+          <button class="action-btn" onclick="likePost(this, ${post.likes})"><i data-lucide="heart"></i><span>${post.likes}</span></button>
+          <button class="action-btn"><i data-lucide="message-circle"></i><span>${post.comments}</span></button>
+        </div>
+        <button class="read-thread" data-post-id="${post.id}" onclick="readThread(${post.id})">Read Thread</button>
+      </div>
+      <button class="read-more-btn" data-post-id="${post.id}" onclick="window.location.href='post-detail.html?id=${post.id}'">Read More</button>
+    </div>
+  `;
+}
+
+function renderFeed(posts) {
+  const grid = document.getElementById('postsGrid');
+  grid.innerHTML = posts.map(renderPostCard).join('');
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+let allPosts = [];
+let loadedOlder = false;
+
+function loadInitialFeed() {
+  // Load from localStorage if user has posted
+  const userPosts = JSON.parse(localStorage.getItem('userPosts') || '[]');
+  // Remove duplicate posts by id (userPosts should override initialPosts if same id)
+  const seenIds = new Set();
+  allPosts = [];
+  // Add userPosts first
+  userPosts.forEach(post => {
+    if (!seenIds.has(post.id)) {
+      allPosts.push(post);
+      seenIds.add(post.id);
+    }
+  });
+  // Add initialPosts if not already present
+  initialPosts.forEach(post => {
+    if (!seenIds.has(post.id)) {
+      allPosts.push(post);
+      seenIds.add(post.id);
+    }
+  });
+  renderFeed(allPosts);
+}
+
+function loadOlderPosts() {
+  if (loadedOlder) return;
+  allPosts = [...allPosts, ...olderPosts];
+  renderFeed(allPosts);
+  loadedOlder = true;
+}
+
+// --- Post Modal ---
+function openPostModal() {
+  let modal = document.getElementById('postModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'postModal';
+    modal.style.position = 'fixed';
+    modal.style.top = '0';
+    modal.style.left = '0';
+    modal.style.width = '100vw';
+    modal.style.height = '100vh';
+    modal.style.background = 'rgba(0,0,0,0.25)';
+    modal.style.display = 'flex';
+    modal.style.alignItems = 'center';
+    modal.style.justifyContent = 'center';
+    modal.style.zIndex = '9999';
+    modal.innerHTML = `
+      <div style="background:#fff;padding:2rem 2.5rem;border-radius:1.25rem;max-width:420px;width:100%;box-shadow:0 8px 32px rgba(124,149,133,.18);position:relative;">
+        <button id="closePostModal" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button>
+        <h2 style="font-size:1.25rem;font-weight:700;margin-bottom:1rem;">Create a Post</h2>
+        <form id="newPostForm">
+          <input type="text" id="newPostTitle" placeholder="Title (optional)" style="width:100%;margin-bottom:.7rem;padding:.6rem .9rem;border-radius:.7rem;border:1px solid #e0e0e0;font-size:1rem;" />
+          <textarea id="newPostBody" placeholder="What's on your mind?" rows="4" style="width:100%;margin-bottom:1rem;padding:1rem;border-radius:1rem;border:1px solid #e0e0e0;font-size:1rem;"></textarea>
+          <input type="text" id="newPostTags" placeholder="#tags (comma separated)" style="width:100%;margin-bottom:1rem;padding:.6rem .9rem;border-radius:.7rem;border:1px solid #e0e0e0;font-size:1rem;" />
+          <button type="submit" class="btn btn-primary" style="width:100%;">Post</button>
+        </form>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('closePostModal').onclick = () => { modal.remove(); };
+    document.getElementById('newPostForm').onsubmit = function(e) {
+      e.preventDefault();
+      const body = document.getElementById('newPostBody').value.trim();
+      if (!body) return;
+      const title = document.getElementById('newPostTitle').value.trim();
+      const tags = document.getElementById('newPostTags').value.split(',').map(t => t.trim()).filter(Boolean);
+      const user = getCurrentUser();
+      const avatar = getUserAvatar();
+      const newId = Date.now();
+      const post = {
+        id: newId,
+        author: user,
+        avatar: avatar,
+        major: 'Student',
+        time: 'Just now',
+        body: title ? `<b>${title}</b><br>${body}` : body,
+        tags: tags.length ? tags : ['#StudentPost'],
+        likes: 0,
+        comments: 0
+      };
+      // Save to localStorage
+      let userPosts = JSON.parse(localStorage.getItem('userPosts') || '[]');
+      userPosts.unshift(post);
+      localStorage.setItem('userPosts', JSON.stringify(userPosts));
+      allPosts.unshift(post);
+      renderFeed(allPosts);
+      modal.remove();
+    };
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadInitialFeed();
+  document.getElementById('loadOlderPostsBtn').onclick = loadOlderPosts;
+  document.getElementById('openPostModal').onclick = openPostModal;
+});
+</script>
+</body>
+</html>

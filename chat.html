@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindBridge — AI Chat</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-left">
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
+      <i data-lucide="menu" style="width:22px;height:22px;color:var(--primary)"></i>
+    </button>
+    <a href="index.html" class="brand">MindBridge</a>
+  </div>
+  <div class="nav-center">
+    <div class="ad-card ad-card--horizontal ad-card--navbar" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="user-info">
+      <div class="user-text">
+        <span class="user-name">Rakesh Kumar</span>
+        <span class="user-level">Level 12 Explorer</span>
+      </div>
+      <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv" alt="Rakesh Kumar" />
+    </div>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-profile">
+    <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
+    <div>
+      <div class="sidebar-name">Rakesh Kumar</div>
+      <div class="sidebar-rank">Lvl 12 Explorer</div>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html" class="sidebar-link"><i data-lucide="home"></i> Home</a>
+    <a href="feed.html" class="sidebar-link"><i data-lucide="message-square"></i> Feed</a>
+    <a href="college.html" class="sidebar-link"><i data-lucide="graduation-cap"></i> College</a>
+    <a href="chat.html" class="sidebar-link active"><i data-lucide="brain-circuit"></i> AI Chat</a>
+    <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
+    <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+  </nav>
+  <!-- Sidebar Advertisement Blocks -->
+  <div class="sidebar-ads">
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main-content" style="display:flex;flex-direction:column;height:calc(100vh - 72px);overflow:hidden;">
+
+  <!-- Monitoring Banner -->
+  <div class="chat-banner">
+    <i data-lucide="shield-alert" style="width:16px;height:16px;flex-shrink:0;"></i>
+    <p>AI Monitoring Active — Your privacy is protected</p>
+  </div>
+
+  <!-- Messages -->
+  <div class="chat-workspace" id="chatWorkspace">
+    <div class="chat-day-divider">
+      <span class="chat-day-pill">Today's Session Started</span>
+    </div>
+
+    <!-- Bot message 1 -->
+    <div class="msg-row bot" id="msg-1">
+      <div class="msg-avatar bot"><i data-lucide="bot" style="width:22px;height:22px;"></i></div>
+      <div>
+        <div class="msg-bubble bot">
+          <p class="msg-text">Hello Alex. I'm here to support your mental wellness and academic balance. Our conversation is filtered for your safety. How are you feeling today?</p>
+          <span class="msg-time">10:02 AM • Verified Safety Agent</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- User message 2 (PII) -->
+    <div class="msg-row user">
+      <div class="msg-avatar user">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv" style="width:100%;height:100%;object-fit:cover;" alt="User" />
+      </div>
+      <div>
+        <div class="msg-bubble user">
+          <p class="msg-text">I'm feeling a bit overwhelmed with my finals. I need to talk to a counselor. Contact me at 987***4321</p>
+          <div class="pii-note"><i data-lucide="info" style="width:12px;height:12px;"></i> PII automatically masked for your security</div>
+          <span class="msg-time">10:03 AM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bot message 3 -->
+    <div class="msg-row bot">
+      <div class="msg-avatar bot"><i data-lucide="bot" style="width:22px;height:22px;"></i></div>
+      <div>
+        <div class="msg-bubble bot">
+          <p class="msg-text">I've noted that you're feeling overwhelmed. I've flagged this for a human counselor to review. Please remember not to share sensitive phone numbers in this chat—I have masked it for your protection.</p>
+          <span class="msg-time">10:04 AM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- User message 4 (Flagged) -->
+    <div class="msg-row user">
+      <div class="msg-avatar user">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv" style="width:100%;height:100%;object-fit:cover;" alt="User" />
+      </div>
+      <div>
+        <div class="msg-bubble flagged" style="position:relative;">
+          Message hidden: Content violates academic integrity guidelines.
+          <div class="flag-badge">
+            <i data-lucide="alert-triangle" style="width:10px;height:10px;"></i>
+            Inappropriate Content Flagged
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bot message 5 (with actions) -->
+    <div class="msg-row bot">
+      <div class="msg-avatar bot"><i data-lucide="bot" style="width:22px;height:22px;"></i></div>
+      <div>
+        <div class="msg-bubble bot">
+          <p class="msg-text">Would you like to try a 2-minute "Stress Decompression" breathing exercise while we wait for a counselor to connect?</p>
+          <div class="msg-actions">
+            <button class="msg-action-btn start" onclick="startBreathing()"><i data-lucide="wind" style="width:14px;height:14px;"></i> START BREATHING</button>
+            <button class="msg-action-btn not-now">NOT NOW</button>
+          </div>
+          <span class="msg-time">10:06 AM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic messages injected here -->
+    <div id="dynamicMessages"></div>
+  </div>
+
+  <!-- Input Bar -->
+  <div class="chat-input-bar">
+    <div class="chat-input-inner">
+      <div class="chat-input-box">
+        <textarea class="chat-textarea" id="chatInput" placeholder="Type your message here... (AI monitoring enabled)" rows="1"></textarea>
+        <div class="chat-toolbar">
+          <div class="chat-tool-left">
+            <button class="chat-tool-btn"><i data-lucide="paperclip"></i></button>
+            <button class="chat-tool-btn"><i data-lucide="smile"></i></button>
+          </div>
+          <button class="send-btn" id="sendBtn"><i data-lucide="send"></i></button>
+        </div>
+      </div>
+      <p class="chat-privacy">MindBridge AI Privacy Filter Level: High</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- Breathing Modal -->
+<div class="modal-overlay" id="breathingModal">
+  <div class="modal-card" style="text-align:center;max-width:380px;">
+    <button class="modal-close" onclick="document.getElementById('breathingModal').classList.remove('open')">
+      <i data-lucide="x"></i>
+    </button>
+    <div class="modal-icon" style="background:var(--tertiary-fixed);color:var(--on-tertiary-fixed);">
+      <i data-lucide="wind" style="width:30px;height:30px;"></i>
+    </div>
+    <h2>Stress Decompression</h2>
+    <p class="modal-desc">Follow the circle. Breathe in as it expands, breathe out as it contracts.</p>
+    <div id="breathCircle" style="
+      width:120px;height:120px;border-radius:50%;
+      background:rgba(124,149,133,.2);border:3px solid var(--primary);
+      margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;
+      font-family:var(--font-display);font-weight:700;color:var(--primary);font-size:.875rem;
+      animation:breathe 4s ease-in-out infinite;
+    ">Breathe</div>
+    <style>
+      @keyframes breathe {
+        0%,100%{transform:scale(1);background:rgba(124,149,133,.2);}
+        50%{transform:scale(1.45);background:rgba(124,149,133,.35);}
+      }
+    </style>
+    <button onclick="document.getElementById('breathingModal').classList.remove('open')" class="btn btn-primary" style="width:100%;justify-content:center;">Done</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+// Auto-resize textarea
+const chatInput = document.getElementById('chatInput');
+chatInput.addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 128) + 'px';
+});
+
+// Send message
+document.getElementById('sendBtn').addEventListener('click', sendMessage);
+chatInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+function sendMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+  const container = document.getElementById('dynamicMessages');
+  const workspace = document.getElementById('chatWorkspace');
+
+  // User bubble
+  const userRow = document.createElement('div');
+  userRow.className = 'msg-row user';
+  userRow.innerHTML = `
+    <div class="msg-avatar user">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv" style="width:100%;height:100%;object-fit:cover;" />
+    </div>
+    <div><div class="msg-bubble user">
+      <p class="msg-text">${escapeHtml(text)}</p>
+      <span class="msg-time">${currentTime()}</span>
+    </div></div>`;
+  container.appendChild(userRow);
+
+  chatInput.value = '';
+  chatInput.style.height = 'auto';
+  workspace.scrollTop = workspace.scrollHeight;
+
+  // Typing indicator
+  setTimeout(() => {
+    const typing = document.createElement('div');
+    typing.className = 'msg-row bot';
+    typing.id = 'typingIndicator';
+    typing.innerHTML = `
+      <div class="msg-avatar bot"><i data-lucide="bot" style="width:22px;height:22px;"></i></div>
+      <div><div class="msg-bubble bot" style="padding:.75rem 1.25rem;">
+        <span style="display:flex;gap:.3rem;align-items:center;">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--outline);animation:blink 1.2s infinite;"></span>
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--outline);animation:blink 1.2s .3s infinite;"></span>
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--outline);animation:blink 1.2s .6s infinite;"></span>
+        </span>
+      </div></div>`;
+    container.appendChild(typing);
+    lucide.createIcons();
+    workspace.scrollTop = workspace.scrollHeight;
+
+    // Call Gemini API for bot response
+    fetchGeminiResponse(text).then(botMsg => {
+      typing.remove();
+      const botRow = document.createElement('div');
+      botRow.className = 'msg-row bot';
+      botRow.innerHTML = `
+        <div class="msg-avatar bot"><i data-lucide="bot" style="width:22px;height:22px;"></i></div>
+        <div><div class="msg-bubble bot">
+          <p class="msg-text">${escapeHtml(botMsg)}</p>
+          <span class="msg-time">${currentTime()} • Gemini AI</span>
+        </div></div>`;
+      container.appendChild(botRow);
+      lucide.createIcons();
+      workspace.scrollTop = workspace.scrollHeight;
+    }).catch(() => {
+      typing.remove();
+      const botRow = document.createElement('div');
+      botRow.className = 'msg-row bot';
+      botRow.innerHTML = `
+        <div class="msg-avatar bot"><i data-lucide="bot" style="width:22px;height:22px;"></i></div>
+        <div><div class="msg-bubble bot">
+          <p class="msg-text">Sorry, I couldn't connect to Gemini AI right now.</p>
+          <span class="msg-time">${currentTime()} • Gemini AI</span>
+        </div></div>`;
+      container.appendChild(botRow);
+      lucide.createIcons();
+      workspace.scrollTop = workspace.scrollHeight;
+    });
+  }, 600);
+} // end sendMessage
+
+// Gemini API integration (via backend proxy)
+async function fetchGeminiResponse(userMessage) {
+  const res = await fetch('/api/gemini-flash', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: userMessage })
+  });
+  if (!res.ok) throw new Error("Gemini API error");
+  const data = await res.json();
+  // Gemini returns: data.candidates[0].content.parts[0].text
+  return (
+    data && data.candidates && data.candidates[0] &&
+    data.candidates[0].content &&
+    data.candidates[0].content.parts &&
+    data.candidates[0].content.parts[0] &&
+    data.candidates[0].content.parts[0].text
+  ) || "Sorry, I couldn't understand that.";
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function currentTime() {
+  return new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+}
+
+function startBreathing() {
+  document.getElementById('breathingModal').classList.add('open');
+}
+
+// Blink animation for typing dots
+const style = document.createElement('style');
+style.textContent = '@keyframes blink{0%,100%{opacity:.3;}50%{opacity:1;}}';
+document.head.appendChild(style);
+</script>
+</body>
+</html>

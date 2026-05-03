@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindBridge — XP & Badges</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-left">
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
+      <i data-lucide="menu" style="width:22px;height:22px;color:var(--primary)"></i>
+    </button>
+    <a href="index.html" class="brand">MindBridge</a>
+  </div>
+  <div class="nav-center">
+    <div class="ad-card ad-card--horizontal ad-card--navbar" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="user-info">
+      <div class="user-text">
+        <span class="user-name">Rakesh Kumar</span>
+        <span class="user-level">Level 12 Explorer</span>
+      </div>
+      <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv" alt="Rakesh Kumar" />
+    </div>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-profile">
+    <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
+    <div>
+      <div class="sidebar-name">Rakesh Kumar</div>
+      <div class="sidebar-rank">Lvl 12 Explorer</div>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html" class="sidebar-link"><i data-lucide="home"></i> Home</a>
+    <a href="feed.html" class="sidebar-link"><i data-lucide="message-square"></i> Feed</a>
+    <a href="college.html" class="sidebar-link"><i data-lucide="graduation-cap"></i> College</a>
+    <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
+    <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
+    <a href="xp.html" class="sidebar-link active"><i data-lucide="trophy"></i> XP</a>
+  </nav>
+  <!-- Sidebar Advertisement Blocks -->
+  <div class="sidebar-ads">
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main-content">
+  <div id="page-xp" class="page active">
+    <div class="page-inner" style="max-width:1200px;margin:0 auto;padding:3rem 2rem 6rem;">
+
+      <header class="fade-up">
+        <h1>Academic Wellness Journey</h1>
+        <p>Celebrate your growth. Every session attended and every friend supported brings you closer to becoming a Wellness Champion.</p>
+      </header>
+
+      <!-- Top Grid -->
+      <div class="xp-top-grid">
+        <!-- Level Card -->
+        <div class="level-card fade-up delay-1">
+          <div class="level-card-orb"></div>
+          <div class="level-card-top">
+            <div>
+              <div class="level-rank-badge">Current Rank</div>
+              <div class="level-title">Level 12 Wellness Explorer</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="level-xp-val">2,450</div>
+              <div class="level-xp-unit">Total XP</div>
+            </div>
+          </div>
+          <div style="position:relative;z-index:2;">
+            <div class="progress-labels">
+              <span class="prog-chip inactive">Supporter</span>
+              <span class="prog-chip active">Mentor</span>
+              <span class="prog-chip future">Champion</span>
+            </div>
+            <div class="prog-track"><div class="prog-fill"></div></div>
+            <div class="prog-sub">
+              <span>Rank: Supporter</span>
+              <span class="next">Next Rank: Mentor (550 XP remaining)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Card -->
+        <div class="stats-card fade-up delay-2">
+          <div class="stats-title"><i data-lucide="zap"></i> Activity Stats</div>
+          <div>
+            <div class="stat-row">
+              <span class="stat-label">Weekly Streak</span>
+              <span class="stat-val tertiary">7 Days <i data-lucide="flame"></i></span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Sessions Completed</span>
+              <span class="stat-val primary">24 Sessions</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Helping Actions</span>
+              <span class="stat-val secondary">112 Points</span>
+            </div>
+          </div>
+          <button class="btn btn-tertiary" style="width:100%;justify-content:center;margin-top:2rem;font-size:.75rem;letter-spacing:.1em;">
+            View History <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Grid -->
+      <div class="xp-bottom-grid">
+        <!-- Badges -->
+        <div>
+          <div class="badges-header fade-up">
+            <h2>Earned Badges</h2>
+            <a href="#" class="view-all-badges">View All 18 Badges</a>
+          </div>
+          <div class="badges-grid">
+            <!-- Badge 1 -->
+            <div class="badge-card fade-up delay-1">
+              <div class="badge-icon" style="background:var(--tertiary-fixed);"><i data-lucide="flame" style="width:28px;height:28px;color:var(--tertiary);"></i></div>
+              <div class="badge-name">7-Day Streak</div>
+              <div class="badge-desc">Consistency Master</div>
+            </div>
+            <!-- Badge 2 -->
+            <div class="badge-card fade-up delay-1">
+              <div class="badge-icon" style="background:var(--secondary-fixed);"><i data-lucide="heart-handshake" style="width:28px;height:28px;color:var(--secondary);"></i></div>
+              <div class="badge-name">Community Helper</div>
+              <div class="badge-desc">Support Pillar</div>
+            </div>
+            <!-- Badge 3 -->
+            <div class="badge-card fade-up delay-2">
+              <div class="badge-icon" style="background:var(--primary-fixed);"><i data-lucide="badge-check" style="width:28px;height:28px;color:var(--primary);"></i></div>
+              <div class="badge-name">Session Pro</div>
+              <div class="badge-desc">Growth Mindset</div>
+            </div>
+            <!-- Badge 4 -->
+            <div class="badge-card fade-up delay-2">
+              <div class="badge-icon" style="background:rgba(124,149,133,.15);"><i data-lucide="zap" style="width:28px;height:28px;color:var(--primary);"></i></div>
+              <div class="badge-name">Mindful Zen</div>
+              <div class="badge-desc">Peace Keeper</div>
+            </div>
+            <!-- Badge 5 -->
+            <div class="badge-card fade-up delay-3">
+              <div class="badge-icon" style="background:var(--secondary-container);"><i data-lucide="star" style="width:28px;height:28px;color:var(--secondary);"></i></div>
+              <div class="badge-name">Daily Spark</div>
+              <div class="badge-desc">Positive Energy</div>
+            </div>
+            <!-- Badge 6 — locked -->
+            <div class="badge-card locked fade-up delay-3">
+              <div class="badge-icon" style="background:var(--surface-dim);"><i data-lucide="lock" style="width:28px;height:28px;color:var(--outline);"></i></div>
+              <div class="badge-name">Master Mentor</div>
+              <div class="badge-desc">Level 20 Required</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard + Next Reward -->
+        <aside>
+          <div class="leaderboard-card fade-up delay-1">
+            <div class="leaderboard-title"><i data-lucide="trophy"></i> Top Supporters</div>
+
+            <div class="lb-row lb-first">
+              <div class="lb-left">
+                <span class="lb-rank first">1</span>
+                <img class="lb-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC40eDG8kTa7Gq26qAIHmLpwiKjq94m3-TmstcVHOU4gmyzzyTL6Fugb-ky-yv4j7eGk8UpYBFnBqhyBFHCZvJY-nfBulG-fCowAnuCClFoFaBeLdRGqO2S1Gc_fto3XpdnHYWZ3Yw0ArmGbwozehFZ3NbdWbHfxxSzVHKbG2Z32gEY9ubixYFW4_XKgRXVUr9QZ7PtznlGmq2yTb9Nmo1765r_cgqGNBo_QM6ieGV275EOVkqbAYSMKAJJXhUPvJyqdgUGjkDyL8u0" alt="Sarah" />
+                <div><div class="lb-name first">Sarah Jenkins</div><div class="lb-sub">Level 42 Champion</div></div>
+              </div>
+              <span class="lb-xp first">8.4k XP</span>
+            </div>
+
+            <div class="lb-row">
+              <div class="lb-left">
+                <span class="lb-rank other">2</span>
+                <img class="lb-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqqkK1FFKz6CxaGWPIhRpcYMD-ZomoGHVc5iukv-c5cAXM7gIuuo-TjJTt4fzu5K9slP9Buu8DtXzWe5cBt7qIll8F5a3-DMWqD1NmzE74uabIYiq5Jm1jX77FSdB5h5ErvAAdEwYrBPUKCcaxqla8G8kzrMEa0oWRJ2-7hM4sNwR-jDZawRjtRgdo_RMTbXpgWD1Y57z2qL7vcLzKNXZjXagaijAEzc78VK-3B2ip68iziYTnrOGxmyLG1yW-62bpYUzQf3XdnILB" alt="David" />
+                <div><div class="lb-name">David Kim</div><div class="lb-sub">Level 38 Champion</div></div>
+              </div>
+              <span class="lb-xp other">7.9k XP</span>
+            </div>
+
+            <div class="lb-row">
+              <div class="lb-left">
+                <span class="lb-rank other">3</span>
+                <img class="lb-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbm_f8bvhYWL9ZIsKn2gn3Rel-N5-xLPCjcAI7etQhMvwEbHYk_jOpaPgfo1HytYmBctPFlobJbeNbwtX5va-Vaw_PioAWJZ2eo0xmdG35m3_nsiKLHITgZDdp9yjNsBOVsnogPhJr-Fnb8YWR8VFHjqFXAhVDvV9YzJSBNc8FpGh1TK_YDQXhVozpEzwckpOoq5_3cxuW6Oyo4kwXwnfNU890eyylcwXkbxD6q4itAt5-lb23AUjE8v0Spny26vCmN2IhOiITUcVG" alt="Maya" />
+                <div><div class="lb-name">Maya Lopez</div><div class="lb-sub">Level 35 Mentor</div></div>
+              </div>
+              <span class="lb-xp other">7.2k XP</span>
+            </div>
+
+            <div class="lb-divider">
+              <div class="lb-row lb-you">
+                <div class="lb-left">
+                  <span class="lb-rank other">12</span>
+                  <div class="lb-avatar-initials">AC</div>
+                  <div><div class="lb-name you">You (Alex)</div><div class="lb-sub">24 XP today</div></div>
+                </div>
+                <span class="lb-xp first">2.4k XP</span>
+              </div>
+            </div>
+
+            <button class="view-board-btn">View Full Board</button>
+          </div>
+
+          <!-- Next Reward -->
+          <div class="next-reward-card fade-up delay-2">
+            <div class="reward-bg-icon"><i data-lucide="gift" style="width:96px;height:96px;"></i></div>
+            <h4>Next Reward</h4>
+            <p>Reach Level 15 to unlock the "Mindfulness Master" premium badge and customized dashboard theme.</p>
+            <div class="reward-bar">
+              <div class="reward-bar-track"><div class="reward-bar-fill"></div></div>
+              <span class="reward-bar-pct">75%</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Footer -->
+      <div style="margin-top:4rem;padding-top:2rem;border-top:1px solid var(--surface-dim);display:flex;justify-content:space-between;align-items:center;">
+        <div style="display:flex;gap:1.5rem;">
+          <i data-lucide="shield-check" style="width:16px;height:16px;opacity:.4;color:var(--outline);"></i>
+          <i data-lucide="award" style="width:16px;height:16px;opacity:.4;color:var(--outline);"></i>
+        </div>
+        <span style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--outline);">Security & Progression Hub</span>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">MindBridge</div>
+      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#" class="crisis">Crisis Resources</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
