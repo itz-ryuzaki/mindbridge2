@@ -10,100 +10,87 @@ if (!process.env.GEMINI_API_KEY) {
 }
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+// Try multiple models in order — if one quota is exhausted, fall through to next
+const GEMINI_MODELS = [
+  'gemini-2.0-flash',
+  'gemini-1.5-flash',
+  'gemini-1.5-flash-8b',
+];
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ── Body parsers — both JSON and urlencoded for safety ────────
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true, limit: '2mb' }));
-
-// ── Trust Render's proxy so req.ip works correctly ────────────
 app.set('trust proxy', 1);
 
-// ── In-memory rate limiter: max 10 req/min per IP ─────────────
-const rateLimitMap = new Map();
-function isRateLimited(ip) {
-  const now = Date.now();
-  const windowMs = 60 * 1000;
-  const max = 10;
-  if (!rateLimitMap.has(ip)) rateLimitMap.set(ip, []);
-  const timestamps = rateLimitMap.get(ip).filter(t => now - t < windowMs);
-  timestamps.push(now);
-  rateLimitMap.set(ip, timestamps);
-  return timestamps.length > max;
+// ── Retry a single model URL ──────────────────────────────────
+async function tryModel(modelName, geminiBody) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${GEMINI_API_KEY}`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(geminiBody)
+  });
+  return res;
 }
 
-// ── Retry with exponential backoff ───────────────────────────
-async function fetchWithRetry(url, options, retries = 2, delayMs = 1500) {
-  for (let attempt = 0; attempt <= retries; attempt++) {
-    const res = await fetch(url, options);
-    if (res.status !== 429 || attempt === retries) return res;
-    console.log(`Gemini rate limited, retrying in ${delayMs}ms... (attempt ${attempt + 1})`);
-    await new Promise(r => setTimeout(r, delayMs));
-    delayMs *= 2;
-  }
-}
-
-// ── Gemini proxy ─────────────────────────────────────────────
+// ── Gemini proxy — tries each model until one succeeds ────────
 app.post('/api/gemini-flash', async (req, res) => {
-  const ip = req.ip || req.headers['x-forwarded-for'] || 'unknown';
-
-  // Debug log — helps diagnose body parsing issues
-  console.log('POST /api/gemini-flash | ip:', ip, '| body:', JSON.stringify(req.body));
-
-  if (isRateLimited(ip)) {
-    return res.status(429).json({ error: 'rate_limited', message: 'Too many messages. Please wait a moment.' });
-  }
+  console.log('POST /api/gemini-flash | body:', JSON.stringify(req.body));
 
   try {
-    // Support both { message: "..." } and plain string body
     let userMessage = req.body && (req.body.message || req.body.text || req.body.content);
     if (typeof req.body === 'string') userMessage = req.body;
 
     if (!userMessage || !userMessage.trim()) {
-      console.error('400: Empty message. req.body was:', req.body);
+      console.error('400: Empty message. req.body:', req.body);
       return res.status(400).json({ error: 'No message provided', received: req.body });
     }
 
     const geminiBody = {
-      contents: [
-        {
-          parts: [
-            {
-              text: `You are MindBridge AI, a compassionate mental wellness and academic support assistant for college students. Be warm, empathetic, concise, and helpful. Focus on mental health, stress management, academic advice, and student wellbeing. If a user seems in crisis, always recommend speaking to a professional counselor.\n\nUser message: ${userMessage}`
-            }
-          ]
-        }
-      ]
+      contents: [{
+        parts: [{
+          text: `You are MindBridge AI, a compassionate mental wellness and academic support assistant for college students. Be warm, empathetic, concise, and helpful. Focus on mental health, stress management, academic advice, and student wellbeing. If a user seems in crisis, always recommend speaking to a professional counselor.\n\nUser message: ${userMessage}`
+        }]
+      }]
     };
 
-    const apiRes = await fetchWithRetry(GEMINI_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(geminiBody)
+    // Try each model, move to next on 429
+    for (const model of GEMINI_MODELS) {
+      console.log(`Trying model: ${model}`);
+      const apiRes = await tryModel(model, geminiBody);
+
+      if (apiRes.status === 429) {
+        console.log(`Model ${model} rate limited, trying next...`);
+        continue; // try next model
+      }
+
+      if (!apiRes.ok) {
+        const err = await apiRes.text();
+        console.error(`Model ${model} error ${apiRes.status}:`, err);
+        continue; // try next model
+      }
+
+      const data = await apiRes.json();
+      console.log(`Success with model: ${model}`);
+      return res.json(data);
+    }
+
+    // All models exhausted
+    return res.status(429).json({
+      error: 'rate_limited',
+      message: 'All AI models are busy right now. Please wait 1 minute and try again.'
     });
 
-    if (apiRes.status === 429) {
-      return res.status(429).json({ error: 'rate_limited', message: 'AI is busy right now. Please wait 30 seconds and try again.' });
-    }
-
-    if (!apiRes.ok) {
-      const err = await apiRes.text();
-      console.error('Gemini API error:', err);
-      return res.status(apiRes.status).json({ error: err });
-    }
-
-    const data = await apiRes.json();
-    res.json(data);
   } catch (err) {
     console.error('FULL ERROR:', err);
     res.status(500).json({ error: 'Gemini proxy error', details: err.message });
   }
 });
 
-// ── Static files & HTML routes ───────────────────────────────
+// ── Static & routes ───────────────────────────────────────────
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
