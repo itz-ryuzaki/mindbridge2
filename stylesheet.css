@@ -4,7 +4,7 @@
   background: var(--surface-container-low);
   border-radius: 0.75rem;
   padding: 1rem 1.2rem 1.2rem;
-  box-shadow: 0 2px 8px rgba(124,149,133,0.04);
+  box-shadow: 0 2px 8px rgba(124,149,133,0.08);
 }
 .comments-list {
   margin-bottom: 0.7rem;
@@ -12,13 +12,13 @@
 .comment-item {
   font-size: 0.92em;
   margin-bottom: 0.4em;
-  color: var(--on-surface-variant);
+  color: #5c5c6b;
 }
 .comment-item strong {
   color: var(--primary);
 }
 .comment-empty {
-  color: var(--outline);
+  color: #8b8b96;
   font-style: italic;
 }
 .add-comment-form {
@@ -30,7 +30,7 @@
   flex: 1;
   padding: 0.5em 0.8em;
   border-radius: 0.5em;
-  border: 1px solid var(--surface-dim);
+  border: 1px solid #d0d0d8;
   font-size: 0.95em;
 }
 .add-comment-form button {
@@ -117,9 +117,9 @@
   align-items: center;
   justify-content: center;
   background: #EAEFEA;
-  color: var(--on-surface-variant);
+  color: #5c5c6b;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(124,149,133,0.06);
+  box-shadow: 0 2px 8px rgba(124,149,133,0.08);
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -141,7 +141,7 @@
   margin: auto auto;
   border-radius: 12px;
   background: #EAEFEA;
-  box-shadow: 0 2px 8px rgba(124,149,133,0.06);
+  box-shadow: 0 2px 8px rgba(124,149,133,0.08);
   padding: 0 32px;
   width: calc(100% - 64px);
 }
@@ -151,7 +151,7 @@
   margin: 0px auto 0px auto;
   border-radius: 12px;
   background: #E3E7E3;
-  box-shadow: 0 2px 8px rgba(124,149,133,0.06);
+  box-shadow: 0 2px 8px rgba(124,149,133,0.08);
   padding: 0 12px;
 }
 .sidebar-ads {
@@ -1238,7 +1238,7 @@ footer.site-footer {
 .chat-input-inner { max-width: 900px; margin: 0 auto; }
 .chat-input-box {
   background: var(--surface-container-low); border: 1px solid transparent;
-  border-radius: 1.25rem; padding: .5rem;
+  border-radius: 1.25rem; padding: .4rem .5rem;
   transition: border-color .15s, background .15s, box-shadow .15s;
 }
 .chat-input-box:focus-within {
@@ -1248,9 +1248,9 @@ footer.site-footer {
 }
 .chat-textarea {
   width: 100%; background: transparent; border: none; outline: none;
-  resize: none; padding: .6rem 1rem;
+  resize: none; padding: .4rem 1rem;
   font-family: var(--font-sans); font-size: .875rem; font-weight: 500;
-  color: var(--on-surface); min-height: 48px; max-height: 128px;
+  color: var(--on-surface); min-height: 40px; max-height: 120px;
 }
 .chat-toolbar {
   display: flex; justify-content: space-between; align-items: center;

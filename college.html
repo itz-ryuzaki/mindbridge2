@@ -703,6 +703,22 @@
     </div>
   </div>
 
+  <!-- College Post Modal -->
+  <div class="profile-modal-overlay" id="collegePostModal">
+    <div class="profile-modal">
+      <button class="profile-modal-close" onclick="closeCollegePostModal()">&#10005;</button>
+      <div id="collegePostModalContent"></div>
+    </div>
+  </div>
+
+  <!-- Archive Item Modal -->
+  <div class="profile-modal-overlay" id="archiveModal">
+    <div class="profile-modal">
+      <button class="profile-modal-close" onclick="closeArchiveModal()">&#10005;</button>
+      <div id="archiveModalContent"></div>
+    </div>
+  </div>
+
   <!-- DM Modal -->
   <div class="dm-modal-overlay" id="dmModal">
     <div class="dm-modal">
@@ -772,8 +788,8 @@
 
     // ── RENDERING ──
     function renderPosts() {
-      document.getElementById('postsGrid').innerHTML = POSTS.map(p => `
-    <div class="info-card fade-up">
+      document.getElementById('postsGrid').innerHTML = POSTS.map((p, idx) => `
+    <div class="info-card fade-up" onclick="openCollegePostModal(${idx})" style="cursor:pointer;transition:all .2s;">
       <div class="info-card-header">
         <div class="info-card-icon ${p.icon}"><i data-lucide="${p.icon === 'academic' ? 'lightbulb' : p.icon === 'wellness' ? 'wind' : p.icon === 'social' ? 'users' : 'landmark'}"></i></div>
         <div>
@@ -812,8 +828,8 @@
     }
 
     function renderArchive() {
-      document.getElementById('archiveList').innerHTML = ARCHIVE.map(a => `
-    <div class="archive-card fade-up">
+      document.getElementById('archiveList').innerHTML = ARCHIVE.map((a, idx) => `
+    <div class="archive-card fade-up" onclick="openArchiveModal(${idx})" style="cursor:pointer;transition:all .2s;">
       <div class="archive-card-title">${a.title}</div>
       <div class="archive-card-body">${a.body}</div>
       <div style="margin-bottom:.5rem">${a.tags.map(t => '<span class="info-card-tag">' + t + '</span>').join('')}</div>
@@ -837,6 +853,130 @@
       document.getElementById('tab-' + tab).classList.add('active');
       if (tab === 'mentors' && !document.getElementById('mentorGrid2').children.length) renderMentors2();
       if (tab === 'archive' && !document.getElementById('archiveList').children.length) renderArchive();
+    }
+
+    // ── COLLEGE POST MODALS ──
+    function getCommentsKey(type, id) {
+      return `collegeComments_${type}_${id}`;
+    }
+
+    function getCommentsForItem(type, id) {
+      return JSON.parse(localStorage.getItem(getCommentsKey(type, id)) || '[]');
+    }
+
+    function saveComment(type, id, author, text) {
+      const key = getCommentsKey(type, id);
+      const comments = getCommentsForItem(type, id);
+      comments.push({ author: author || 'Anonymous', text, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) });
+      localStorage.setItem(key, JSON.stringify(comments));
+      if (typeof awardXP === 'function') awardXP(10, 'Posted a college comment');
+      return comments;
+    }
+
+    function renderCommentsSection(type, id) {
+      const comments = getCommentsForItem(type, id);
+      return `
+        <div style="margin-top:2rem;border-top:1px solid var(--surface-dim);padding-top:1.5rem;">
+          <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--outline);margin-bottom:1rem;">Comments (${comments.length})</div>
+          <div style="max-height:300px;overflow-y:auto;margin-bottom:1rem;">
+            ${comments.length ? comments.map(c => `
+              <div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--surface-dim);">
+                <div style="font-weight:700;font-size:.875rem;color:var(--on-surface);margin-bottom:.25rem;">${c.author}</div>
+                <div style="font-size:.8125rem;color:var(--on-surface-variant);line-height:1.5;">${c.text}</div>
+                <div style="font-size:.65rem;color:var(--outline);margin-top:.25rem;">${c.time}</div>
+              </div>
+            `).join('') : '<div style="color:var(--on-surface-variant);font-size:.875rem;">No comments yet. Be the first!</div>'}
+          </div>
+          <form onsubmit="handleCommentSubmit(event, '${type}', ${id})">
+            <input type="text" placeholder="Your name (optional)" class="comment-author-college" style="width:100%;margin-bottom:.5rem;padding:.6rem .9rem;border-radius:.7rem;border:1px solid var(--surface-dim);font-size:.875rem;font-family:inherit;"/>
+            <div style="display:flex;gap:.5rem;">
+              <textarea placeholder="Add a comment..." class="comment-text-college" required style="flex:1;padding:.6rem .9rem;border-radius:.7rem;border:1px solid var(--surface-dim);font-size:.875rem;font-family:inherit;resize:none;height:60px;"></textarea>
+              <button type="submit" style="background:var(--primary);color:#fff;border:none;border-radius:.7rem;padding:.6rem 1rem;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">Post</button>
+            </div>
+          </form>
+        </div>
+      `;
+    }
+
+    function handleCommentSubmit(event, type, id) {
+      event.preventDefault();
+      const form = event.target;
+      const author = form.querySelector('.comment-author-college').value.trim();
+      const text = form.querySelector('.comment-text-college').value.trim();
+      if (!text) return;
+      saveComment(type, id, author, text);
+      if (type === 'post') openCollegePostModal(id);
+      else if (type === 'archive') openArchiveModal(id);
+      form.reset();
+    }
+
+    function openCollegePostModal(postIdx) {
+      const p = POSTS[postIdx];
+      if (!p) return;
+      const comments = getCommentsForItem('post', postIdx);
+      const modal = document.getElementById('collegePostModal');
+      const content = document.getElementById('collegePostModalContent');
+      content.innerHTML = `
+        <div style="background:linear-gradient(135deg,var(--primary-container),var(--secondary-container));padding:2rem;border-radius:1.5rem 1.5rem 0 0;">
+          <div class="info-card-icon ${p.icon}" style="width:60px;height:60px;margin:0 auto 1rem;"><i data-lucide="${p.icon === 'academic' ? 'lightbulb' : p.icon === 'wellness' ? 'wind' : p.icon === 'social' ? 'users' : 'landmark'}" style="width:32px;height:32px;"></i></div>
+          <div style="text-align:center;">
+            <div style="font-size:1.25rem;font-weight:800;color:var(--on-surface);margin-bottom:.5rem;">${p.title}</div>
+            <div style="font-size:.875rem;color:var(--on-surface-variant);">${p.cat} • Pinned by ${p.pinned}</div>
+          </div>
+        </div>
+        <div style="padding:2rem;">
+          <div style="font-size:.875rem;color:var(--on-surface-variant);line-height:1.8;margin-bottom:1.5rem;">${p.body}</div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+            ${p.tags.map(t => `<span style="background:var(--secondary-container);color:var(--on-secondary-container);font-size:.65rem;font-weight:700;padding:.3rem .7rem;border-radius:9999px;">${t}</span>`).join('')}
+          </div>
+          <div style="display:flex;gap:1.5rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--surface-dim);">
+            <div><div style="font-size:1.25rem;font-weight:800;color:var(--primary);">${p.stars.toLocaleString()}</div><div style="font-size:.7rem;color:var(--outline);font-weight:700;text-transform:uppercase;">Upvotes</div></div>
+            <div><div style="font-size:1.25rem;font-weight:800;color:var(--primary);">${comments.length}</div><div style="font-size:.7rem;color:var(--outline);font-weight:700;text-transform:uppercase;">Comments</div></div>
+          </div>
+          ${renderCommentsSection('post', postIdx)}
+        </div>
+      `;
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      modal.classList.add('open');
+    }
+
+    function closeCollegePostModal() {
+      document.getElementById('collegePostModal').classList.remove('open');
+    }
+
+    function openArchiveModal(archiveIdx) {
+      const a = ARCHIVE[archiveIdx];
+      if (!a) return;
+      const comments = getCommentsForItem('archive', archiveIdx);
+      const modal = document.getElementById('archiveModal');
+      const content = document.getElementById('archiveModalContent');
+      content.innerHTML = `
+        <div style="background:linear-gradient(135deg,var(--primary),var(--secondary));padding:2rem;border-radius:1.5rem 1.5rem 0 0;text-align:center;">
+          <div style="font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:.5rem;">${a.title}</div>
+          <div style="font-size:.875rem;color:rgba(255,255,255,.85);font-weight:600;">Advice Archive</div>
+        </div>
+        <div style="padding:2rem;">
+          <div style="margin-bottom:1rem;">
+            <div style="font-size:.7rem;font-weight:700;color:var(--outline);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;">By ${a.author}</div>
+            <div style="font-size:.875rem;color:var(--on-surface-variant);line-height:1.8;">${a.body}</div>
+          </div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+            ${a.tags.map(t => `<span style="background:var(--secondary-container);color:var(--on-secondary-container);font-size:.65rem;font-weight:700;padding:.3rem .7rem;border-radius:9999px;">${t}</span>`).join('')}
+          </div>
+          <div style="display:flex;gap:1.5rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--surface-dim);">
+            <div><div style="font-size:1.25rem;font-weight:800;color:var(--primary);">${a.stars.toLocaleString()}</div><div style="font-size:.7rem;color:var(--outline);font-weight:700;text-transform:uppercase;">Upvotes</div></div>
+            <div><div style="font-size:1.25rem;font-weight:800;color:var(--primary);">${comments.length}</div><div style="font-size:.7rem;color:var(--outline);font-weight:700;text-transform:uppercase;">Comments</div></div>
+            <div><div style="font-size:1.25rem;font-weight:800;color:var(--primary);">${a.date}</div><div style="font-size:.7rem;color:var(--outline);font-weight:700;text-transform:uppercase;">Posted</div></div>
+          </div>
+          ${renderCommentsSection('archive', archiveIdx)}
+        </div>
+      `;
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      modal.classList.add('open');
+    }
+
+    function closeArchiveModal() {
+      document.getElementById('archiveModal').classList.remove('open');
     }
 
     // ── MENTOR MODALS ──
@@ -916,7 +1056,106 @@
     document.getElementById('dmInput').onkeydown = function (e) { if (e.key === 'Enter') sendDM(); };
     document.getElementById('emotionTabLink').onclick = function (e) { e.preventDefault(); window.location.href = 'index.html#page-emotion'; };
 
-    document.addEventListener('DOMContentLoaded', function () { renderPosts(); });
+    // College Post Modal close handlers
+    document.getElementById('collegePostModal').onclick = function (e) { if (e.target === this) closeCollegePostModal(); };
+    document.getElementById('archiveModal').onclick = function (e) { if (e.target === this) closeArchiveModal(); };
+
+    document.addEventListener('DOMContentLoaded', function () { 
+      renderPosts();
+      
+      // Initialize dummy comments for college posts and archive
+      const dummyPostComments = [
+        [
+          { author: "Ravi Kumar", text: "This is so helpful! Already started following these tips.", time: "10:30" },
+          { author: "Priya Singh", text: "Prof. Gupta's notes are indeed amazing. Got 95 in DSA!", time: "11:15" },
+          { author: "Aditya Nair", text: "Thanks for this, semester 3 was my breakthrough too", time: "14:22" }
+        ],
+        [
+          { author: "Sneha Patel", text: "The back garden is my new favorite spot!!", time: "09:45" },
+          { author: "Vikram Sharma", text: "Finally found peace on campus. Thank you!", time: "16:30" },
+          { author: "Maya Reddy", text: "Golden hour is indeed magical there", time: "18:02" }
+        ],
+        [
+          { author: "Abhishek Roy", text: "Mock interviews starting from June - noted!", time: "12:10" },
+          { author: "Shriya Desai", text: "Which companies are most active in DSA filtering?", time: "13:45" },
+          { author: "Nikhil Sharma", text: "Aptitude practice helped me crack TCS rounds", time: "15:20" }
+        ],
+        [
+          { author: "Jaya Nair", text: "4-7-8 technique saved my exam! No more panic.", time: "11:00" },
+          { author: "Siddharth Gupta", text: "Pomodoro technique changed my life too", time: "13:30" },
+          { author: "Zara Khan", text: "Will definitely try these before my next exam", time: "17:45" }
+        ],
+        [
+          { author: "Rohan Verma", text: "MIT OCW is underrated. Been using it for weeks", time: "09:20" },
+          { author: "Neha Bhat", text: "Gate Smashers videos are so crisp and clear", time: "14:15" },
+          { author: "Arjun Singh", text: "Thank you for compiling these resources!", time: "16:50" }
+        ],
+        [
+          { author: "Diya Kapoor", text: "Drama club is literally a stress buster! 100% recommend", time: "10:45" },
+          { author: "Anmol Chakra", text: "Coding club contests are super fun and educational", time: "12:30" },
+          { author: "Sophia Lee", text: "Music sessions on Saturday are my favorite", time: "19:00" }
+        ]
+      ];
+      
+      const dummyArchiveComments = [
+        [
+          { author: "Harsh Mishra", text: "Your GPA is inspiring! Can you share your study schedule?", time: "08:30" },
+          { author: "Pooja Sharma", text: "Office hours tip was game-changing for me", time: "10:15" },
+          { author: "Rohit Nair", text: "Successfully maintaining 8.8 GPA following your method", time: "15:45" }
+        ],
+        [
+          { author: "Divya Singh", text: "Tea stall at gate 2 is a lifesaver! Thanks for the tip", time: "09:00" },
+          { author: "Kamal Dutta", text: "Hostel group definitely saved me with past papers", time: "11:30" },
+          { author: "Lisa Wong", text: "Earplugs were the best investment at hostel", time: "18:20" }
+        ],
+        [
+          { author: "Rajesh Kumar", text: "Got my Flipkart internship through GitHub projects too!", time: "07:50" },
+          { author: "Meera Sharma", text: "Cold emailing actually works. Landed at startup", time: "13:10" },
+          { author: "Nitin Patel", text: "This advice beats all other career guides", time: "16:35" }
+        ],
+        [
+          { author: "Suhana Khan", text: "Setting boundaries with partner really helped me focus", time: "09:15" },
+          { author: "Akshay Verma", text: "Study sessions with partner worked well too", time: "14:40" },
+          { author: "Jyoti Desai", text: "Thanks for the real talk about relationships", time: "17:30" }
+        ],
+        [
+          { author: "Tanvi Nair", text: "Free counseling at Block C saved me during tough times", time: "08:45" },
+          { author: "Aman Gupta", text: "iCall helpline is anonymous and truly helpful", time: "12:55" },
+          { author: "Swara Singh", text: "Your post literally changed my life direction", time: "19:10" }
+        ],
+        [
+          { author: "Vivek Roy", text: "Attended those workshops - got final round at Google!", time: "10:20" },
+          { author: "Naina Reddy", text: "Communication skills workshop was brilliant", time: "13:50" },
+          { author: "Sameer Khan", text: "Never thought soft skills would matter so much", time: "16:05" }
+        ],
+        [
+          { author: "Riddhi Patel", text: "Comparison was killing my mental health. Thanks for this", time: "09:30" },
+          { author: "Vikash Singh", text: "Your Deloitte story is truly inspiring", time: "14:25" },
+          { author: "Neha Chaudhary", text: "Stopped comparing and now actually happy", time: "18:40" }
+        ],
+        [
+          { author: "Sanjay Reddy", text: "Central Library 2nd floor WiFi is indeed fastest!", time: "11:00" },
+          { author: "Avni Sharma", text: "CS Lab tip at 5 PM was clutch for group work", time: "15:15" },
+          { author: "Karan Nair", text: "Block B benches are now my favorite study spot", time: "17:50" }
+        ]
+      ];
+      
+      // Initialize comments for college posts
+      dummyPostComments.forEach((comments, idx) => {
+        const key = 'collegeComments_post_' + idx;
+        if (!localStorage.getItem(key)) {
+          localStorage.setItem(key, JSON.stringify(comments));
+        }
+      });
+      
+      // Initialize comments for archive
+      dummyArchiveComments.forEach((comments, idx) => {
+        const key = 'collegeComments_archive_' + idx;
+        if (!localStorage.getItem(key)) {
+          localStorage.setItem(key, JSON.stringify(comments));
+        }
+      });
+    });
   </script>
 </body>
 
