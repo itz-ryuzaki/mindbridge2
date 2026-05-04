@@ -415,12 +415,19 @@
     overflow-x: auto;
     gap: 0.4rem;
     padding-bottom: 0.5rem;
+    display: flex;
+    flex-wrap: nowrap;
   }
 
   .filter-chip {
     padding: 0.35rem 0.8rem !important;
     font-size: 0.7rem !important;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex-shrink: 1;
+    max-width: 120px;
   }
 
   .posts-grid {
@@ -825,6 +832,12 @@
   .search-input {
     padding: 0.5rem 0.7rem 0.5rem 2.3rem !important;
     font-size: 0.8125rem !important;
+  }
+
+  .filter-chip {
+    padding: 0.3rem 0.7rem !important;
+    font-size: 0.65rem !important;
+    max-width: 100px;
   }
 
   .badge-card {
