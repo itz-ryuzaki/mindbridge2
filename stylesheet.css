@@ -169,171 +169,695 @@
     display: none;
   }
 }
+
+/* ═══════════════════════════════════════════
+   TABLET & MOBILE RESPONSIVE (max-width: 768px)
+   ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  /* --- MOBILE PORTRAIT: ANDROID (max-width: 600px) --- */
-  @media (max-width: 600px) {
-    .main-content {
-      margin-left: 0;
-      padding-top: 64px;
-      min-height: 100vh;
-    }
-    .sidebar {
-      position: fixed;
-      left: 0; top: 0; width: 100vw; height: 100vh;
-      max-width: 100vw;
-      z-index: 200;
-      padding: 72px 0 1rem;
-      border-right: none;
-      border-bottom: 1px solid var(--surface-dim);
-      transform: translateY(-100%);
-      transition: transform .25s;
-    }
-    .sidebar.open {
-      transform: translateY(0);
-    }
-    .sidebar-overlay.open {
-      display: block;
-      z-index: 199;
-    }
-    .navbar {
-      height: 64px;
-      padding: 0 0.5rem;
-      gap: 0.5rem;
-    }
-    .nav-left .brand {
-      font-size: 1.05rem;
-    }
-    .nav-center, .user-text, .sidebar-ads { display: none !important; }
-    .main-content, .page-inner, .container {
-      padding: 0 0.5rem !important;
-      max-width: 100vw !important;
-    }
-    .home-grid {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 1rem !important;
-    }
-    .mood-card .card, .community-card .card, .xp-inner, .ai-teaser .card {
-      padding: 1rem !important;
-      border-radius: 1rem !important;
-    }
-    .mood-grid {
-      display: grid !important;
-      grid-template-columns: 1fr 1fr !important;
-      gap: 0.5rem !important;
-    }
-    .mood-btn {
-      min-width: 0 !important;
-      font-size: 0.95em !important;
-      padding: 0.5rem !important;
-    }
-    .xp-card, .sessions-section, .community-card, .ai-teaser {
-      grid-column: span 12 !important;
-    }
-    .ai-teaser-inner {
-      flex-direction: column !important;
-      align-items: stretch !important;
-    }
-    .ai-teaser-img {
-      height: 120px !important;
-      width: 100% !important;
-      margin-bottom: 0.5rem !important;
-    }
-    .ai-teaser-body {
-      padding: 0.5rem !important;
-    }
-    .ai-teaser-body h2 {
-      font-size: 1.1rem !important;
-    }
-    .ai-teaser-body p {
-      font-size: 0.95rem !important;
-    }
-    .btn, .btn-primary, .btn-pill {
-      width: 100%;
-      font-size: 1rem !important;
-      padding: 0.9rem 0 !important;
-      border-radius: 0.9rem !important;
-    }
-    .section-header, .community-header {
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      gap: 0.5rem !important;
-    }
-    .session-item {
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      gap: 0.5rem !important;
-      padding: 0.8rem !important;
-    }
-    .post-user, .tag-row {
-      flex-wrap: wrap !important;
-      gap: 0.3rem !important;
-    }
-    .post-avatar {
-      width: 28px !important;
-      height: 28px !important;
-    }
-    .post-body, .post-card-body, .ai-teaser-body p {
-      font-size: 0.95em !important;
-    }
-    /* AI Chat page */
-    .chat-workspace {
-      max-width: 100vw !important;
-      padding: 0.5rem 0.5rem 120px !important;
-      gap: 0.7rem !important;
-    }
-    .chat-input-bar {
-      left: 0 !important;
-      right: 0 !important;
-      padding: 0.7rem 0.5rem !important;
-      border-radius: 0 !important;
-    }
-    .chat-input-inner {
-      max-width: 100vw !important;
-      margin: 0 !important;
-    }
-    .chat-input-box {
-      border-radius: 0.7rem !important;
-      padding: 0.2rem !important;
-    }
-    .chat-textarea {
-      font-size: 1rem !important;
-      min-height: 40px !important;
-      max-height: 80px !important;
-      padding: 0.5rem 0.7rem !important;
-    }
-    .msg-row, .msg-row.user {
-      max-width: 100% !important;
-      gap: 0.5rem !important;
-    }
-    .msg-avatar {
-      width: 32px !important;
-      height: 32px !important;
-    }
-    .msg-bubble {
-      padding: 0.7rem 0.8rem !important;
-      font-size: 0.97em !important;
-    }
-    .msg-text {
-      font-size: 1em !important;
-    }
-    .chat-banner {
-      font-size: 0.7rem !important;
-      padding: 0.4rem 0.5rem !important;
-    }
-    /* Hide footer on mobile */
-    footer.site-footer { display: none !important; }
+  .navbar {
+    height: 64px;
+    padding: 0 0.5rem;
+    gap: 0.5rem;
   }
+
+  .menu-btn {
+    display: flex !important;
+    width: 40px;
+    height: 40px;
+    background: var(--surface-container-low);
+    transition: all .15s;
+  }
+
+  .menu-btn:hover {
+    background: rgba(124,149,133,0.12);
+  }
+
+  .menu-btn:active {
+    background: rgba(124,149,133,0.2);
+  }
+
+  .nav-left {
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .nav-left .brand {
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+
+  .nav-center {
+    display: none !important;
+  }
+
+  .nav-right {
+    gap: 0.4rem;
+  }
+
+  .user-info {
+    gap: 0.4rem;
+  }
+
+  .user-text {
+    display: none !important;
+  }
+
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+
   .ad-card--horizontal {
-    width: 100%;
-    margin: 16px 0;
-    border-radius: 12px;
-    padding: 0 12px;
-    min-width: 0;
-  }
-  .sidebar-ads {
     display: none;
   }
+
+  .ad-card--navbar {
+    display: none;
+  }
+
+  .sidebar-ads {
+    display: none !important;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    z-index: 200;
+    padding: 72px 0 1rem;
+    border-right: none;
+    border-bottom: 1px solid var(--surface-dim);
+    transform: translateX(-100%);
+    transition: transform .3s ease-out;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(45,50,46,0.55);
+    z-index: 199;
+    backdrop-filter: blur(2px);
+  }
+
+  .sidebar-overlay.open {
+    display: block;
+  }
+
+  .sidebar-profile {
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--surface-dim);
+  }
+
+  .sidebar nav {
+    padding: 0.5rem;
+    gap: 2px;
+  }
+
+  .sidebar-link {
+    padding: 0.75rem 1rem;
+    font-size: 0.9375rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .sidebar-link:active {
+    background: rgba(124,149,133,0.12);
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding-top: 64px;
+    min-height: 100vh;
+  }
+
+  /* Page content */
+  #page-home, #page-feed, #page-college, #page-xp, #page-sessions {
+    padding: 1rem 0.75rem 4rem !important;
+  }
+
+  .page-inner {
+    max-width: 100vw !important;
+    padding: 0 !important;
+  }
+
+  /* Home grid */
+  .home-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  .mood-card, .xp-card, .sessions-section, .community-card, .ai-teaser {
+    grid-column: span 12 !important;
+  }
+
+  .mood-card .card, .community-card .card {
+    padding: 1.25rem !important;
+  }
+
+  .mood-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .mood-btn {
+    padding: 0.6rem 0.4rem !important;
+    gap: 0.4rem !important;
+    min-width: 0 !important;
+  }
+
+  .mood-emoji {
+    font-size: 1.75rem !important;
+  }
+
+  .mood-label {
+    font-size: 0.7rem !important;
+  }
+
+  .xp-inner {
+    padding: 1.25rem !important;
+    min-height: 160px !important;
+  }
+
+  .xp-amount {
+    font-size: 1.5rem !important;
+  }
+
+  .xp-sub {
+    font-size: 0.75rem !important;
+  }
+
+  /* AI Teaser */
+  .ai-teaser-inner {
+    flex-direction: column !important;
+  }
+
+  .ai-teaser-img {
+    height: 120px !important;
+    width: 100% !important;
+  }
+
+  .ai-teaser-body {
+    padding: 1rem !important;
+  }
+
+  .ai-teaser-body h2 {
+    font-size: 1.25rem !important;
+  }
+
+  .ai-teaser-body p {
+    font-size: 0.875rem !important;
+  }
+
+  /* Feed page */
+  .feed-header-row {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  .feed-header-row h2 {
+    font-size: 1.75rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  .feed-header-row p {
+    font-size: 0.8125rem !important;
+  }
+
+  .post-btn {
+    width: 100%;
+    font-size: 0.875rem !important;
+  }
+
+  .feed-filters {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    padding: 1rem !important;
+  }
+
+  .search-input {
+    padding: 0.65rem 0.8rem 0.65rem 2.5rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  .filter-chips {
+    overflow-x: auto;
+    gap: 0.4rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .filter-chip {
+    padding: 0.35rem 0.8rem !important;
+    font-size: 0.7rem !important;
+    white-space: nowrap;
+  }
+
+  .posts-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .post-card {
+    padding: 1rem !important;
+  }
+
+  .post-card-header {
+    gap: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .post-card-avatar {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .post-card-author {
+    font-size: 0.8125rem !important;
+  }
+
+  .post-card-meta {
+    font-size: 0.7rem !important;
+  }
+
+  .post-card-body {
+    font-size: 0.8125rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .post-card-tags {
+    gap: 0.3rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .tag {
+    font-size: 0.6rem !important;
+    padding: 0.15rem 0.5rem !important;
+  }
+
+  .post-card-footer {
+    padding-top: 0.75rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .action-btn {
+    font-size: 0.7rem !important;
+    gap: 0.25rem !important;
+  }
+
+  .read-thread {
+    font-size: 0.7rem !important;
+  }
+
+  /* Comments section */
+  .comments-section {
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+  }
+
+  .comment-item {
+    padding: 0.75rem 0 !important;
+  }
+
+  .add-comment-form {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+
+  .add-comment-form input {
+    width: 100% !important;
+  }
+
+  /* College page */
+  .college-hero {
+    padding: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .college-hero h1 {
+    font-size: 1.5rem !important;
+  }
+
+  .college-hero p {
+    font-size: 0.875rem !important;
+  }
+
+  .college-stats {
+    gap: 0.5rem !important;
+  }
+
+  .college-stat {
+    font-size: 0.7rem !important;
+    padding: 0.3rem 0.75rem !important;
+  }
+
+  .college-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .advice-card {
+    padding: 1rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .advice-inner {
+    gap: 0.75rem !important;
+  }
+
+  .advice-icon {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .advice-title {
+    font-size: 0.9375rem !important;
+  }
+
+  .advice-body {
+    font-size: 0.8125rem !important;
+  }
+
+  .mentor-card {
+    padding: 0.75rem !important;
+  }
+
+  .mentor-avatar-bg {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .mentor-name {
+    font-size: 0.8125rem !important;
+  }
+
+  .mentor-expertise {
+    font-size: 0.6rem !important;
+  }
+
+  /* XP page */
+  .badges-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)) !important;
+    gap: 0.75rem !important;
+  }
+
+  .badge-card {
+    padding: 0.75rem !important;
+  }
+
+  .badge-icon {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .badge-name {
+    font-size: 0.8rem !important;
+  }
+
+  .badge-desc {
+    font-size: 0.65rem !important;
+  }
+
+  .leaderboard-card {
+    padding: 1rem !important;
+  }
+
+  .leaderboard-title {
+    font-size: 1rem !important;
+  }
+
+  .lb-row {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .lb-left {
+    gap: 0.75rem !important;
+  }
+
+  .lb-avatar {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .lb-name {
+    font-size: 0.8125rem !important;
+  }
+
+  .lb-sub {
+    font-size: 0.7rem !important;
+  }
+
+  .lb-xp {
+    font-size: 0.8rem !important;
+  }
+
+  /* Chat page */
+  #page-chat {
+    flex-direction: column;
+  }
+
+  .chat-banner {
+    font-size: 0.7rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+
+  .chat-workspace {
+    max-width: 100vw !important;
+    width: 100%;
+    padding: 1rem 0.5rem 140px !important;
+    gap: 0.75rem !important;
+  }
+
+  .chat-input-bar {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    padding: 0.75rem 0.5rem !important;
+    background: rgba(252,250,247,0.95);
+  }
+
+  .chat-input-inner {
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .chat-input-box {
+    border-radius: 0.75rem !important;
+    padding: 0.25rem !important;
+  }
+
+  .chat-textarea {
+    font-size: 0.875rem !important;
+    min-height: 36px !important;
+    max-height: 100px !important;
+    padding: 0.4rem 0.8rem !important;
+  }
+
+  .chat-toolbar {
+    padding: 0.2rem 0.4rem !important;
+  }
+
+  .chat-tool-btn, .send-btn {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .msg-row {
+    max-width: 95% !important;
+    gap: 0.4rem !important;
+  }
+
+  .msg-row.user {
+    flex-direction: row-reverse;
+  }
+
+  .msg-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    flex-shrink: 0;
+  }
+
+  .msg-bubble {
+    padding: 0.75rem 0.875rem !important;
+    border-radius: 1rem !important;
+    font-size: 0.8125rem !important;
+  }
+
+  .msg-text {
+    font-size: 0.875rem !important;
+    line-height: 1.5;
+  }
+
+  /* Sessions page */
+  .upcoming-card {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  .upcoming-side {
+    border-top: 1px solid var(--surface-dim) !important;
+    border-left: none !important;
+    padding-top: 1rem !important;
+    padding-left: 0 !important;
+  }
+
+  /* Buttons & utilities */
+  .btn, .btn-primary, .btn-secondary, .btn-outline {
+    width: auto !important;
+    padding: 0.7rem 1.2rem !important;
+    font-size: 0.8125rem !important;
+  }
+
+  .section-header, .community-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+
+  .section-header h2, .community-header h2 {
+    font-size: 1.5rem !important;
+  }
+
+  /* Utilities */
+  footer.site-footer {
+    display: none !important;
+  }
+
+  /* FAB */
+  .fab, .college-fab {
+    bottom: 1.5rem !important;
+    right: 1rem !important;
+    padding: 0.875rem 1rem !important;
+  }
+
+  /* Modals & Overlays */
+  .modal-overlay {
+    z-index: 300;
+  }
+
+  .modal-card {
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    border-radius: 1rem !important;
+    padding: 1.5rem !important;
+  }
+
+  /* Touch Optimizations */
+  button, a, input[type="button"], input[type="submit"] {
+    -webkit-tap-highlight-color: transparent;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SMALL PHONE (max-width: 480px)
+   Extra small optimizations for Android
+   ═══════════════════════════════════════════ */
+@media (max-width: 480px) {
+  #page-home, #page-feed, #page-college, #page-xp, #page-sessions {
+    padding: 0.75rem 0.5rem 3.5rem !important;
+  }
+
+  .navbar {
+    height: 56px;
+    padding: 0 0.4rem;
+  }
+
+  .menu-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-left .brand {
+    font-size: 1rem;
+  }
+
+  .mood-grid {
+    grid-template-columns: 1fr 1fr 1fr !important;
+  }
+
+  .mood-btn {
+    padding: 0.4rem 0.3rem !important;
+  }
+
+  .mood-emoji {
+    font-size: 1.5rem !important;
+  }
+
+  .mood-label {
+    font-size: 0.65rem !important;
+  }
+
+  .xp-inner {
+    padding: 1rem !important;
+    min-height: 140px !important;
+  }
+
+  .xp-amount {
+    font-size: 1.25rem !important;
+  }
+
+  .feed-header-row h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .post-btn {
+    font-size: 0.75rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .search-input {
+    padding: 0.5rem 0.7rem 0.5rem 2.3rem !important;
+    font-size: 0.8125rem !important;
+  }
+
+  .badge-card {
+    padding: 0.6rem !important;
+  }
+
+  .badge-name {
+    font-size: 0.7rem !important;
+  }
+
+  .lb-avatar {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .msg-bubble {
+    padding: 0.65rem 0.75rem !important;
+  }
+
+  .chat-workspace {
+    padding: 0.75rem 0.4rem 130px !important;
+  }
+}
+
+.ad-card--horizontal {
+  width: 100%;
+  margin: 16px 0;
+  border-radius: 12px;
+  padding: 0 12px;
+  min-width: 0;
+}
+.sidebar-ads {
+  display: none;
 }
 /* ═══════════════════════════════════════════════════════════
    MindBridge — Shared Stylesheet
