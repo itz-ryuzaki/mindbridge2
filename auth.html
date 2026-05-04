@@ -1,0 +1,258 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MindBridge — Welcome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#7C9585;--primary-light:#A4B6AB;--secondary:#8B7E66;--tertiary:#B19A78;--bg:#F9F7F2;--surface:#FCFAF7;--dim:#E8E5DF;--text:#2D322E;--text2:#5D645E;--outline:#8D948E;--font:'Plus Jakarta Sans',sans-serif;--sans:'Inter',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+.auth-container{width:100%;max-width:460px;position:relative}
+.auth-card{background:var(--surface);border:1px solid var(--dim);border-radius:1.5rem;box-shadow:0 20px 60px rgba(124,149,133,.15);overflow:hidden;position:relative}
+.auth-header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:2.5rem 2rem 2rem;text-align:center;position:relative;overflow:hidden}
+.auth-header::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%}
+.auth-header::after{content:'';position:absolute;bottom:-30px;left:-30px;width:100px;height:100px;background:rgba(255,255,255,.05);border-radius:50%}
+.auth-logo{font-family:var(--font);font-size:1.75rem;font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:.25rem;position:relative;z-index:1}
+.auth-logo span{color:rgba(255,255,255,.6)}
+.auth-subtitle{font-size:.8125rem;color:rgba(255,255,255,.8);font-weight:500;position:relative;z-index:1}
+.auth-body{padding:2rem}
+.auth-tabs{display:flex;gap:.5rem;margin-bottom:1.75rem;background:var(--dim);border-radius:.875rem;padding:4px}
+.auth-tab{flex:1;padding:.6rem;border:none;border-radius:.75rem;font-family:var(--font);font-size:.8125rem;font-weight:700;cursor:pointer;transition:all .2s;background:transparent;color:var(--outline)}
+.auth-tab.active{background:var(--surface);color:var(--primary);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.form-group{margin-bottom:1.25rem}
+.form-label{display:block;font-size:.75rem;font-weight:700;color:var(--text2);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.06em}
+.form-input{width:100%;padding:.75rem 1rem;border:1.5px solid var(--dim);border-radius:.875rem;font-size:.9375rem;font-family:var(--sans);transition:border-color .15s;background:var(--bg);outline:none}
+.form-input:focus{border-color:var(--primary)}
+.btn-auth{width:100%;padding:.875rem;border:none;border-radius:.875rem;font-family:var(--font);font-size:.9375rem;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-auth:hover{transform:translateY(-1px)}
+.btn-auth:active{transform:scale(.98)}
+.btn-primary-auth{background:var(--primary);color:#fff;box-shadow:0 4px 16px rgba(124,149,133,.3)}
+.btn-guest{background:var(--dim);color:var(--text);margin-top:.75rem}
+.btn-guest:hover{background:var(--primary-light);color:#fff}
+.divider{display:flex;align-items:center;gap:1rem;margin:1.25rem 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--dim)}
+.divider span{font-size:.7rem;font-weight:700;color:var(--outline);text-transform:uppercase;letter-spacing:.1em}
+.auth-footer{text-align:center;padding:1rem 2rem 1.5rem;font-size:.7rem;color:var(--outline)}
+/* Quiz styles */
+.quiz-container{display:none}
+.quiz-header{padding:1.5rem 2rem 1rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;position:relative}
+.quiz-progress-bar{height:6px;background:rgba(255,255,255,.2);border-radius:9999px;margin-top:.75rem;overflow:hidden}
+.quiz-progress-fill{height:100%;background:#fff;border-radius:9999px;transition:width .4s}
+.quiz-q-num{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.quiz-title{font-size:1.125rem;font-weight:800;margin-top:.25rem}
+.quiz-body{padding:1.5rem 2rem 2rem}
+.quiz-question{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:1.25rem;line-height:1.5}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem}
+.quiz-option{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border:1.5px solid var(--dim);border-radius:.875rem;cursor:pointer;transition:all .15s;background:var(--bg);font-size:.875rem;font-weight:600;color:var(--text)}
+.quiz-option:hover{border-color:var(--primary);background:rgba(124,149,133,.05)}
+.quiz-option.selected{border-color:var(--primary);background:rgba(124,149,133,.12);color:var(--primary)}
+.quiz-option .check{width:20px;height:20px;border-radius:50%;border:2px solid var(--dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;font-size:.7rem}
+.quiz-option.selected .check{background:var(--primary);border-color:var(--primary);color:#fff}
+.quiz-nav{display:flex;gap:.75rem;margin-top:1.5rem}
+.quiz-nav button{flex:1;padding:.75rem;border:none;border-radius:.875rem;font-family:var(--font);font-size:.875rem;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-quiz-next{background:var(--primary);color:#fff}
+.btn-quiz-back{background:var(--dim);color:var(--text)}
+.btn-quiz-next:disabled{opacity:.4;cursor:not-allowed}
+.quiz-emoji{font-size:1.5rem;margin-bottom:.5rem;display:block}
+.form-error{color:#dc2626;font-size:.75rem;margin-top:.25rem;display:none}
+@media(max-width:500px){body{padding:.5rem}.auth-body,.quiz-body{padding:1.25rem}.auth-header,.quiz-header{padding:1.5rem 1.25rem 1.25rem}}
+</style>
+</head>
+<body>
+<div class="auth-container">
+<!-- Auth Card -->
+<div class="auth-card" id="authCard">
+<div class="auth-header">
+<div class="auth-logo">Mind<span>Bridge</span></div>
+<div class="auth-subtitle">Your wellness journey begins here</div>
+</div>
+<div class="auth-body" id="authBody">
+<div class="auth-tabs">
+<button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Login</button>
+<button class="auth-tab" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+</div>
+<!-- Login Form -->
+<form id="loginForm" onsubmit="return handleAuth(event,'login')">
+<div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="loginEmail" placeholder="you@university.edu" required/><div class="form-error" id="loginEmailErr"></div></div>
+<div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="loginPass" placeholder="Enter password" required minlength="6"/><div class="form-error" id="loginPassErr"></div></div>
+<button type="submit" class="btn-auth btn-primary-auth">Login</button>
+</form>
+<!-- Signup Form -->
+<form id="signupForm" style="display:none" onsubmit="return handleAuth(event,'signup')">
+<div class="form-group"><label class="form-label">Full Name</label><input class="form-input" type="text" id="signupName" placeholder="Your full name" required/></div>
+<div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="signupEmail" placeholder="you@university.edu" required/></div>
+<div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="signupPass" placeholder="Min 6 characters" required minlength="6"/></div>
+<div class="form-group"><label class="form-label">Confirm Password</label><input class="form-input" type="password" id="signupConfirm" placeholder="Repeat password" required/><div class="form-error" id="signupConfirmErr"></div></div>
+<button type="submit" class="btn-auth btn-primary-auth">Create Account</button>
+</form>
+<div class="divider"><span>or</span></div>
+<button class="btn-auth btn-guest" onclick="guestLogin()">Continue as Guest</button>
+</div>
+<div class="auth-footer">By continuing you agree to MindBridge's Terms & Privacy Policy</div>
+</div>
+
+
+<!-- Quiz Card -->
+<div class="auth-card quiz-container" id="quizCard">
+<div class="quiz-header">
+<div class="quiz-q-num" id="quizNum">Question 1 of 20</div>
+<div class="quiz-title">Wellness Profile Setup</div>
+<div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizFill" style="width:5%"></div></div>
+</div>
+<div class="quiz-body">
+<div id="quizEmoji" class="quiz-emoji"></div>
+<div class="quiz-question" id="quizQuestion"></div>
+<div class="quiz-options" id="quizOptions"></div>
+<div class="quiz-nav">
+<button class="btn-quiz-back" id="quizBack" onclick="quizPrev()">Back</button>
+<button class="btn-quiz-next" id="quizNext" onclick="quizNext()" disabled>Next</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+const QUESTIONS = [
+{q:"What do you usually do when you feel stressed out?",emoji:"\uD83D\uDE2B",opts:["Go for a walk or exercise","Talk to a friend or family","Listen to music or watch something","Keep it to myself and try to push through"]},
+{q:"How often do you feel overwhelmed by academic pressure?",emoji:"\uD83D\uDCDA",opts:["Rarely, I manage well","Sometimes during exams","Often, almost every week","Almost every day"]},
+{q:"How would you describe your sleep quality?",emoji:"\uD83C\uDF19",opts:["Great, I sleep 7-8 hours","Decent, but could be better","Poor, I often stay up late","Very poor, I struggle with insomnia"]},
+{q:"When you feel anxious, what helps you calm down?",emoji:"\uD83E\uDDD8",opts:["Deep breathing or meditation","Talking to someone I trust","Distracting myself with activities","Nothing really helps"]},
+{q:"How comfortable are you sharing your feelings with others?",emoji:"\uD83D\uDCAC",opts:["Very comfortable, I'm open","Somewhat, with close friends only","Not very, I prefer to stay private","Not at all, I keep everything inside"]},
+{q:"How do you handle deadlines and time pressure?",emoji:"\u23F0",opts:["I plan ahead and stay organized","I sometimes procrastinate but manage","I often feel rushed and stressed","I completely shut down under pressure"]},
+{q:"What's your go-to way to recharge after a tough day?",emoji:"\u26A1",opts:["Exercise or physical activity","Creative hobbies (art, music, writing)","Socializing with friends","Staying alone and resting"]},
+{q:"How would you rate your overall mental health right now?",emoji:"\uD83E\uDDE0",opts:["Excellent, feeling strong","Good, with occasional bad days","Fair, struggling more than usual","Poor, I need support"]},
+{q:"Do you have someone you can talk to when you feel down?",emoji:"\uD83E\uDD1D",opts:["Yes, multiple people","One or two close people","Not really, but I wish I did","No, I feel completely alone"]},
+{q:"How do you feel about seeking professional help for mental health?",emoji:"\uD83C\uDFE5",opts:["Very open to it","Open but haven't tried","A bit hesitant","Completely against it"]},
+{q:"What triggers your stress the most?",emoji:"\uD83D\uDD25",opts:["Academic workload and exams","Social situations and relationships","Financial worries","Family expectations and pressure"]},
+{q:"How often do you take breaks during study sessions?",emoji:"\u2615",opts:["Every 30-45 minutes","Every 1-2 hours","Rarely, I study for long stretches","I don't have a study routine"]},
+{q:"What type of support would be most helpful for you?",emoji:"\uD83D\uDCA1",opts:["Guided meditation and breathing","One-on-one mentoring","Group support sessions","Self-help resources and tips"]},
+{q:"How do you deal with negative self-talk?",emoji:"\uD83D\uDCAD",opts:["I challenge it with positive thoughts","I write down my feelings","I try to ignore it","It often overwhelms me"]},
+{q:"What's your relationship with physical exercise?",emoji:"\uD83C\uDFC3",opts:["I exercise regularly (3+ times/week)","I exercise sometimes","I rarely exercise","I don't exercise at all"]},
+{q:"How do you feel about your social life at college?",emoji:"\uD83C\uDF93",opts:["Great, I have a strong social circle","Good, but I want more connections","I feel somewhat isolated","I feel very lonely"]},
+{q:"What time of day do you feel most anxious?",emoji:"\u2600\uFE0F",opts:["Morning, before classes start","Afternoon, during peak workload","Evening, when reflecting on the day","Night, when trying to sleep"]},
+{q:"How do you handle conflicts with friends or peers?",emoji:"\uD83E\uDD14",opts:["I communicate openly and resolve them","I give it time and revisit later","I avoid confrontation","Conflicts affect me deeply for days"]},
+{q:"What role does music play in your mental wellness?",emoji:"\uD83C\uDFB5",opts:["It's my main stress reliever","I enjoy it casually","I listen sometimes but it doesn't help much","I don't listen to music often"]},
+{q:"What would make your college experience less stressful?",emoji:"\u2728",opts:["Better time management skills","More emotional support","Reduced academic pressure","Stronger friendships and community"]}
+];
+
+let currentQ = 0;
+let answers = new Array(20).fill(null);
+let authMode = '';
+let pendingUser = {};
+
+function switchTab(tab) {
+  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
+  document.getElementById('tabSignup').classList.toggle('active', tab==='signup');
+  document.getElementById('loginForm').style.display = tab==='login' ? 'block' : 'none';
+  document.getElementById('signupForm').style.display = tab==='signup' ? 'block' : 'none';
+}
+
+function handleAuth(e, mode) {
+  e.preventDefault();
+  if (mode === 'login') {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    const users = JSON.parse(localStorage.getItem('mb_users') || '{}');
+    if (!users[email]) { showErr('loginEmailErr','No account found. Please sign up first.'); return false; }
+    if (users[email].pass !== pass) { showErr('loginPassErr','Incorrect password.'); return false; }
+    if (!users[email].quizDone) {
+      authMode = 'login'; pendingUser = {email};
+      startQuiz(); return false;
+    }
+    completeLogin(email);
+  } else {
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const pass = document.getElementById('signupPass').value;
+    const confirm = document.getElementById('signupConfirm').value;
+    if (pass !== confirm) { showErr('signupConfirmErr','Passwords do not match.'); return false; }
+    const users = JSON.parse(localStorage.getItem('mb_users') || '{}');
+    if (users[email]) { showErr('signupConfirmErr','Account already exists. Please login.'); return false; }
+    users[email] = {name, pass, quizDone: false, guest: false};
+    localStorage.setItem('mb_users', JSON.stringify(users));
+    authMode = 'signup'; pendingUser = {email, name};
+    startQuiz();
+  }
+  return false;
+}
+
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  if(el){el.textContent=msg;el.style.display='block';setTimeout(()=>{el.style.display='none'},3000)}
+}
+
+function guestLogin() {
+  localStorage.setItem('mb_auth', JSON.stringify({email:'guest',name:'Guest User',guest:true,quizDone:false}));
+  window.location.href = 'index.html';
+}
+
+function startQuiz() {
+  currentQ = 0; answers = new Array(20).fill(null);
+  document.getElementById('authCard').querySelector('.auth-body').style.display='none';
+  document.getElementById('authCard').querySelector('.auth-footer').style.display='none';
+  document.getElementById('authCard').querySelector('.auth-header').style.display='none';
+  document.getElementById('quizCard').style.display='block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  document.getElementById('quizNum').textContent = 'Question '+(currentQ+1)+' of 20';
+  document.getElementById('quizFill').style.width = ((currentQ+1)/20*100)+'%';
+  document.getElementById('quizEmoji').textContent = q.emoji;
+  document.getElementById('quizQuestion').textContent = q.q;
+  const opts = document.getElementById('quizOptions');
+  opts.innerHTML = q.opts.map((o,i)=>`<div class="quiz-option${answers[currentQ]===i?' selected':''}" onclick="selectOpt(${i})"><div class="check">${answers[currentQ]===i?'\u2713':''}</div><span>${o}</span></div>`).join('');
+  document.getElementById('quizBack').style.display = currentQ===0?'none':'block';
+  const nextBtn = document.getElementById('quizNext');
+  nextBtn.disabled = answers[currentQ]===null;
+  nextBtn.textContent = currentQ===19?'Complete \u2192':'Next \u2192';
+}
+
+function selectOpt(i) {
+  answers[currentQ] = i;
+  renderQuestion();
+}
+
+function quizNext() {
+  if(answers[currentQ]===null) return;
+  if(currentQ<19){currentQ++;renderQuestion();}
+  else{finishQuiz();}
+}
+function quizPrev() {
+  if(currentQ>0){currentQ--;renderQuestion();}
+}
+
+function finishQuiz() {
+  const profile = QUESTIONS.map((q,i)=>({question:q.q,answer:q.opts[answers[i]]}));
+  localStorage.setItem('mb_wellness_profile', JSON.stringify(profile));
+  const users = JSON.parse(localStorage.getItem('mb_users')||'{}');
+  if(pendingUser.email && users[pendingUser.email]) {
+    users[pendingUser.email].quizDone = true;
+    users[pendingUser.email].wellnessProfile = profile;
+    localStorage.setItem('mb_users', JSON.stringify(users));
+  }
+  completeLogin(pendingUser.email);
+}
+
+function completeLogin(email) {
+  const users = JSON.parse(localStorage.getItem('mb_users')||'{}');
+  const u = users[email]||{};
+  localStorage.setItem('mb_auth', JSON.stringify({email,name:u.name||'User',guest:false,quizDone:true}));
+  window.location.href = 'index.html';
+}
+
+// Auto-redirect if already logged in
+(function(){
+  const auth = JSON.parse(localStorage.getItem('mb_auth')||'null');
+  if(auth && (auth.guest || auth.quizDone)) {
+    // Already authenticated, but don't auto-redirect so user can re-login if needed
+  }
+})();
+</script>
+</body>
+</html>
+

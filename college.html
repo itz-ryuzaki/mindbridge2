@@ -1,256 +1,923 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MindBridge — College</title>
   <link rel="stylesheet" href="stylesheet.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    .college-tabs {
+      display: flex;
+      gap: .5rem;
+      margin-bottom: 2rem;
+      background: var(--surface-dim);
+      border-radius: 1rem;
+      padding: 4px;
+      max-width: 500px
+    }
+
+    .college-tab {
+      flex: 1;
+      padding: .65rem 1rem;
+      border: none;
+      border-radius: .75rem;
+      font-family: var(--font-display);
+      font-size: .8125rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+      background: transparent;
+      color: var(--outline)
+    }
+
+    .college-tab.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .08)
+    }
+
+    .tab-content {
+      display: none
+    }
+
+    .tab-content.active {
+      display: block
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.25rem
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-dim);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform .2s, border-color .2s
+    }
+
+    .info-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary)
+    }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1rem
+    }
+
+    .info-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: .875rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .info-card-icon.academic {
+      background: var(--primary-container);
+      color: var(--primary)
+    }
+
+    .info-card-icon.wellness {
+      background: var(--secondary-container);
+      color: var(--secondary)
+    }
+
+    .info-card-icon.campus {
+      background: var(--tertiary-container);
+      color: var(--tertiary)
+    }
+
+    .info-card-icon.social {
+      background: #e0e7ff;
+      color: #4338ca
+    }
+
+    .info-card-meta {
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--outline);
+      text-transform: uppercase;
+      letter-spacing: .06em
+    }
+
+    .info-card-title {
+      font-size: 1.0625rem;
+      font-weight: 800;
+      color: var(--on-surface);
+      margin-bottom: .5rem
+    }
+
+    .info-card-body {
+      font-size: .8125rem;
+      color: var(--on-surface-variant);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden
+    }
+
+    .info-card-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: .75rem;
+      color: var(--outline);
+      font-weight: 600
+    }
+
+    .info-card-footer i {
+      width: 14px;
+      height: 14px
+    }
+
+    .info-card-tag {
+      display: inline-block;
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+      font-size: .65rem;
+      font-weight: 700;
+      padding: .2rem .6rem;
+      border-radius: 9999px;
+      margin-right: .25rem
+    }
+
+    .mentor-grid2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem
+    }
+
+    .m-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-dim);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform .2s, border-color .2s;
+      cursor: pointer
+    }
+
+    .m-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary)
+    }
+
+    .m-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-container);
+      margin-bottom: .75rem
+    }
+
+    .m-name {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--on-surface);
+      margin-bottom: .15rem
+    }
+
+    .m-spec {
+      font-size: .775rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: .6rem
+    }
+
+    .m-bio {
+      font-size: .8rem;
+      color: var(--on-surface-variant);
+      line-height: 1.6;
+      margin-bottom: .75rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden
+    }
+
+    .m-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .3rem;
+      margin-bottom: .75rem
+    }
+
+    .m-tag {
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+      font-size: .6rem;
+      font-weight: 700;
+      padding: .15rem .5rem;
+      border-radius: 9999px
+    }
+
+    .m-footer {
+      display: flex;
+      gap: .5rem;
+      align-items: center
+    }
+
+    .m-status {
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--on-surface-variant)
+    }
+
+    .m-rating {
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--tertiary);
+      margin-left: auto
+    }
+
+    .btn-dm2 {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: .75rem;
+      padding: .5rem .8rem;
+      font-size: .75rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit
+    }
+
+    .btn-dm2:hover {
+      opacity: .85
+    }
+
+    .btn-prof2 {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--surface-dim);
+      border-radius: .75rem;
+      padding: .5rem .8rem;
+      font-size: .75rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit
+    }
+
+    .btn-prof2:hover {
+      background: var(--secondary-container)
+    }
+
+    .dot-green {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ade80
+    }
+
+    .dot-yellow {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fbbf24
+    }
+
+    .archive-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-dim);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      transition: border-color .15s
+    }
+
+    .archive-card:hover {
+      border-color: var(--primary)
+    }
+
+    .archive-card-title {
+      font-weight: 700;
+      font-size: .9375rem;
+      color: var(--on-surface);
+      margin-bottom: .35rem
+    }
+
+    .archive-card-body {
+      font-size: .8125rem;
+      color: var(--on-surface-variant);
+      line-height: 1.6;
+      margin-bottom: .75rem
+    }
+
+    .archive-card-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: .7rem;
+      color: var(--outline);
+      font-weight: 600
+    }
+
+    .archive-card-meta i {
+      width: 13px;
+      height: 13px
+    }
+
+    .profile-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(45, 50, 46, .55);
+      backdrop-filter: blur(6px);
+      z-index: 500;
+      align-items: center;
+      justify-content: center
+    }
+
+    .profile-modal-overlay.open {
+      display: flex
+    }
+
+    .profile-modal {
+      background: var(--surface);
+      border-radius: 1.5rem;
+      max-width: 520px;
+      width: 95%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .2);
+      position: relative
+    }
+
+    .profile-modal-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 2rem;
+      border-radius: 1.5rem 1.5rem 0 0;
+      text-align: center
+    }
+
+    .profile-modal-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255, 255, 255, .4);
+      margin: 0 auto 1rem
+    }
+
+    .profile-modal-name {
+      font-size: 1.375rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: .25rem
+    }
+
+    .profile-modal-spec {
+      font-size: .875rem;
+      color: rgba(255, 255, 255, .85);
+      font-weight: 600
+    }
+
+    .profile-modal-body {
+      padding: 2rem
+    }
+
+    .profile-section-title {
+      font-size: .65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--outline);
+      margin-bottom: .75rem;
+      margin-top: 1.25rem
+    }
+
+    .profile-stat-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.25rem
+    }
+
+    .profile-stat {
+      flex: 1;
+      background: var(--surface-container-low);
+      border-radius: .875rem;
+      padding: .875rem;
+      text-align: center
+    }
+
+    .profile-stat-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary)
+    }
+
+    .profile-stat-label {
+      font-size: .65rem;
+      font-weight: 700;
+      color: var(--outline);
+      text-transform: uppercase;
+      letter-spacing: .06em
+    }
+
+    .profile-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, .2);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .dm-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(45, 50, 46, .55);
+      backdrop-filter: blur(6px);
+      z-index: 600;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 1.5rem
+    }
+
+    .dm-modal-overlay.open {
+      display: flex
+    }
+
+    .dm-modal {
+      background: var(--surface);
+      border-radius: 1.25rem;
+      width: 360px;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .2);
+      overflow: hidden
+    }
+
+    .dm-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: .75rem
+    }
+
+    .dm-header-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, .4)
+    }
+
+    .dm-header-name {
+      font-weight: 700;
+      font-size: .9375rem;
+      color: #fff
+    }
+
+    .dm-header-status {
+      font-size: .7rem;
+      color: rgba(255, 255, 255, .75)
+    }
+
+    .dm-close {
+      margin-left: auto;
+      background: rgba(255, 255, 255, .2);
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .dm-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      background: var(--background)
+    }
+
+    .dm-msg {
+      max-width: 80%;
+      padding: .65rem 1rem;
+      border-radius: 1rem;
+      font-size: .875rem;
+      line-height: 1.5
+    }
+
+    .dm-msg.them {
+      background: var(--surface);
+      border: 1px solid var(--surface-dim);
+      border-radius: 1rem 1rem 1rem 0;
+      align-self: flex-start;
+      color: var(--on-surface)
+    }
+
+    .dm-msg.me {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 1rem 1rem 0 1rem;
+      align-self: flex-end
+    }
+
+    .dm-msg-time {
+      font-size: .6rem;
+      color: var(--outline);
+      margin-top: .25rem
+    }
+
+    .dm-input-row {
+      padding: .75rem 1rem;
+      border-top: 1px solid var(--surface-dim);
+      display: flex;
+      gap: .5rem;
+      background: var(--surface)
+    }
+
+    .dm-input {
+      flex: 1;
+      background: var(--surface-container-low);
+      border: 1px solid var(--surface-dim);
+      border-radius: .875rem;
+      padding: .6rem 1rem;
+      font-size: .875rem;
+      font-family: inherit;
+      outline: none;
+      resize: none;
+      height: 40px
+    }
+
+    .dm-send {
+      background: var(--primary);
+      border: none;
+      border-radius: .875rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      flex-shrink: 0
+    }
+  </style>
 </head>
+
 <body>
 
-<header class="navbar">
-  <div class="nav-left">
-    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
-      <i data-lucide="menu" style="width:22px;height:22px;color:var(--primary)"></i>
-    </button>
-    <a href="index.html" class="brand">MindBridge</a>
-  </div>
-  <div class="nav-center">
-    <div class="ad-card ad-card--horizontal ad-card--navbar" role="region" aria-label="Advertisement">
-      <span class="ad-card__label">advertisement area</span>
+  <header class="navbar">
+    <div class="nav-left">
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar"><i data-lucide="menu"
+          style="width:22px;height:22px;color:var(--primary)"></i></button>
+      <a href="index.html" class="brand">MindBridge</a>
     </div>
-  </div>
-  <div class="nav-right">
-    <div class="user-info">
-      <div class="user-text">
-        <span class="user-name">Rakesh Kumar</span>
-        <span class="user-level">Level 12 Explorer</span>
+    <div class="nav-center">
+      <div class="ad-card ad-card--horizontal ad-card--navbar" role="region"><span class="ad-card__label">advertisement
+          area</span></div>
+    </div>
+    <div class="nav-right">
+      <div class="user-info">
+        <div class="user-text"><span class="user-name">User</span><span class="user-level">Level 1</span></div>
+        <img class="user-avatar"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv"
+          alt="User" />
       </div>
-      <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv" alt="Rakesh Kumar" />
     </div>
-  </div>
-</header>
+  </header>
 
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-profile">
-    <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
-    <div>
-      <div class="sidebar-name">Rakesh Kumar</div>
-      <div class="sidebar-rank">Lvl 12 Explorer</div>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-profile">
+      <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
+      <div>
+        <div class="sidebar-name">User</div>
+        <div class="sidebar-rank">Lvl 1</div>
+      </div>
     </div>
-  </div>
-  <nav>
-    <a href="index.html" class="sidebar-link"><i data-lucide="home"></i> Home</a>
-    <a href="feed.html" class="sidebar-link"><i data-lucide="message-square"></i> Feed</a>
-    <a href="college.html" class="sidebar-link active"><i data-lucide="graduation-cap"></i> College</a>
-    <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
-    <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
-    <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
-    <a href="#" class="sidebar-link" id="emotionTabLink"><i data-lucide="smile"></i> Emotion Detector</a>
-  </nav>
-  <!-- Sidebar Advertisement Blocks -->
-  <div class="sidebar-ads">
-    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
-      <span class="ad-card__label">advertisement area</span>
+    <nav>
+      <a href="index.html" class="sidebar-link"><i data-lucide="home"></i> Home</a>
+      <a href="feed.html" class="sidebar-link"><i data-lucide="message-square"></i> Feed</a>
+      <a href="college.html" class="sidebar-link active"><i data-lucide="graduation-cap"></i> College</a>
+      <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
+      <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
+      <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+      <a href="sos.html" class="sidebar-link sos-link"><i data-lucide="shield-alert"></i> SOS Emergency</a>
+      <a href="#" class="sidebar-link" id="emotionTabLink"><i data-lucide="smile"></i> Emotion Detector</a>
+    </nav>
+    <div class="sidebar-ads">
+      <div class="ad-card ad-card--vertical" role="region"><span class="ad-card__label">advertisement area</span></div>
+      <div class="ad-card ad-card--vertical" role="region"><span class="ad-card__label">advertisement area</span></div>
     </div>
-    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
-      <span class="ad-card__label">advertisement area</span>
-    </div>
-  </div>
-</aside>
+  </aside>
 
-<main class="main-content">
-  <div id="page-college" class="page active">
-    <div class="page-inner" style="max-width:1200px;margin:0 auto;padding:3rem 2rem 6rem;">
 
-      <!-- Hero -->
-      <div class="college-hero fade-up">
-        <div class="hero-orb-1"></div>
-        <div class="hero-orb-2"></div>
-        <div class="college-hero-content">
-          <div class="college-hero-title-row">
-            <div class="college-logo"><i data-lucide="landmark"></i></div>
-            <div>
-              <h1>NIET Greater Noida</h1>
-              <p>Engineering Your Future with Empathy</p>
+  <main class="main-content">
+    <div id="page-college" class="page active">
+      <div class="page-inner" style="max-width:1200px;margin:0 auto;padding:3rem 2rem 6rem;">
+
+        <!-- Hero -->
+        <div class="college-hero fade-up">
+          <div class="hero-orb-1"></div>
+          <div class="hero-orb-2"></div>
+          <div class="college-hero-content">
+            <div class="college-hero-title-row">
+              <div class="college-logo"><i data-lucide="landmark"></i></div>
+              <div>
+                <h1>NIET Greater Noida</h1>
+                <p>Engineering Your Future with Empathy</p>
+              </div>
+            </div>
+            <div class="college-stats">
+              <div class="college-stat"><i data-lucide="users"></i> 12.4k Students</div>
+              <div class="college-stat"><i data-lucide="check-circle"></i> Verified Community</div>
             </div>
           </div>
-          <div class="college-stats">
-            <div class="college-stat"><i data-lucide="users"></i> 12.4k Students</div>
-            <div class="college-stat"><i data-lucide="check-circle"></i> Verified Community</div>
-          </div>
         </div>
-      </div>
 
-      <!-- Content Grid -->
-      <div class="college-grid">
-        <!-- Left: Advice + CTA -->
+        <!-- Tabs -->
+        <div class="college-tabs">
+          <button class="college-tab active" onclick="switchCollegeTab('posts')">College Posts</button>
+          <button class="college-tab" onclick="switchCollegeTab('mentors')">Mentors</button>
+          <button class="college-tab" onclick="switchCollegeTab('archive')">Advice Archive</button>
+        </div>
+
+        <!-- Tab 1: College Posts -->
+        <div class="tab-content active" id="tab-posts">
+          <div class="info-grid" id="postsGrid"></div>
+        </div>
+
+        <!-- Tab 2: Mentors -->
+        <div class="tab-content" id="tab-mentors">
+          <div class="mentor-grid2" id="mentorGrid2"></div>
+        </div>
+
+        <!-- Tab 3: Advice Archive -->
+        <div class="tab-content" id="tab-archive">
+          <div id="archiveList"></div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Profile Modal -->
+  <div class="profile-modal-overlay" id="profileModal">
+    <div class="profile-modal">
+      <button class="profile-modal-close" id="closeProfileModal">&#10005;</button>
+      <div id="profileModalContent"></div>
+    </div>
+  </div>
+
+  <!-- DM Modal -->
+  <div class="dm-modal-overlay" id="dmModal">
+    <div class="dm-modal">
+      <div class="dm-header">
+        <img class="dm-header-avatar" id="dmAvatar" src="" alt="" />
         <div>
-          <div class="advice-header">
-            <h2>Pinned Advice</h2>
-            <a href="#" class="archive-link">View Archive <i data-lucide="arrow-right"></i></a>
-          </div>
-
-          <div class="advice-card fade-up delay-1">
-            <div class="advice-inner">
-              <div class="advice-icon academic"><i data-lucide="lightbulb"></i></div>
-              <div style="flex:1;">
-                <div class="advice-meta">
-                  <span class="advice-category academic">Academic Clarity</span>
-                  <span class="advice-pinned">Pinned by HOD</span>
-                </div>
-                <div class="advice-title">Surviving the 3rd Semester: Focus Areas for CSE</div>
-                <p class="advice-body">The jump from 2nd to 3rd semester is intense. Focus heavily on Discrete Mathematics and Data Structures from day one. Here are the curated resources...</p>
-                <div class="advice-footer">
-                  <div class="advice-stat"><i data-lucide="star"></i> 248</div>
-                  <div class="advice-stat"><i data-lucide="message-square"></i> 56 Comments</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="advice-card fade-up delay-2">
-            <div class="advice-inner">
-              <div class="advice-icon wellness"><i data-lucide="wind"></i></div>
-              <div style="flex:1;">
-                <div class="advice-meta">
-                  <span class="advice-category wellness">Mental Wellness</span>
-                  <span class="advice-pinned">Pinned by Wellness Cell</span>
-                </div>
-                <div class="advice-title">Burnout is real: NIET's secret chill spots</div>
-                <p class="advice-body">Feeling overwhelmed? Head to the back garden of Block A during the golden hour. It's the quietest place on campus to reset your mind...</p>
-                <div class="advice-footer">
-                  <div class="advice-stat"><i data-lucide="star"></i> 1,200</div>
-                  <div class="advice-stat"><i data-lucide="message-square"></i> 89 Comments</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Ask a Senior CTA -->
-          <div class="ask-senior-cta fade-up delay-3">
-            <div class="ask-cta-text">
-              <h2>Have a burning question?</h2>
-              <p>Our senior mentors are here to guide you through placement prep, exam stress, or campus life. Don't navigate college alone.</p>
-              <button class="ask-cta-btn"><i data-lucide="messages-square" style="width:18px;height:18px;"></i> Ask a Senior Now</button>
-            </div>
-            <div class="ask-cta-img">
-              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmrms2mxmn6G3Na_WbTl4TlveMcjVeoBXxWmbAqQXn3GYmUKlXBvYFcXkJ9NmAHblB8GtCWSk8zEeCCrYJ4knJ96fkdUYdutuQBgoc5P6UK1U_I0LccFWJGR9j7SJzZ3tawiLBfLt6liZtSCyAJOceNFOLgn0cyppgwAdLk1iIx4CE4Ot3GQiAaqHp0N7RAZdQnFX3U0zebgGw_Yz6oPC56q3baY6-vOrIBq-AfVwmC4P4COyZqvsRu3SS4vW4UxCSh8kxiehnCY4M" alt="Students" />
-            </div>
-          </div>
+          <div class="dm-header-name" id="dmName">Mentor</div>
+          <div class="dm-header-status" id="dmStatus">Online</div>
         </div>
-
-        <!-- Right: Mentors -->
-        <aside>
-          <div class="mentors-header">
-            <h2>Senior Mentors</h2>
-            <i data-lucide="more-horizontal" style="width:20px;height:20px;color:var(--on-surface-variant);cursor:pointer;"></i>
-          </div>
-
-          <div class="mentor-card">
-            <div class="mentor-avatar-wrap">
-              <div class="mentor-avatar-bg"><i data-lucide="users"></i></div>
-              <div class="online-dot"></div>
-            </div>
-            <div style="flex:1;">
-              <div class="mentor-name">Ishaan Verma</div>
-              <div class="mentor-expertise">Data Structures & Placement</div>
-              <div class="mentor-rating">
-                <i data-lucide="star"></i>
-                <span class="mentor-rating-val">4.9</span>
-                <span class="mentor-sessions">(120 sessions)</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mentor-card">
-            <div class="mentor-avatar-wrap">
-              <div class="mentor-avatar-bg"><i data-lucide="users"></i></div>
-            </div>
-            <div style="flex:1;">
-              <div class="mentor-name">Priya Sharma</div>
-              <div class="mentor-expertise">Time Management & Wellness</div>
-              <div class="mentor-rating">
-                <i data-lucide="star"></i>
-                <span class="mentor-rating-val">5.0</span>
-                <span class="mentor-sessions">(85 sessions)</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mentor-card">
-            <div class="mentor-avatar-wrap">
-              <div class="mentor-avatar-bg"><i data-lucide="users"></i></div>
-              <div class="online-dot"></div>
-            </div>
-            <div style="flex:1;">
-              <div class="mentor-name">Rohan Gupta</div>
-              <div class="mentor-expertise">Machine Learning & Ethics</div>
-              <div class="mentor-rating">
-                <i data-lucide="star"></i>
-                <span class="mentor-rating-val">4.8</span>
-                <span class="mentor-sessions">(150 sessions)</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Activity Stats -->
-          <div class="college-activity">
-            <div class="activity-title">NIET Activity</div>
-            <div class="activity-row">
-              <span class="activity-label">Active Mentors</span>
-              <span class="activity-val">42</span>
-            </div>
-            <div class="activity-bar"><div class="activity-fill" style="width:85%;"></div></div>
-            <div class="activity-row" style="margin-top:.75rem;">
-              <span class="activity-label">Help Requests Resolved</span>
-              <span class="activity-val">1.2k</span>
-            </div>
-          </div>
-        </aside>
+        <button class="dm-close" id="closeDmModal">&#10005;</button>
       </div>
-
+      <div class="dm-messages" id="dmMessages"></div>
+      <div class="dm-input-row">
+        <input class="dm-input" id="dmInput" placeholder="Type a message..." maxlength="500" />
+        <button class="dm-send" id="dmSend"><i data-lucide="send" style="width:18px;height:18px"></i></button>
+      </div>
     </div>
   </div>
-</main>
 
-<!-- College FAB -->
-<button class="college-fab">
-  <i data-lucide="plus-circle"></i>
-  <span>Ask a Senior</span>
-</button>
-
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">MindBridge</div>
-      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">MindBridge</div>
+        <p class="footer-copy">&copy; 2024 MindBridge. Supporting student mental health.</p>
+      </div>
+      <div class="footer-links"><a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#" class="crisis">Crisis
+          Resources</a></div>
     </div>
-    <div class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#" class="crisis">Crisis Resources</a>
-      <a href="#">Contact Us</a>
-    </div>
-  </div>
-</footer>
+  </footer>
 
-<script src="script.js"></script>
-<script>
-// Sidebar Emotion Detector tab logic
-document.addEventListener('DOMContentLoaded', function() {
-  const emoTab = document.getElementById('emotionTabLink');
-  if (emoTab) {
-    emoTab.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.location.href = 'index.html#page-emotion';
-    });
-  }
-});
-</script>
+  <button class="college-fab"><i data-lucide="plus-circle"></i><span>Ask a Senior</span></button>
+
+  <script src="script.js"></script>
+  <script src="sos-monitor.js"></script>
+  <script src="xp-tracker.js"></script>
+
+  <script>
+    // ── DATA ──
+    const POSTS = [
+      { title: "Surviving the 3rd Semester: Focus Areas for CSE", body: "The jump from 2nd to 3rd semester is intense. Focus heavily on Discrete Mathematics and Data Structures from day one. Prof. Gupta's notes are gold.", cat: "Academic Clarity", icon: "academic", pinned: "HOD", stars: 248, comments: 56, tags: ["CSE", "Semester 3"] },
+      { title: "Burnout is real: NIET's secret chill spots", body: "Feeling overwhelmed? Head to the back garden of Block A during the golden hour. It's the quietest place on campus to reset your mind.", cat: "Mental Wellness", icon: "wellness", pinned: "Wellness Cell", stars: 1200, comments: 89, tags: ["Wellness", "Campus"] },
+      { title: "Placement Prep Timeline for 2025 Batch", body: "Start coding practice by Jan. Focus on DSA + system design from March. Mock interviews from June. Don't skip aptitude - companies like TCS/Infosys filter heavily there.", cat: "Career", icon: "campus", pinned: "TPO Office", stars: 890, comments: 134, tags: ["Placements", "Career"] },
+      { title: "How to deal with exam anxiety - a student's guide", body: "I used to freeze during exams until I discovered the 4-7-8 breathing technique. Also, studying in 25-min Pomodoro blocks changed everything for me.", cat: "Mental Wellness", icon: "wellness", pinned: "Student Council", stars: 567, comments: 72, tags: ["Exams", "Anxiety"] },
+      { title: "Best online resources for NIET students", body: "NPTEL for theory, LeetCode for coding, and MIT OpenCourseWare for deep understanding. Also check out Gate Smashers on YouTube for quick concept revisions.", cat: "Academic Clarity", icon: "academic", pinned: "Library", stars: 432, comments: 45, tags: ["Resources", "Study"] },
+      { title: "Social Clubs worth joining at NIET", body: "Drama club meets every Thursday - amazing stress relief. The coding club hosts weekly contests. Music society has open jam sessions on Saturdays.", cat: "Social Life", icon: "social", pinned: "Cultural Cell", stars: 345, comments: 38, tags: ["Clubs", "Social"] }
+    ];
+
+    const MENTORS = [
+      { id: 1, name: "Dr. Sarah Miller", spec: "Anxiety & Stress Management", bio: "Certified wellness counselor with 8 years helping students navigate academic pressure and burnout.", avatar: "https://randomuser.me/api/portraits/women/44.jpg", tags: ["Anxiety", "Mindfulness", "Burnout"], rating: 4.9, sessions: 312, available: true, response: "Usually replies in 1 hr", message: "Hi! I'm Dr. Sarah. What's on your mind today?" },
+      { id: 2, name: "Marcus Johnson", spec: "Peer Mentor - Academic Pressure", bio: "Final year CS student who overcame severe exam anxiety. Now helping peers develop study strategies.", avatar: "https://randomuser.me/api/portraits/men/32.jpg", tags: ["Academic", "Study Skills"], rating: 4.7, sessions: 156, available: true, response: "Usually replies in 2 hrs", message: "Hey! I'm Marcus. Happy to share what worked for me!" },
+      { id: 3, name: "Dr. Priya Sharma", spec: "Career Anxiety & Life Transitions", bio: "Psychology PhD specializing in career transitions and imposter syndrome in young professionals.", avatar: "https://randomuser.me/api/portraits/women/68.jpg", tags: ["Career", "Imposter Syndrome"], rating: 4.8, sessions: 247, available: false, response: "Replies next day", message: "Hello! Let's talk through what you're experiencing." },
+      { id: 4, name: "Arun Patel", spec: "Social Skills & Peer Relationships", bio: "Trained peer supporter helping students build confidence in social settings and manage loneliness.", avatar: "https://randomuser.me/api/portraits/men/56.jpg", tags: ["Social Skills", "Confidence"], rating: 4.6, sessions: 89, available: true, response: "Usually replies in 3 hrs", message: "Hi! Social anxiety is real. I'm here to help!" },
+      { id: 5, name: "Prof. David Kim", spec: "Mindfulness & Wellbeing", bio: "Mindfulness instructor teaching evidence-based meditation for busy students.", avatar: "https://randomuser.me/api/portraits/men/78.jpg", tags: ["Mindfulness", "Meditation"], rating: 5.0, sessions: 421, available: false, response: "Replies in 4 hrs", message: "Namaste! How can I guide you today?" },
+      { id: 6, name: "Lena Rodriguez", spec: "Peer Mentor - Emotional Wellbeing", bio: "Psychology sophomore passionate about emotional intelligence and active listening.", avatar: "https://randomuser.me/api/portraits/women/26.jpg", tags: ["Emotions", "Self-care"], rating: 4.5, sessions: 67, available: true, response: "Replies in 30 min", message: "Hey! You never have to handle emotions alone!" }
+    ];
+
+    const ARCHIVE = [
+      { title: "How I scored 9.2 GPA while managing anxiety", body: "It took me 2 semesters to figure out my rhythm. The key was creating a daily routine that included 30 min of exercise, structured study blocks, and actually attending office hours. Prof. Mehta's door is always open - use that!", author: "Anisha K. (CSE 2023)", date: "Mar 15, 2024", stars: 892, comments: 156, tags: ["GPA", "Study Tips"] },
+      { title: "The complete guide to NIET hostel survival", body: "Pack earplugs and a good water bottle. The mess food improves if you give feedback through the portal. Join the hostel WhatsApp group - seniors share old question papers there. Night canteen closes at 11 but the tea stall outside gate 2 is open till 1 AM.", author: "Rahul M. (ME 2022)", date: "Feb 28, 2024", stars: 1245, comments: 203, tags: ["Hostel", "Campus Life"] },
+      { title: "Internship hunting: What actually works", body: "Forget mass applying on LinkedIn. Instead: 1) Build 3 solid projects on GitHub 2) Contribute to open source 3) Cold email startups with a personalized pitch. I got my Amazon internship through a GitHub contribution, not my resume.", author: "Sneha R. (IT 2024)", date: "Jan 20, 2024", stars: 2100, comments: 312, tags: ["Internship", "Career"] },
+      { title: "Managing relationship stress during exams", body: "Your partner will understand if you need space during exams. Set clear boundaries: 'I'll call you at 9 PM for 20 minutes.' This saved both my grades and my relationship. Also, studying together can work if you set ground rules.", author: "Vikram S. (ECE 2023)", date: "Dec 10, 2023", stars: 567, comments: 89, tags: ["Relationships", "Exams"] },
+      { title: "Free therapy resources you probably don't know about", body: "NIET has a free counseling center in Block C, Room 204. iCall (from TISS) offers free phone counseling. Vandrevala Foundation helpline is 24/7. Your student insurance also covers 6 therapy sessions per year.", author: "Dr. Neha Gupta (Wellness Cell)", date: "Nov 5, 2023", stars: 3400, comments: 445, tags: ["Mental Health", "Resources"] },
+      { title: "Why you should NOT skip the soft skills workshops", body: "I thought they were a waste of time until my placement interview. The HR round eliminated 60% of candidates. Communication skills, group discussions, and presentation confidence - these workshops teach exactly that. Attend them!", author: "Priyanka D. (MBA 2023)", date: "Oct 18, 2023", stars: 780, comments: 98, tags: ["Placements", "Soft Skills"] },
+      { title: "Dealing with comparison culture on campus", body: "Everyone seems to be achieving more than you on social media. The truth? Most people only share highlights. I failed 2 subjects in 4th sem and still got placed at Deloitte. Your journey is yours. Stop comparing timelines.", author: "Arjun T. (CSE 2024)", date: "Sep 22, 2023", stars: 1890, comments: 267, tags: ["Mental Health", "Self-worth"] },
+      { title: "Best study spots ranked (with WiFi speeds)", body: "1. Central Library 2nd floor (fastest WiFi) 2. CS Lab after 5 PM (empty and AC) 3. Food court during non-peak hours (good vibes) 4. Block B corridor benches (surprisingly quiet). Avoid: hostel common room (too loud).", author: "Kavya L. (CSE 2024)", date: "Aug 15, 2023", stars: 650, comments: 78, tags: ["Study", "Campus"] }
+    ];
+
+    // ── RENDERING ──
+    function renderPosts() {
+      document.getElementById('postsGrid').innerHTML = POSTS.map(p => `
+    <div class="info-card fade-up">
+      <div class="info-card-header">
+        <div class="info-card-icon ${p.icon}"><i data-lucide="${p.icon === 'academic' ? 'lightbulb' : p.icon === 'wellness' ? 'wind' : p.icon === 'social' ? 'users' : 'landmark'}"></i></div>
+        <div>
+          <div class="info-card-meta">${p.cat} &bull; Pinned by ${p.pinned}</div>
+          <div class="info-card-title">${p.title}</div>
+        </div>
+      </div>
+      <div class="info-card-body">${p.body}</div>
+      <div style="margin-bottom:.75rem">${p.tags.map(t => '<span class="info-card-tag">' + t + '</span>').join('')}</div>
+      <div class="info-card-footer">
+        <span><i data-lucide="star"></i> ${p.stars.toLocaleString()}</span>
+        <span><i data-lucide="message-square"></i> ${p.comments} Comments</span>
+      </div>
+    </div>
+  `).join('');
+      lucide.createIcons();
+    }
+
+    function renderMentors2() {
+      document.getElementById('mentorGrid2').innerHTML = MENTORS.map(m => `
+    <div class="m-card" onclick="viewProfile(${m.id})">
+      <img class="m-avatar" src="${m.avatar}" alt="${m.name}"/>
+      <div class="m-name">${m.name}</div>
+      <div class="m-spec">${m.spec}</div>
+      <div class="m-bio">${m.bio}</div>
+      <div class="m-tags">${m.tags.map(t => '<span class="m-tag">' + t + '</span>').join('')}</div>
+      <div class="m-footer">
+        <div class="m-status"><div class="${m.available ? 'dot-green' : 'dot-yellow'}"></div> ${m.available ? 'Available' : 'Busy'}</div>
+        <div class="m-rating">&#11088; ${m.rating}</div>
+        <button class="btn-prof2" onclick="event.stopPropagation();viewProfile(${m.id})">Profile</button>
+        <button class="btn-dm2" onclick="event.stopPropagation();openDM(${m.id})">DM</button>
+      </div>
+    </div>
+  `).join('');
+      lucide.createIcons();
+    }
+
+    function renderArchive() {
+      document.getElementById('archiveList').innerHTML = ARCHIVE.map(a => `
+    <div class="archive-card fade-up">
+      <div class="archive-card-title">${a.title}</div>
+      <div class="archive-card-body">${a.body}</div>
+      <div style="margin-bottom:.5rem">${a.tags.map(t => '<span class="info-card-tag">' + t + '</span>').join('')}</div>
+      <div class="archive-card-meta">
+        <span><i data-lucide="user"></i> ${a.author}</span>
+        <span><i data-lucide="calendar"></i> ${a.date}</span>
+        <span><i data-lucide="star"></i> ${a.stars.toLocaleString()}</span>
+        <span><i data-lucide="message-square"></i> ${a.comments}</span>
+      </div>
+    </div>
+  `).join('');
+      lucide.createIcons();
+    }
+
+    // ── TABS ──
+    function switchCollegeTab(tab) {
+      document.querySelectorAll('.college-tab').forEach((t, i) => {
+        t.classList.toggle('active', ['posts', 'mentors', 'archive'][i] === tab);
+      });
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      if (tab === 'mentors' && !document.getElementById('mentorGrid2').children.length) renderMentors2();
+      if (tab === 'archive' && !document.getElementById('archiveList').children.length) renderArchive();
+    }
+
+    // ── MENTOR MODALS ──
+    let currentDmMentor = null;
+
+    function viewProfile(id) {
+      const m = MENTORS.find(x => x.id === id); if (!m) return;
+      document.getElementById('profileModalContent').innerHTML = `
+    <div class="profile-modal-header">
+      <img class="profile-modal-avatar" src="${m.avatar}" alt="${m.name}"/>
+      <div class="profile-modal-name">${m.name}</div>
+      <div class="profile-modal-spec">${m.spec}</div>
+      <div style="margin-top:.5rem;display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap">
+        ${m.tags.map(t => '<span style="background:rgba(255,255,255,.2);color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:9999px">' + t + '</span>').join('')}
+      </div>
+    </div>
+    <div class="profile-modal-body">
+      <div class="profile-stat-row">
+        <div class="profile-stat"><div class="profile-stat-val">${m.sessions}</div><div class="profile-stat-label">Sessions</div></div>
+        <div class="profile-stat"><div class="profile-stat-val">&#11088; ${m.rating}</div><div class="profile-stat-label">Rating</div></div>
+        <div class="profile-stat"><div class="profile-stat-val" style="color:${m.available ? '#166534' : '#b45309'}">${m.available ? 'Online' : 'Busy'}</div><div class="profile-stat-label">Status</div></div>
+      </div>
+      <div class="profile-section-title">About</div>
+      <p style="font-size:.875rem;color:var(--on-surface-variant);line-height:1.7">${m.bio}</p>
+      <div class="profile-section-title" style="margin-top:1.25rem">Response Time</div>
+      <p style="font-size:.875rem;color:var(--on-surface-variant)">${m.response}</p>
+      <div style="display:flex;gap:.75rem;margin-top:1.75rem">
+        <button class="btn-prof2" style="flex:1;padding:.75rem" onclick="document.getElementById('profileModal').classList.remove('open');openDM(${m.id})">Send Message</button>
+        <button class="btn-dm2" style="flex:1;padding:.75rem" onclick="document.getElementById('profileModal').classList.remove('open');window.location.href='sessions.html'">Book Session</button>
+      </div>
+    </div>`;
+      document.getElementById('profileModal').classList.add('open');
+    }
+
+    function openDM(id) {
+      const m = MENTORS.find(x => x.id === id); if (!m) return;
+      currentDmMentor = m;
+      if (typeof awardXP === 'function') awardXP(5, 'DM to mentor');
+      document.getElementById('dmAvatar').src = m.avatar;
+      document.getElementById('dmName').textContent = m.name;
+      document.getElementById('dmStatus').textContent = m.available ? 'Online' : 'Busy';
+      const key = 'dm_' + m.id;
+      let msgs = JSON.parse(localStorage.getItem(key) || '[]');
+      if (!msgs.length) { msgs = [{ from: 'them', text: m.message, time: nowT() }]; localStorage.setItem(key, JSON.stringify(msgs)); }
+      renderDMMessages(msgs);
+      document.getElementById('dmModal').classList.add('open');
+      document.getElementById('dmInput').focus();
+    }
+
+    function renderDMMessages(msgs) {
+      const c = document.getElementById('dmMessages');
+      c.innerHTML = msgs.map(m => '<div><div class="dm-msg ' + m.from + '">' + m.text + '</div><div class="dm-msg-time" style="text-align:' + (m.from === 'me' ? 'right' : 'left') + '">' + m.time + '</div></div>').join('');
+      c.scrollTop = c.scrollHeight;
+    }
+
+    function sendDM() {
+      const input = document.getElementById('dmInput');
+      const text = input.value.trim();
+      if (!text || !currentDmMentor) return;
+      const key = 'dm_' + currentDmMentor.id;
+      const msgs = JSON.parse(localStorage.getItem(key) || '[]');
+      msgs.push({ from: 'me', text, time: nowT() });
+      const replies = ["I understand! Let me help.", "That's insightful. Tell me more.", "Let's work through this together.", "Great question! Here's my perspective...", "Thanks for sharing. You're doing great!"];
+      setTimeout(() => { msgs.push({ from: 'them', text: replies[Math.floor(Math.random() * replies.length)], time: nowT() }); localStorage.setItem(key, JSON.stringify(msgs)); renderDMMessages(msgs); }, 1200);
+      localStorage.setItem(key, JSON.stringify(msgs));
+      renderDMMessages(msgs);
+      input.value = '';
+    }
+
+    function nowT() { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+
+    // ── EVENT LISTENERS ──
+    document.getElementById('closeProfileModal').onclick = () => document.getElementById('profileModal').classList.remove('open');
+    document.getElementById('profileModal').onclick = function (e) { if (e.target === this) this.classList.remove('open'); };
+    document.getElementById('closeDmModal').onclick = () => document.getElementById('dmModal').classList.remove('open');
+    document.getElementById('dmSend').onclick = sendDM;
+    document.getElementById('dmInput').onkeydown = function (e) { if (e.key === 'Enter') sendDM(); };
+    document.getElementById('emotionTabLink').onclick = function (e) { e.preventDefault(); window.location.href = 'index.html#page-emotion'; };
+
+    document.addEventListener('DOMContentLoaded', function () { renderPosts(); });
+  </script>
 </body>
+
 </html>

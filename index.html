@@ -1,411 +1,494 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ABCD — Home</title>
+  <title>ABCD â€” Home</title>
   <link rel="stylesheet" href="stylesheet.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
+
 <body>
 
-<!-- ══ NAVBAR ══ -->
-<header class="navbar">
-  <div class="nav-left">
-    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
-      <i data-lucide="menu" style="width:22px;height:22px;color:var(--primary)"></i>
-    </button>
-    <a href="index.html" class="brand">MindBridge</a>
-  </div>
-  <div class="nav-center">
-    <div class="ad-card ad-card--horizontal ad-card--navbar" role="region" aria-label="Advertisement">
-      <span class="ad-card__label">advertisement area</span>
+  <!-- â•â• NAVBAR â•â• -->
+  <header class="navbar">
+    <div class="nav-left">
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
+        <i data-lucide="menu" style="width:22px;height:22px;color:var(--primary)"></i>
+      </button>
+      <a href="index.html" class="brand">MindBridge</a>
     </div>
-  </div>
-  <div class="nav-right">
-    <div class="user-info">
-      <div class="user-text">
-        <span class="user-name">Rakesh Kumar</span>
-        <span class="user-level">Level 12 Explorer</span>
+    <div class="nav-center">
+      <div class="ad-card ad-card--horizontal ad-card--navbar" role="region" aria-label="Advertisement">
+        <span class="ad-card__label">advertisement area</span>
       </div>
-      <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv" alt="Rakesh Kumar" />
     </div>
-  </div>
-</header>
-
-
-
-<!-- ══ SIDEBAR OVERLAY ══ -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-<!-- ══ SIDEBAR ══ -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-profile">
-    <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
-    <div>
-      <div class="sidebar-name">Alex Chen</div>
-      <div class="sidebar-rank">Lvl 12 Explorer</div>
-    </div>
-  </div>
-  <nav>
-    <a href="index.html" class="sidebar-link active"><i data-lucide="home"></i> Home</a>
-    <a href="feed.html" class="sidebar-link"><i data-lucide="message-square"></i> Feed</a>
-    <a href="college.html" class="sidebar-link"><i data-lucide="graduation-cap"></i> College</a>
-    <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
-    <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
-    <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
-    <a href="#" class="sidebar-link" id="emotionTabLink"><i data-lucide="smile"></i> Emotion Detector</a>
-  </nav>
-  <!-- Sidebar Advertisement Blocks -->
-  <div class="sidebar-ads">
-    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
-      <span class="ad-card__label">advertisement area</span>
-    </div>
-    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
-      <span class="ad-card__label">advertisement area</span>
-    </div>
-  </div>
-</aside>
-
-<!-- ══ MAIN ══ -->
-<main class="main-content">
-  <div id="page-home" class="page active">
-    <div class="page-inner" style="max-width:1280px;margin:0 auto;padding:3rem 2rem 6rem;">
-
-      <!-- Welcome -->
-      <div class="home-welcome fade-up">
-        <h1>Good morning, Alex.</h1>
-        <p>Take a deep breath. You've completed 80% of your weekly wellness goals. Let's see how we can support you today.</p>
+    <div class="nav-right">
+      <div class="user-info">
+        <div class="user-text">
+          <span class="user-name">Rakesh Kumar</span>
+          <span class="user-level">Level 12 Explorer</span>
+        </div>
+        <img class="user-avatar"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv"
+          alt="Rakesh Kumar" />
       </div>
+    </div>
+  </header>
 
-      <!-- Bento Grid -->
-      <div class="home-grid">
 
-        <!-- Mood Check-in -->
-        <section class="mood-card fade-up delay-1">
-          <div class="card">
-            <div class="mood-card-header">
-              <h2>How are you feeling today?</h2>
-              <span class="last-checkin">Last check-in: 4h ago</span>
-            </div>
-            <div class="mood-grid">
-              <button class="mood-btn"><span class="mood-emoji">😊</span><span class="mood-label">Great</span></button>
-              <button class="mood-btn"><span class="mood-emoji">😌</span><span class="mood-label">Calm</span></button>
-              <button class="mood-btn"><span class="mood-emoji">😐</span><span class="mood-label">Okay</span></button>
-              <button class="mood-btn"><span class="mood-emoji">😓</span><span class="mood-label">Stressed</span></button>
-              <button class="mood-btn"><span class="mood-emoji">😴</span><span class="mood-label">Tired</span></button>
-              <button class="mood-btn"><span class="mood-emoji">😟</span><span class="mood-label">Anxious</span></button>
-            </div>
+
+  <!-- â•â• SIDEBAR OVERLAY â•â• -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- â•â• SIDEBAR â•â• -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-profile">
+      <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
+      <div>
+        <div class="sidebar-name">Alex Chen</div>
+        <div class="sidebar-rank">Lvl 12 Explorer</div>
+      </div>
+    </div>
+    <nav>
+      <a href="index.html" class="sidebar-link active"><i data-lucide="home"></i> Home</a>
+      <a href="feed.html" class="sidebar-link"><i data-lucide="message-square"></i> Feed</a>
+      <a href="college.html" class="sidebar-link"><i data-lucide="graduation-cap"></i> College</a>
+      <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
+      <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
+      <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+      <a href="sos.html" class="sidebar-link sos-link"><i data-lucide="shield-alert"></i> SOS Emergency</a>
+      <a href="#" class="sidebar-link" id="emotionTabLink"><i data-lucide="smile"></i> Emotion Detector</a>
+    </nav>
+    <!-- Sidebar Advertisement Blocks -->
+    <div class="sidebar-ads">
+      <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+        <span class="ad-card__label">advertisement area</span>
+      </div>
+      <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+        <span class="ad-card__label">advertisement area</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- â•â• MAIN â•â• -->
+  <main class="main-content">
+    <div id="page-home" class="page active">
+      <div class="page-inner" style="max-width:1280px;margin:0 auto;padding:3rem 2rem 6rem;">
+
+        <!-- Welcome -->
+        <div class="home-welcome fade-up">
+          <div class="home-time" id="currentTime" style="font-size: 0.9rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+            <span>--:--</span>
           </div>
-        </section>
+          <h1><span id="greetingText">Good morning</span>, <span id="userNameText">Alex</span>.</h1>
+          <p>Take a deep breath. You've completed 80% of your weekly wellness goals. Let's see how we can support you today.</p>
+        </div>
 
-        <!-- XP Progress -->
-        <section class="xp-card fade-up delay-2">
-          <div class="xp-inner">
+        <!-- Bento Grid -->
+        <div class="home-grid">
+
+          <section class="mood-card fade-up delay-1">
+            <div class="card">
+              <div class="mood-card-header">
+                <h2>How are you feeling today?</h2>
+                <span class="last-checkin">Last check-in: 4h ago</span>
+              </div>
+              <div class="mood-grid">
+                <button class="mood-btn" onclick="moodCheckin('Great')"><span class="mood-emoji">&#128522;</span><span
+                    class="mood-label">Great</span></button>
+                <button class="mood-btn" onclick="moodCheckin('Calm')"><span class="mood-emoji">&#128524;</span><span
+                    class="mood-label">Calm</span></button>
+                <button class="mood-btn" onclick="moodCheckin('Okay')"><span class="mood-emoji">&#128528;</span><span
+                    class="mood-label">Okay</span></button>
+                <button class="mood-btn" onclick="moodCheckin('Stressed')"><span class="mood-emoji">&#128528;</span><span
+                    class="mood-label">Stressed</span></button>
+                <button class="mood-btn" onclick="moodCheckin('Tired')"><span class="mood-emoji">&#128564;</span><span
+                    class="mood-label">Tired</span></button>
+                <button class="mood-btn" onclick="moodCheckin('Anxious')"><span class="mood-emoji">&#128543;</span><span
+                    class="mood-label">Anxious</span></button>
+              </div>
+            </div>
+          </section>
+
+          <section class="xp-card fade-up delay-2">
+            <div class="xp-inner">
+              <div>
+                <div class="xp-top">
+                  <span class="xp-level-badge" id="homeXpLevel">Level 1</span>
+                  <span class="xp-icon"><i data-lucide="trophy"></i></span>
+                </div>
+                <div class="xp-amount" id="homeXpAmount">0 XP</div>
+                <div class="xp-sub" id="homeXpSub">Earn XP by interacting!</div>
+                <div class="xp-bar-track">
+                  <div class="xp-bar-fill" id="homeXpFill" style="width:0%"></div>
+                </div>
+              </div>
+              <div class="xp-orb"></div>
+            </div>
+          </section>
+
+          <!-- Upcoming Sessions -->
+          <section class="sessions-section fade-up delay-2">
+            <div class="section-header">
+              <h2>Upcoming Sessions</h2>
+              <a href="sessions.html" class="view-all-link">View All</a>
+            </div>
             <div>
-              <div class="xp-top">
-                <span class="xp-level-badge">Level 12</span>
-                <span class="xp-icon"><i data-lucide="trophy"></i></span>
+              <div class="session-item">
+                <div class="session-date-box workshop">
+                  <span class="session-month">Oct</span>
+                  <span class="session-day">14</span>
+                </div>
+                <div class="session-info">
+                  <div class="session-title">Academic Anxiety Workshop</div>
+                  <div class="session-meta"><i data-lucide="calendar"></i> 14:00 &ndash; 15:30</div>
+                </div>
+                <div class="session-faculty">Dr. Sarah Miller</div>
               </div>
-              <div class="xp-amount">2,450 XP</div>
-              <div class="xp-sub">550 XP until Level 13</div>
-              <div class="xp-bar-track"><div class="xp-bar-fill"></div></div>
+              <div class="session-item">
+                <div class="session-date-box peer">
+                  <span class="session-month">Oct</span>
+                  <span class="session-day">17</span>
+                </div>
+                <div class="session-info">
+                  <div class="session-title">1-on-1 Peer Counseling</div>
+                  <div class="session-meta"><i data-lucide="calendar"></i> 10:00 &ndash; 10:45</div>
+                </div>
+                <div class="session-faculty">Marcus J.</div>
+              </div>
             </div>
-            <div class="xp-orb"></div>
-          </div>
-        </section>
+          </section>
 
-        <!-- Upcoming Sessions -->
-        <section class="sessions-section fade-up delay-2">
-          <div class="section-header">
-            <h2>Upcoming Sessions</h2>
-            <a href="sessions.html" class="view-all-link">View All</a>
-          </div>
-          <div>
-            <div class="session-item">
-              <div class="session-date-box workshop">
-                <span class="session-month">Oct</span>
-                <span class="session-day">14</span>
+          <!-- Community Highlights -->
+          <section class="community-card fade-up delay-3">
+            <div class="card">
+              <div class="community-header">
+                <h2 style="font-size:1.375rem;font-weight:700;">Community Highlights</h2>
+                <button class="post-btn"><i data-lucide="plus" style="width:18px;height:18px;"></i> Post</button>
               </div>
-              <div class="session-info">
-                <div class="session-title">Academic Anxiety Workshop</div>
-                <div class="session-meta"><i data-lucide="calendar"></i> 14:00 – 15:30</div>
+              <div class="community-post">
+                <div class="post-user">
+                  <img class="post-avatar"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHJZQNYfuiJmR74MffewTK7I166SITsE0bpgJWPQZHHAgUkxzJbwG5U5ghJIRmgGmooTXXYF2tsg-ZyJ4snQnUKBvmthn_9R4mWCxArNJxmOnR0E1ik3eOrPUZSqbbBknpJGU8Q8UiX394O8tezpx2RZ3N9BLJql51sEyhsAkjNGL3nXqemYwTKQxWhJa9_gL-LdBWmc2BnPT0rWNw9asmCp8beY_mg-BTU2LDYg1-V_ytZEX6efrjtvoF0wyOiybpChtmo_CrH8SK"
+                    alt="Emily R." />
+                  <span class="post-username">Emily R.</span>
+                  <span class="post-time">&bull; 2h ago</span>
+                </div>
+                <p class="post-body">Just finished my first meditation session on MindBridge. Feeling so much more
+                  centered for my Biology midterms! Remember to breathe everyone, we've got this. &#10024;</p>
+                <div class="tag-row">
+                  <span class="tag tag-secondary">Exam Stress</span>
+                  <span class="tag tag-primary">Mindfulness</span>
+                </div>
               </div>
-              <div class="session-faculty">Dr. Sarah Miller</div>
+              <div class="community-post">
+                <div class="post-user">
+                  <img class="post-avatar"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZBWc-uKD_uD2QoGQI0n-G3wq_s79w7JrHrqWSknL_r4oG_UDcqFjruFGTXSSVw6ZNWAjzLOAu1CnUbYV4SQoBnnnMurElY6oAtUDMK0IwDDCAhCwucMKlzQpLbHWFurpEpVKQUh9MGpoC_Cw91RzKgZwdbo7epyxLNy4erSJ7ickMoIESY2CPCJuoWpAm2_40wODtVUoAAwG0BJlONladAwqL9QcQYu5a42YjzV9Oy54S550K_0ezCoOcQKEYQiFRLVhrWJDco1Zc"
+                    alt="Jason K." />
+                  <span class="post-username">Jason K.</span>
+                  <span class="post-time">&bull; 5h ago</span>
+                </div>
+                <p class="post-body">Shoutout to the peer support group today. It really helps knowing I'm not the only
+                  one feeling overwhelmed by the thesis deadline. Let's keep supporting each other.</p>
+                <div class="tag-row">
+                  <span class="tag tag-secondary">Support Group</span>
+                  <span class="tag tag-tertiary">Motivation</span>
+                </div>
+              </div>
             </div>
-            <div class="session-item">
-              <div class="session-date-box peer">
-                <span class="session-month">Oct</span>
-                <span class="session-day">17</span>
-              </div>
-              <div class="session-info">
-                <div class="session-title">1-on-1 Peer Counseling</div>
-                <div class="session-meta"><i data-lucide="calendar"></i> 10:00 – 10:45</div>
-              </div>
-              <div class="session-faculty">Marcus J.</div>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <!-- Community Highlights -->
-        <section class="community-card fade-up delay-3">
-          <div class="card">
-            <div class="community-header">
-              <h2 style="font-size:1.375rem;font-weight:700;">Community Highlights</h2>
-              <button class="post-btn"><i data-lucide="plus" style="width:18px;height:18px;"></i> Post</button>
-            </div>
-            <div class="community-post">
-              <div class="post-user">
-                <img class="post-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHJZQNYfuiJmR74MffewTK7I166SITsE0bpgJWPQZHHAgUkxzJbwG5U5ghJIRmgGmooTXXYF2tsg-ZyJ4snQnUKBvmthn_9R4mWCxArNJxmOnR0E1ik3eOrPUZSqbbBknpJGU8Q8UiX394O8tezpx2RZ3N9BLJql51sEyhsAkjNGL3nXqemYwTKQxWhJa9_gL-LdBWmc2BnPT0rWNw9asmCp8beY_mg-BTU2LDYg1-V_ytZEX6efrjtvoF0wyOiybpChtmo_CrH8SK" alt="Emily R." />
-                <span class="post-username">Emily R.</span>
-                <span class="post-time">• 2h ago</span>
-              </div>
-              <p class="post-body">Just finished my first meditation session on MindBridge. Feeling so much more centered for my Biology midterms! Remember to breathe everyone, we've got this. ✨</p>
-              <div class="tag-row">
-                <span class="tag tag-secondary">Exam Stress</span>
-                <span class="tag tag-primary">Mindfulness</span>
-              </div>
-            </div>
-            <div class="community-post">
-              <div class="post-user">
-                <img class="post-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZBWc-uKD_uD2QoGQI0n-G3wq_s79w7JrHrqWSknL_r4oG_UDcqFjruFGTXSSVw6ZNWAjzLOAu1CnUbYV4SQoBnnnMurElY6oAtUDMK0IwDDCAhCwucMKlzQpLbHWFurpEpVKQUh9MGpoC_Cw91RzKgZwdbo7epyxLNy4erSJ7ickMoIESY2CPCJuoWpAm2_40wODtVUoAAwG0BJlONladAwqL9QcQYu5a42YjzV9Oy54S550K_0ezCoOcQKEYQiFRLVhrWJDco1Zc" alt="Jason K." />
-                <span class="post-username">Jason K.</span>
-                <span class="post-time">• 5h ago</span>
-              </div>
-              <p class="post-body">Shoutout to the peer support group today. It really helps knowing I'm not the only one feeling overwhelmed by the thesis deadline. Let's keep supporting each other.</p>
-              <div class="tag-row">
-                <span class="tag tag-secondary">Support Group</span>
-                <span class="tag tag-tertiary">Motivation</span>
+          <!-- AI Chat Teaser -->
+          <section class="ai-teaser fade-up delay-4" style="grid-column:span 12;">
+            <div class="card">
+              <div class="ai-teaser-inner">
+                <div class="ai-teaser-img">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNIR9FVaho_EjZi4XC2Cieyqfj1ROmKU6Ifi6aqGFrrL8L2sGKo02XOTS-hWkO7naN0_y6Vx2XoE2yihvBN_NsN1D6ZnTsFxZ5Z6L06-owYy9b4vyEhZUHIBHijOXfXFv_B95tH6ZeJUMCjivKuABqX5D9VVtZuPlCLr794o8ihFcVl3UhH7S3-L6NtPT4Oi3YU1NOsehDRwKS6T2W6-4XzvAaEHrcp2YXvV3z0kVQ6Xl8xm89-jezNG65bWgzE_fYHkCDw90WeVpy"
+                    alt="AI Chat" />
+                </div>
+                <div class="ai-teaser-body">
+                  <div class="ai-eyebrow"><i data-lucide="brain-circuit"></i> MindBridge AI</div>
+                  <h2>Need a quick moment of clarity?</h2>
+                  <p>Our empathetic AI assistant is here 24/7 to help you navigate stressful moments, find resources, or
+                    just listen when you need to vent.</p>
+                  <a href="chat.html" class="btn btn-primary btn-pill">
+                    Start a conversation <i data-lucide="chevron-right" style="width:16px;height:16px;"></i>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <!-- AI Chat Teaser -->
-        <section class="ai-teaser fade-up delay-4" style="grid-column:span 12;">
-          <div class="card">
-            <div class="ai-teaser-inner">
-              <div class="ai-teaser-img">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNIR9FVaho_EjZi4XC2Cieyqfj1ROmKU6Ifi6aqGFrrL8L2sGKo02XOTS-hWkO7naN0_y6Vx2XoE2yihvBN_NsN1D6ZnTsFxZ5Z6L06-owYy9b4vyEhZUHIBHijOXfXFv_B95tH6ZeJUMCjivKuABqX5D9VVtZuPlCLr794o8ihFcVl3UhH7S3-L6NtPT4Oi3YU1NOsehDRwKS6T2W6-4XzvAaEHrcp2YXvV3z0kVQ6Xl8xm89-jezNG65bWgzE_fYHkCDw90WeVpy" alt="AI Chat" />
-              </div>
-              <div class="ai-teaser-body">
-                <div class="ai-eyebrow"><i data-lucide="brain-circuit"></i> MindBridge AI</div>
-                <h2>Need a quick moment of clarity?</h2>
-                <p>Our empathetic AI assistant is here 24/7 to help you navigate stressful moments, find resources, or just listen when you need to vent.</p>
-                <a href="chat.html" class="btn btn-primary btn-pill">
-                  Start a conversation <i data-lucide="chevron-right" style="width:16px;height:16px;"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-      </div><!-- /home-grid -->
-    </div>
-  </div><!-- /page-home -->
-  <!-- ══ EMOTION DETECTOR PAGE ══ -->
-  <div id="page-emotion" class="page" style="padding:2rem 0;">
-    <div class="emotion-detector-wrapper" style="max-width:900px;margin:0 auto;">
-      <div class="loading-overlay" id="loadingOverlayED">
-        <div class="spinner"></div>
-        <p id="loadingMsgED">loading models...</p>
+        </div><!-- /home-grid -->
       </div>
-      <header style="text-align:center;margin-bottom:2rem;">
-        <h1 style="font-family:'Space Mono',monospace;font-size:2rem;font-weight:700;color:#7C9585;">emotion<span style="color:#a78bfa;">.</span>detect</h1>
-        <p style="color:#6b6880;font-size:0.95rem;">real-time facial expression analysis — runs locally in your browser</p>
-      </header>
-      <div class="container" style="display:flex;gap:1.5rem;width:100%;max-width:900px;flex-wrap:wrap;justify-content:center;">
-        <div class="video-panel" style="position:relative;flex:1 1 400px;max-width:480px;">
-          <div class="video-wrapper" style="position:relative;border-radius:16px;overflow:hidden;background:#111118;border:1px solid #2a2840;aspect-ratio:4/3;">
-            <video id="videoED" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;transform:scaleX(-1);"></video>
-            <canvas id="overlayED" style="position:absolute;top:0;left:0;width:100%;height:100%;transform:scaleX(-1);"></canvas>
-            <span class="fps-badge" id="fpsBadgeED" style="position:absolute;bottom:8px;right:10px;background:rgba(10,10,15,0.7);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:0.65rem;color:#3a3850;">-- fps</span>
-          </div>
-          <div class="status-bar" style="display:flex;align-items:center;gap:8px;margin-top:0.75rem;font-size:0.78rem;color:#6b6880;font-family:'Space Mono',monospace;">
-            <div class="status-dot" id="statusDotED" style="width:8px;height:8px;border-radius:50%;background:#ef4444;transition:background 0.3s;flex-shrink:0;"></div>
-            <span id="statusTextED">camera off</span>
-          </div>
-          <button id="startBtnED" style="width:100%;margin-top:0.75rem;padding:0.75rem;background:#a78bfa;color:#0a0a0f;border:none;border-radius:10px;font-family:'Space Mono',monospace;font-size:0.82rem;font-weight:700;cursor:pointer;letter-spacing:0.04em;transition:background 0.2s,transform 0.1s;">START CAMERA</button>
+    </div><!-- /page-home -->
+    <!-- â•â• EMOTION DETECTOR PAGE â•â• -->
+    <div id="page-emotion" class="page" style="padding:2rem 0;">
+      <div class="emotion-detector-wrapper" style="max-width:900px;margin:0 auto;">
+        <div class="loading-overlay" id="loadingOverlayED">
+          <div class="spinner"></div>
+          <p id="loadingMsgED">loading models...</p>
         </div>
-        <div class="info-panel" style="flex:1 1 280px;max-width:340px;display:flex;flex-direction:column;gap:1rem;">
-          <div class="emotion-card" style="background:#111118;border:1px solid #2a2840;border-radius:16px;padding:1.25rem;">
-            <h2 style="font-family:'Space Mono',monospace;font-size:0.7rem;color:#6b6880;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">dominant emotion</h2>
-            <div class="main-emotion" id="mainEmotionED">
-              <span class="placeholder-text">start camera to begin</span>
+        <header style="text-align:center;margin-bottom:2rem;">
+          <h1 style="font-family:'Space Mono',monospace;font-size:2rem;font-weight:700;color:#7C9585;">emotion<span
+              style="color:#a78bfa;">.</span>detect</h1>
+          <p style="color:#6b6880;font-size:0.95rem;">real-time facial expression analysis â€” runs locally in your
+            browser</p>
+        </header>
+        <div class="container"
+          style="display:flex;gap:1.5rem;width:100%;max-width:900px;flex-wrap:wrap;justify-content:center;">
+          <div class="video-panel" style="position:relative;flex:1 1 400px;max-width:480px;">
+            <div class="video-wrapper"
+              style="position:relative;border-radius:16px;overflow:hidden;background:#111118;border:1px solid #2a2840;aspect-ratio:4/3;">
+              <video id="videoED" autoplay muted playsinline
+                style="width:100%;height:100%;object-fit:cover;display:block;transform:scaleX(-1);"></video>
+              <canvas id="overlayED"
+                style="position:absolute;top:0;left:0;width:100%;height:100%;transform:scaleX(-1);"></canvas>
+              <span class="fps-badge" id="fpsBadgeED"
+                style="position:absolute;bottom:8px;right:10px;background:rgba(10,10,15,0.7);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:0.65rem;color:#3a3850;">--
+                fps</span>
             </div>
+            <div class="status-bar"
+              style="display:flex;align-items:center;gap:8px;margin-top:0.75rem;font-size:0.78rem;color:#6b6880;font-family:'Space Mono',monospace;">
+              <div class="status-dot" id="statusDotED"
+                style="width:8px;height:8px;border-radius:50%;background:#ef4444;transition:background 0.3s;flex-shrink:0;">
+              </div>
+              <span id="statusTextED">camera off</span>
+            </div>
+            <button id="startBtnED"
+              style="width:100%;margin-top:0.75rem;padding:0.75rem;background:#a78bfa;color:#0a0a0f;border:none;border-radius:10px;font-family:'Space Mono',monospace;font-size:0.82rem;font-weight:700;cursor:pointer;letter-spacing:0.04em;transition:background 0.2s,transform 0.1s;">START
+              CAMERA</button>
           </div>
-          <div class="bars-card" style="background:#111118;border:1px solid #2a2840;border-radius:16px;padding:1.25rem;flex:1;">
-            <h2 style="font-family:'Space Mono',monospace;font-size:0.7rem;color:#6b6880;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">all expressions</h2>
-            <div id="barsContainerED">
-              <div class="no-face-msg">no face detected</div>
+          <div class="info-panel" style="flex:1 1 280px;max-width:340px;display:flex;flex-direction:column;gap:1rem;">
+            <div class="emotion-card"
+              style="background:#111118;border:1px solid #2a2840;border-radius:16px;padding:1.25rem;">
+              <h2
+                style="font-family:'Space Mono',monospace;font-size:0.7rem;color:#6b6880;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">
+                dominant emotion</h2>
+              <div class="main-emotion" id="mainEmotionED">
+                <span class="placeholder-text">start camera to begin</span>
+              </div>
+            </div>
+            <div class="bars-card"
+              style="background:#111118;border:1px solid #2a2840;border-radius:16px;padding:1.25rem;flex:1;">
+              <h2
+                style="font-family:'Space Mono',monospace;font-size:0.7rem;color:#6b6880;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">
+                all expressions</h2>
+              <div id="barsContainerED">
+                <div class="no-face-msg">no face detected</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
 
-<!-- ══ FOOTER ══ -->
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">MindBridge</div>
-      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+  <!-- â•â• FOOTER â•â• -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">MindBridge</div>
+        <p class="footer-copy">&copy; 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#" class="crisis">Crisis Resources</a>
+        <a href="#">Contact Us</a>
+      </div>
     </div>
-    <div class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#" class="crisis">Crisis Resources</a>
-      <a href="#">Contact Us</a>
-    </div>
-  </div>
-</footer>
+  </footer>
 
-<!-- FAB -->
-<button class="fab tertiary-container" aria-label="Play"><i data-lucide="play-circle"></i></button>
+  <!-- FAB -->
+  <button class="fab tertiary-container" aria-label="Play"><i data-lucide="play-circle"></i></button>
 
-<script src="script.js"></script>
-</main>
-<!-- Face API for Emotion Detector -->
-<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
-<script>
-// Emotion Detector Tab/Page Logic
-const EMOTIONS_ED = ['neutral','happy','sad','angry','fearful','disgusted','surprised'];
-const EMOJI_ED = { neutral:'😐', happy:'😄', sad:'😢', angry:'😠', fearful:'😨', disgusted:'🤢', surprised:'😲' };
-const COLORS_ED = { neutral:'#9d9ab0', happy:'#fbbf24', sad:'#60a5fa', angry:'#f87171', fearful:'#c084fc', disgusted:'#4ade80', surprised:'#fb923c' };
-const MODEL_URL_ED = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.12/model/';
-let runningED = false, animIdED = null, lastFpsED = performance.now(), fpsFramesED = 0;
-const videoED = document.getElementById('videoED');
-const overlayED = document.getElementById('overlayED');
-const ctxED = overlayED ? overlayED.getContext('2d') : null;
-const startBtnED = document.getElementById('startBtnED');
-const statusDotED = document.getElementById('statusDotED');
-const statusTextED = document.getElementById('statusTextED');
-const mainEmotionED = document.getElementById('mainEmotionED');
-const barsContainerED = document.getElementById('barsContainerED');
-const fpsBadgeED = document.getElementById('fpsBadgeED');
-const loadingOverlayED = document.getElementById('loadingOverlayED');
-const loadingMsgED = document.getElementById('loadingMsgED');
+  <script src="script.js"></script>
+  <script src="sos-monitor.js"></script>
+  <script src="xp-tracker.js"></script>
+  <script>
+    // â”€â”€ Home Page XP Card Live Update â”€â”€
+    document.addEventListener('DOMContentLoaded', function () {
+      function updateHomeXP() {
+        if (typeof getXPInfo !== 'function') return;
+        const { xp, level, rank, remaining, progress } = getXPInfo();
+        const lvlEl = document.getElementById('homeXpLevel');
+        const amtEl = document.getElementById('homeXpAmount');
+        const subEl = document.getElementById('homeXpSub');
+        const fillEl = document.getElementById('homeXpFill');
+        if (lvlEl) lvlEl.textContent = 'Level ' + level;
+        if (amtEl) amtEl.textContent = xp.toLocaleString() + ' XP';
+        if (subEl) subEl.textContent = remaining > 0 ? remaining + ' XP until ' + rank + ' rank' : rank + ' rank achieved!';
+        if (fillEl) fillEl.style.width = progress + '%';
+      }
+      updateHomeXP();
 
-async function loadModelsED() {
-  if (!loadingMsgED) return;
-  loadingMsgED.textContent = 'loading face detector...';
-  await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL_ED);
-  loadingMsgED.textContent = 'loading expression model...';
-  await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL_ED);
-  loadingOverlayED.style.display = 'none';
-}
-function setStatusED(state) {
-  if (!statusDotED) return;
-  statusDotED.className = 'status-dot ' + state;
-  const labels = { '': 'camera off', loading: 'starting...', active: 'detecting' };
-  if (statusTextED) statusTextED.textContent = labels[state] ?? state;
-}
-function renderMainEmotionED(emotion, confidence) {
-  if (!mainEmotionED) return;
-  mainEmotionED.innerHTML = `
+      // Award XP for home page visit (once per day)
+      const todayKey = 'xp_visit_home_' + new Date().toLocaleDateString();
+      if (!localStorage.getItem(todayKey)) {
+        localStorage.setItem(todayKey, '1');
+        if (typeof awardXP === 'function') setTimeout(() => { awardXP(5, 'Visited Home page'); updateHomeXP(); }, 600);
+      }
+    });
+
+    // â”€â”€ Mood Check-in XP â”€â”€
+    function moodCheckin(mood) {
+      const todayKey = 'xp_mood_' + new Date().toLocaleDateString();
+      if (localStorage.getItem(todayKey)) return; // once per day
+      localStorage.setItem(todayKey, mood);
+      if (typeof awardXP === 'function') awardXP(5, 'Daily mood check-in (' + mood + ')');
+    }
+  </script>
+  </main>
+  <!-- Face API for Emotion Detector -->
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script>
+    // Emotion Detector Tab/Page Logic
+    const EMOTIONS_ED = ['neutral', 'happy', 'sad', 'angry', 'fearful', 'disgusted', 'surprised'];
+    const EMOJI_ED = { neutral: '&#128528;', happy: '&#128516;', sad: '&#128546;', angry: '&#128528;', fearful: '&#128552;', disgusted: '&#129314;', surprised: '&#128562;' };
+    const COLORS_ED = { neutral: '#9d9ab0', happy: '#fbbf24', sad: '#60a5fa', angry: '#f87171', fearful: '#c084fc', disgusted: '#4ade80', surprised: '#fb923c' };
+    const MODEL_URL_ED = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.12/model/';
+    let runningED = false, animIdED = null, lastFpsED = performance.now(), fpsFramesED = 0;
+    const videoED = document.getElementById('videoED');
+    const overlayED = document.getElementById('overlayED');
+    const ctxED = overlayED ? overlayED.getContext('2d') : null;
+    const startBtnED = document.getElementById('startBtnED');
+    const statusDotED = document.getElementById('statusDotED');
+    const statusTextED = document.getElementById('statusTextED');
+    const mainEmotionED = document.getElementById('mainEmotionED');
+    const barsContainerED = document.getElementById('barsContainerED');
+    const fpsBadgeED = document.getElementById('fpsBadgeED');
+    const loadingOverlayED = document.getElementById('loadingOverlayED');
+    const loadingMsgED = document.getElementById('loadingMsgED');
+
+    async function loadModelsED() {
+      if (!loadingMsgED) return;
+      loadingMsgED.textContent = 'loading face detector...';
+      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL_ED);
+      loadingMsgED.textContent = 'loading expression model...';
+      await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL_ED);
+      loadingOverlayED.style.display = 'none';
+    }
+    function setStatusED(state) {
+      if (!statusDotED) return;
+      statusDotED.className = 'status-dot ' + state;
+      const labels = { '': 'camera off', loading: 'starting...', active: 'detecting' };
+      if (statusTextED) statusTextED.textContent = labels[state] ?? state;
+    }
+    function renderMainEmotionED(emotion, confidence) {
+      if (!mainEmotionED) return;
+      mainEmotionED.innerHTML = `
     <span class="emotion-emoji">${EMOJI_ED[emotion]}</span>
     <div class="emotion-label">${emotion}</div>
     <div class="emotion-conf">${Math.round(confidence * 100)}% confidence</div>
   `;
-}
-function renderBarsED(expressions) {
-  if (!barsContainerED) return;
-  const sorted = Object.entries(expressions).sort((a, b) => b[1] - a[1]);
-  barsContainerED.innerHTML = sorted.map(([em, val]) => `
+    }
+    function renderBarsED(expressions) {
+      if (!barsContainerED) return;
+      const sorted = Object.entries(expressions).sort((a, b) => b[1] - a[1]);
+      barsContainerED.innerHTML = sorted.map(([em, val]) => `
     <div class="bar-row">
       <span class="bar-label">${em}</span>
       <div class="bar-track">
-        <div class="bar-fill" style="width:${Math.round(val*100)}%;background:${COLORS_ED[em]}"></div>
+        <div class="bar-fill" style="width:${Math.round(val * 100)}%;background:${COLORS_ED[em]}"></div>
       </div>
-      <span class="bar-pct">${Math.round(val*100)}%</span>
+      <span class="bar-pct">${Math.round(val * 100)}%</span>
     </div>
   `).join('');
-}
-async function detectED() {
-  if (!runningED) return;
-  const result = await faceapi.detectSingleFace(
-    videoED,
-    new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.4 })
-  ).withFaceExpressions();
-  overlayED.width = videoED.videoWidth || videoED.offsetWidth;
-  overlayED.height = videoED.videoHeight || videoED.offsetHeight;
-  ctxED.clearRect(0, 0, overlayED.width, overlayED.height);
-  if (result) {
-    const { x, y, width, height } = result.detection.box;
-    const scaleX = overlayED.width / (videoED.videoWidth || overlayED.width);
-    const scaleY = overlayED.height / (videoED.videoHeight || overlayED.height);
-    ctxED.strokeStyle = '#a78bfa';
-    ctxED.lineWidth = 2;
-    ctxED.strokeRect(x * scaleX, y * scaleY, width * scaleX, height * scaleY);
-    ctxED.fillStyle = '#a78bfa';
-    ctxED.fillRect(x * scaleX, y * scaleY - 24, width * scaleX, 24);
-    ctxED.fillStyle = '#0a0a0f';
-    ctxED.font = '600 12px DM Sans, sans-serif';
-    ctxED.fillText('face detected', x * scaleX + 6, y * scaleY - 8);
-    const expressions = result.expressions;
-    const dominant = Object.entries(expressions).reduce((a, b) => a[1] > b[1] ? a : b);
-    renderMainEmotionED(dominant[0], dominant[1]);
-    renderBarsED(expressions);
-  } else {
-    mainEmotionED.innerHTML = `<span class="placeholder-text">no face detected</span>`;
-    barsContainerED.innerHTML = `<div class="no-face-msg">position your face<br>in the camera</div>`;
-  }
-  fpsFramesED++;
-  const now = performance.now();
-  if (now - lastFpsED > 1000) {
-    fpsBadgeED.textContent = `${fpsFramesED} fps`;
-    fpsFramesED = 0;
-    lastFpsED = now;
-  }
-  animIdED = setTimeout(detectED, 120);
-}
-if (startBtnED) {
-  startBtnED.addEventListener('click', async () => {
-    if (runningED) {
-      runningED = false;
-      clearTimeout(animIdED);
-      videoED.srcObject?.getTracks().forEach(t => t.stop());
-      videoED.srcObject = null;
-      setStatusED('');
-      startBtnED.textContent = 'START CAMERA';
-      mainEmotionED.innerHTML = `<span class="placeholder-text">start camera to begin</span>`;
-      barsContainerED.innerHTML = `<div class="no-face-msg">no face detected</div>`;
+    }
+    async function detectED() {
+      if (!runningED) return;
+      const result = await faceapi.detectSingleFace(
+        videoED,
+        new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.4 })
+      ).withFaceExpressions();
+      overlayED.width = videoED.videoWidth || videoED.offsetWidth;
+      overlayED.height = videoED.videoHeight || videoED.offsetHeight;
       ctxED.clearRect(0, 0, overlayED.width, overlayED.height);
-      return;
+      if (result) {
+        const { x, y, width, height } = result.detection.box;
+        const scaleX = overlayED.width / (videoED.videoWidth || overlayED.width);
+        const scaleY = overlayED.height / (videoED.videoHeight || overlayED.height);
+        ctxED.strokeStyle = '#a78bfa';
+        ctxED.lineWidth = 2;
+        ctxED.strokeRect(x * scaleX, y * scaleY, width * scaleX, height * scaleY);
+        ctxED.fillStyle = '#a78bfa';
+        ctxED.fillRect(x * scaleX, y * scaleY - 24, width * scaleX, 24);
+        ctxED.fillStyle = '#0a0a0f';
+        ctxED.font = '600 12px DM Sans, sans-serif';
+        ctxED.fillText('face detected', x * scaleX + 6, y * scaleY - 8);
+        const expressions = result.expressions;
+        const dominant = Object.entries(expressions).reduce((a, b) => a[1] > b[1] ? a : b);
+        renderMainEmotionED(dominant[0], dominant[1]);
+        renderBarsED(expressions);
+      } else {
+        mainEmotionED.innerHTML = `<span class="placeholder-text">no face detected</span>`;
+        barsContainerED.innerHTML = `<div class="no-face-msg">position your face<br>in the camera</div>`;
+      }
+      fpsFramesED++;
+      const now = performance.now();
+      if (now - lastFpsED > 1000) {
+        fpsBadgeED.textContent = `${fpsFramesED} fps`;
+        fpsFramesED = 0;
+        lastFpsED = now;
+      }
+      animIdED = setTimeout(detectED, 120);
     }
-    setStatusED('loading');
-    startBtnED.disabled = true;
-    startBtnED.textContent = 'CONNECTING...';
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 640, height: 480 } });
-      videoED.srcObject = stream;
-      await new Promise(res => { videoED.onloadedmetadata = res; });
-      videoED.play();
-      runningED = true;
-      setStatusED('active');
-      startBtnED.disabled = false;
-      startBtnED.textContent = 'STOP CAMERA';
-      detectED();
-    } catch(e) {
-      setStatusED('');
-      startBtnED.disabled = false;
-      startBtnED.textContent = 'START CAMERA';
-      alert('Camera access denied. Please allow camera permissions and try again.');
+    if (startBtnED) {
+      startBtnED.addEventListener('click', async () => {
+        if (runningED) {
+          runningED = false;
+          clearTimeout(animIdED);
+          videoED.srcObject?.getTracks().forEach(t => t.stop());
+          videoED.srcObject = null;
+          setStatusED('');
+          startBtnED.textContent = 'START CAMERA';
+          mainEmotionED.innerHTML = `<span class="placeholder-text">start camera to begin</span>`;
+          barsContainerED.innerHTML = `<div class="no-face-msg">no face detected</div>`;
+          ctxED.clearRect(0, 0, overlayED.width, overlayED.height);
+          return;
+        }
+        setStatusED('loading');
+        startBtnED.disabled = true;
+        startBtnED.textContent = 'CONNECTING...';
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 640, height: 480 } });
+          videoED.srcObject = stream;
+          await new Promise(res => { videoED.onloadedmetadata = res; });
+          videoED.play();
+          runningED = true;
+          setStatusED('active');
+          startBtnED.disabled = false;
+          startBtnED.textContent = 'STOP CAMERA';
+          detectED();
+        } catch (e) {
+          setStatusED('');
+          startBtnED.disabled = false;
+          startBtnED.textContent = 'START CAMERA';
+          alert('Camera access denied. Please allow camera permissions and try again.');
+        }
+      });
     }
-  });
-}
-if (document.getElementById('emotionTabLink')) {
-  document.getElementById('emotionTabLink').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-emotion').classList.add('active');
-    if (typeof loadModelsED === 'function') loadModelsED();
-  });
-}
-</script>
+    if (document.getElementById('emotionTabLink')) {
+      document.getElementById('emotionTabLink').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-emotion').classList.add('active');
+        if (typeof loadModelsED === 'function') loadModelsED();
+      });
+    }
+  </script>
 </body>
+
 </html>
+
+

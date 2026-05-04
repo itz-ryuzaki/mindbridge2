@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MindBridge — Community Feed</title>
+  <title>MindBridge â€” Community Feed</title>
   <link rel="stylesheet" href="stylesheet.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -50,6 +50,8 @@
     <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
     <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
     <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+    <a href="mentors.html" class="sidebar-link"><i data-lucide="users"></i> Mentors</a>
+    <a href="sos.html" class="sidebar-link sos-link"><i data-lucide="shield-alert"></i> SOS Emergency</a>
     <a href="#" class="sidebar-link" id="emotionTabLink"><i data-lucide="smile"></i> Emotion Detector</a>
   </nav>
   <!-- Sidebar Advertisement Blocks -->
@@ -111,7 +113,7 @@
   <div class="footer-inner">
     <div>
       <div class="footer-brand">MindBridge</div>
-      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+      <p class="footer-copy">&copy; 2024 MindBridge. Supporting student mental health with academic clarity.</p>
     </div>
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
@@ -123,6 +125,8 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="sos-monitor.js"></script>
+<script src="xp-tracker.js"></script>`n<script src="wellness-popup.js"></script>
 <script>
 // Sidebar Emotion Detector tab logic
 document.addEventListener('DOMContentLoaded', function() {
@@ -225,7 +229,7 @@ function renderPostCard(post) {
         <img class="post-card-avatar" src="${post.avatar}" alt="${post.author}" />
         <div>
           <div class="post-card-author">${post.author}</div>
-          <div class="post-card-meta">${post.time} • ${post.major}</div>
+          <div class="post-card-meta">${post.time} &bull; ${post.major}</div>
         </div>
         <button class="more-btn"><i data-lucide="more-horizontal"></i></button>
       </div>
@@ -236,11 +240,11 @@ function renderPostCard(post) {
       <div class="post-card-footer">
         <div class="post-actions">
           <button class="action-btn" onclick="likePost(this, ${post.likes})"><i data-lucide="heart"></i><span>${post.likes}</span></button>
-          <button class="action-btn"><i data-lucide="message-circle"></i><span>${post.comments}</span></button>
+          <button class="action-btn" onclick="openCommentPage(${post.id})"><i data-lucide="message-circle"></i><span>${post.comments}</span></button>
         </div>
         <button class="read-thread" data-post-id="${post.id}" onclick="readThread(${post.id})">Read Thread</button>
       </div>
-      <button class="read-more-btn" data-post-id="${post.id}" onclick="window.location.href='post-detail.html?id=${post.id}'">Read More</button>
+      <button class="read-more-btn" data-post-id="${post.id}" onclick="openCommentPage(${post.id})">Read More</button>
     </div>
   `;
 }
@@ -318,6 +322,41 @@ function openPostModal() {
       e.preventDefault();
       const body = document.getElementById('newPostBody').value.trim();
       if (!body) return;
+
+      // â”€â”€ SOS: Check for harmful/distress keywords â”€â”€
+      const harmfulWords = ['die', 'kill', 'suicide', 'suicidal', 'murder', 'self harm', 'self-harm',
+        'end my life', 'want to die', 'wanna die', 'kill myself', 'hurt myself', 'cut myself',
+        'hang myself', 'overdose', 'hopeless', 'no reason to live', 'better off dead',
+        'end it all', 'take my own life', 'not worth living', 'wish i was dead',
+        'nothing to live for', 'planning to die', 'ready to die', 'painless death',
+        'i dont want to live', 'give up on life', 'no way out', 'nobody cares'];
+      const lowerBody = body.toLowerCase();
+      let flaggedWord = null;
+
+      for (let i = 0; i < harmfulWords.length; i++) {
+        if (lowerBody.includes(harmfulWords[i])) {
+          flaggedWord = harmfulWords[i];
+          break;
+        }
+      }
+
+      if (flaggedWord !== null) {
+        const alertHistory = JSON.parse(localStorage.getItem('sosAlertHistory') || '[]');
+        alertHistory.unshift({
+          time: new Date().toLocaleString(),
+          reason: 'Harmful word "' + flaggedWord + '" detected in Feed Post',
+          auto: true,
+          dismissed: false
+        });
+        localStorage.setItem('sosAlertHistory', JSON.stringify(alertHistory));
+        window.location.href = 'sos.html?autoalarm=1&reason=' + encodeURIComponent('Harmful word "' + flaggedWord + '" detected in Feed Post');
+        return;
+      }
+      // â”€â”€ End SOS Check â”€â”€
+
+      // Award XP for posting
+      if (typeof awardXP === 'function') awardXP(5, 'Created a feed post');
+
       const title = document.getElementById('newPostTitle').value.trim();
       const tags = document.getElementById('newPostTags').value.split(',').map(t => t.trim()).filter(Boolean);
       const user = getCurrentUser();
@@ -345,11 +384,55 @@ function openPostModal() {
   }
 }
 
+// â”€â”€ Like a post (awards +5 XP once per post) â”€â”€
+function likePost(btn, initialLikes) {
+  if (btn.classList.contains('liked')) {
+    // Un-like (no XP deduction)
+    btn.classList.remove('liked');
+    const span = btn.querySelector('span');
+    span.textContent = parseInt(span.textContent) - 1;
+    btn.style.color = '';
+    return;
+  }
+  btn.classList.add('liked');
+  const span = btn.querySelector('span');
+  span.textContent = parseInt(span.textContent) + 1;
+  btn.style.color = 'var(--tertiary, #d97706)';
+  // Award XP
+  if (typeof awardXP === 'function') awardXP(5, 'Liked a post');
+}
+
+// â”€â”€ Read Thread (navigate to post detail + award +5 XP) â”€â”€
+function readThread(postId) {
+  if (typeof awardXP === 'function') awardXP(5, 'Read a community thread');
+  setTimeout(() => {
+    window.location.href = 'post-detail.html?id=' + postId;
+  }, 600); // small delay so toast shows
+}
+
+// â”€â”€ Open comment page (navigate to post detail + award +5 XP) â”€â”€
+function openCommentPage(postId) {
+  if (typeof awardXP === 'function') awardXP(5, 'Viewed post comments');
+  setTimeout(() => {
+    window.location.href = 'post-detail.html?id=' + postId;
+  }, 600);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   loadInitialFeed();
   document.getElementById('loadOlderPostsBtn').onclick = loadOlderPosts;
   document.getElementById('openPostModal').onclick = openPostModal;
+  // Award XP for visiting the Feed page (once per day)
+  const todayKey = 'xp_visit_feed_' + new Date().toLocaleDateString();
+  if (!localStorage.getItem(todayKey)) {
+    localStorage.setItem(todayKey, '1');
+    if (typeof awardXP === 'function') setTimeout(() => awardXP(5, 'Visited Community Feed'), 500);
+  }
 });
 </script>
 </body>
 </html>
+
+
+
+

@@ -124,6 +124,7 @@ app.get('/chat', (req, res) => res.sendFile(path.join(__dirname, 'chat.html')));
 app.get('/college', (req, res) => res.sendFile(path.join(__dirname, 'college.html')));
 app.get('/sessions', (req, res) => res.sendFile(path.join(__dirname, 'sessions.html')));
 app.get('/xp', (req, res) => res.sendFile(path.join(__dirname, 'xp.html')));
+app.get('/sos', (req, res) => res.sendFile(path.join(__dirname, 'sos.html')));
 app.get('/post-detail', (req, res) => res.sendFile(path.join(__dirname, 'post-detail.html')));
 app.get('/emotion-detector', (req, res) => res.sendFile(path.join(__dirname, 'emotion_detector.html')));
 

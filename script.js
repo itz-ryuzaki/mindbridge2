@@ -1,7 +1,67 @@
 /* ═══════════════════════════════════════════════════════════
    MindBridge — Shared script.js
-   Handles: sidebar toggle, lucide icon init, mood interactions
+   Handles: auth guard, sidebar toggle, lucide icon init, mood interactions
    ═══════════════════════════════════════════════════════════ */
+
+// ── Auth Guard & Greeting ──
+(function() {
+  const page = window.location.pathname.split('/').pop() || 'index.html';
+  if (page === 'auth.html') return; 
+  const auth = JSON.parse(localStorage.getItem('mb_auth') || 'null');
+  if (!auth) {
+    window.location.href = 'auth.html';
+    return;
+  }
+
+  function updateClock() {
+    const now = new Date();
+    const timeEl = document.getElementById('currentTime');
+    if (timeEl) {
+      timeEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    
+    const hour = now.getHours();
+    let greeting = "Good morning";
+    if (hour >= 12 && hour < 17) greeting = "Good afternoon";
+    else if (hour >= 17) greeting = "Good evening";
+    
+    const greetingEl = document.getElementById('greetingText');
+    if (greetingEl) greetingEl.textContent = greeting;
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    const displayName = auth.guest ? 'Guest' : (auth.name || 'User');
+    document.querySelectorAll('.user-name, .sidebar-name, #userNameText').forEach(el => {
+      el.textContent = displayName;
+    });
+
+    updateClock();
+    setInterval(updateClock, 30000); // Update every 30s
+
+    const sidebarNav = document.querySelector('.sidebar nav');
+
+    // Add logout link to sidebar
+    if (sidebarNav && !sidebarNav.querySelector('.logout-link')) {
+      const logoutLink = document.createElement('a');
+      logoutLink.href = '#';
+      logoutLink.className = 'sidebar-link logout-link';
+      logoutLink.style.cssText = 'margin-top:auto;color:var(--error)';
+      logoutLink.innerHTML = '<i data-lucide="log-out"></i> Logout';
+      logoutLink.onclick = function(e) { e.preventDefault(); logoutUser(); };
+      sidebarNav.appendChild(logoutLink);
+    }
+    
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  });
+})();
+
+// ── Logout ──
+function logoutUser() {
+  localStorage.removeItem('mb_auth');
+  localStorage.removeItem('mindbridge_xp');
+  localStorage.removeItem('mindbridge_xp_log');
+  window.location.href = 'auth.html';
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   // ── Read More and Comments Section ──
@@ -59,6 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
         saveCommentsData(commentsData);
         renderComments(postId, commentsData[postId]);
         form.reset();
+        // Award +10 XP for commenting
+        if (typeof awardXP === 'function') awardXP(10, 'Posted a comment');
       };
     });
   }
@@ -155,6 +217,8 @@ document.addEventListener('DOMContentLoaded', function () {
         this.dataset.liked = 'true';
         icon.style.fill  = 'var(--secondary)';
         icon.style.color = 'var(--secondary)';
+        // Award +5 XP for liking a post
+        if (typeof awardXP === 'function') awardXP(5, 'Liked a post');
       }
     });
   });
@@ -162,6 +226,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // ── Collapse mobile nav on resize ──
   // ── Read Thread navigation ──
   window.readThread = function(postId) {
+    // Award +5 XP for reading a thread
+    if (typeof awardXP === 'function') awardXP(5, 'Read a thread');
     window.location.href = `post-detail.html?id=${postId}`;
   };
 

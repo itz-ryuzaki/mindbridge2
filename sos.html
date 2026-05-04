@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindBridge — SOS Emergency</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-left">
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
+      <i data-lucide="menu" style="width:22px;height:22px;color:var(--primary)"></i>
+    </button>
+    <a href="index.html" class="brand">MindBridge</a>
+  </div>
+  <div class="nav-center">
+    <div class="ad-card ad-card--horizontal ad-card--navbar" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="user-info">
+      <div class="user-text">
+        <span class="user-name">Rakesh Kumar</span>
+        <span class="user-level">Level 12 Explorer</span>
+      </div>
+      <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFt5IjdrPZGsfQtMQcifRZhXSesL1Lukd4niJRMf9JAafWghWrZDgZepaScBr9k0BSgWraGvCTrNC-S2azD3wnrKjsfF8nS5_SacdNvXyi8JKxMx6m3O_KKNfFK1loqAwhy_f2KwktrsDtM8n0x2-soSVkn3pv_OsQIJuNA_m5XAHbMKXACG4FGnkV8YcBUVFmeY-9SBMUg9v4cfBJXCVWAoQeRygexDrNhbY0vMdsjZd0U4AgUQ-TVxFcOKa_5M7zyblwXIMNs5fv" alt="Rakesh Kumar" />
+    </div>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-profile">
+    <div class="sidebar-icon"><i data-lucide="brain-circuit"></i></div>
+    <div>
+      <div class="sidebar-name">Rakesh Kumar</div>
+      <div class="sidebar-rank">Lvl 12 Explorer</div>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html" class="sidebar-link"><i data-lucide="home"></i> Home</a>
+    <a href="feed.html" class="sidebar-link"><i data-lucide="message-square"></i> Feed</a>
+    <a href="college.html" class="sidebar-link"><i data-lucide="graduation-cap"></i> College</a>
+    <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
+    <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
+    <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+    <a href="sos.html" class="sidebar-link active sos-link"><i data-lucide="shield-alert"></i> SOS Emergency</a>
+    <a href="#" class="sidebar-link" id="emotionTabLink"><i data-lucide="smile"></i> Emotion Detector</a>
+  </nav>
+  <!-- Sidebar Advertisement Blocks -->
+  <div class="sidebar-ads">
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+    <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
+      <span class="ad-card__label">advertisement area</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main-content">
+  <div id="page-sos" class="page active">
+    <div class="page-inner" style="max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;">
+
+      <!-- Header -->
+      <div class="sos-page-header fade-up">
+        <div class="sos-header-icon">
+          <i data-lucide="shield-alert" style="width:32px;height:32px;"></i>
+        </div>
+        <div>
+          <h1>SOS Emergency Alarm</h1>
+          <p>Your safety matters. Activate emergency aid or manage your trusted contacts below.</p>
+        </div>
+      </div>
+
+      <!-- Emergency Aid Toggle -->
+      <div class="sos-aid-card fade-up delay-1">
+        <div class="sos-aid-header">
+          <div class="sos-aid-icon-wrap">
+            <div class="sos-aid-icon" id="sosAidPulse">
+              <i data-lucide="bell-ring" style="width:28px;height:28px;"></i>
+            </div>
+          </div>
+          <div class="sos-aid-text">
+            <h2>Emergency Aid Mode</h2>
+            <p id="sosAidStatus">Currently <strong>OFF</strong> — Enable to instantly alert your trusted contacts when you need help.</p>
+          </div>
+          <label class="sos-toggle" id="sosToggleLabel">
+            <input type="checkbox" id="sosToggle" />
+            <span class="sos-toggle-slider"></span>
+          </label>
+        </div>
+        <div class="sos-aid-details" id="sosAidDetails" style="display:none;">
+          <div class="sos-aid-active-banner">
+            <i data-lucide="radio" style="width:18px;height:18px;"></i>
+            <span>Emergency Aid is <strong>ACTIVE</strong> — Your contacts will be notified if an alarm is triggered.</span>
+          </div>
+          <p class="sos-aid-desc">When active, the system monitors your messages for signs of distress and can automatically send alerts to your emergency contacts. You can also trigger the alarm manually using the panic button below.</p>
+        </div>
+      </div>
+
+      <!-- Panic Button -->
+      <div class="sos-panic-section fade-up delay-2">
+        <button class="sos-panic-btn" id="sosPanicBtn">
+          <div class="sos-panic-pulse"></div>
+          <div class="sos-panic-inner">
+            <i data-lucide="siren" style="width:36px;height:36px;"></i>
+            <span>TRIGGER ALARM</span>
+          </div>
+        </button>
+        <p class="sos-panic-desc">Press and hold for 2 seconds to send an emergency alert to all your listed contacts.</p>
+      </div>
+
+      <!-- Emergency Contacts -->
+      <div class="sos-contacts-card fade-up delay-2">
+        <div class="sos-contacts-header">
+          <h2><i data-lucide="users" style="width:20px;height:20px;"></i> Emergency Contacts</h2>
+          <button class="btn btn-primary" id="addContactBtn" style="font-size:.8rem;padding:.5rem 1rem;">
+            <i data-lucide="user-plus" style="width:16px;height:16px;"></i> Add Contact
+          </button>
+        </div>
+        <div class="sos-contacts-list" id="sosContactsList">
+          <!-- Contacts rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Alert History -->
+      <div class="sos-history-card fade-up delay-3">
+        <h2><i data-lucide="clock" style="width:20px;height:20px;"></i> Alert History</h2>
+        <div class="sos-history-list" id="sosHistoryList">
+          <!-- History rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Crisis Resources -->
+      <div class="sos-crisis-card fade-up delay-3">
+        <div class="sos-crisis-header">
+          <div class="sos-crisis-icon"><i data-lucide="heart-pulse" style="width:28px;height:28px;"></i></div>
+          <div>
+            <h3>Crisis Resources</h3>
+            <p>If you or someone you know is in immediate danger, please reach out:</p>
+          </div>
+        </div>
+        <div class="sos-crisis-grid">
+          <div class="sos-crisis-item">
+            <div class="sos-crisis-item-icon" style="background:#fde8e8;color:#d32f2f;"><i data-lucide="phone" style="width:18px;height:18px;"></i></div>
+            <div>
+              <div class="sos-crisis-item-title">National Crisis Helpline</div>
+              <div class="sos-crisis-item-val">988 (Suicide & Crisis Lifeline)</div>
+            </div>
+          </div>
+          <div class="sos-crisis-item">
+            <div class="sos-crisis-item-icon" style="background:#e3f2fd;color:#1565c0;"><i data-lucide="message-circle" style="width:18px;height:18px;"></i></div>
+            <div>
+              <div class="sos-crisis-item-title">Crisis Text Line</div>
+              <div class="sos-crisis-item-val">Text HOME to 741741</div>
+            </div>
+          </div>
+          <div class="sos-crisis-item">
+            <div class="sos-crisis-item-icon" style="background:#e8f5e9;color:#2e7d32;"><i data-lucide="globe" style="width:18px;height:18px;"></i></div>
+            <div>
+              <div class="sos-crisis-item-title">iCall (India)</div>
+              <div class="sos-crisis-item-val">9152987821</div>
+            </div>
+          </div>
+          <div class="sos-crisis-item">
+            <div class="sos-crisis-item-icon" style="background:#fff3e0;color:#e65100;"><i data-lucide="shield" style="width:18px;height:18px;"></i></div>
+            <div>
+              <div class="sos-crisis-item-title">Vandrevala Foundation</div>
+              <div class="sos-crisis-item-val">1860-2662-345</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- SOS ALARM MODAL — triggered by panic or auto-detection -->
+<div class="sos-alarm-overlay" id="sosAlarmOverlay">
+  <div class="sos-alarm-modal">
+    <div class="sos-alarm-pulse-ring"></div>
+    <div class="sos-alarm-icon">
+      <i data-lucide="siren" style="width:48px;height:48px;"></i>
+    </div>
+    <h2>🚨 Emergency Alert Triggered</h2>
+    <p class="sos-alarm-reason" id="sosAlarmReason">Manual alarm activated by user.</p>
+    <div class="sos-alarm-status" id="sosAlarmStatus">
+      <div class="sos-alarm-sending">
+        <div class="sos-alarm-spinner"></div>
+        <span>Sending alerts to emergency contacts...</span>
+      </div>
+    </div>
+    <div class="sos-alarm-contacts" id="sosAlarmContacts"></div>
+    <div class="sos-alarm-actions">
+      <button class="btn btn-primary" onclick="dismissAlarm()" style="width:100%;justify-content:center;">
+        <i data-lucide="check-circle" style="width:18px;height:18px;"></i> I'm Okay — Dismiss Alert
+      </button>
+      <a href="tel:988" class="sos-alarm-call-btn">
+        <i data-lucide="phone" style="width:18px;height:18px;"></i> Call Crisis Helpline (988)
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Add Contact Modal -->
+<div class="sos-modal-overlay" id="addContactModal">
+  <div class="sos-modal-card">
+    <button class="sos-modal-close" id="closeContactModal"><i data-lucide="x"></i></button>
+    <h2 style="margin-bottom:1.5rem;font-size:1.25rem;"><i data-lucide="user-plus" style="width:20px;height:20px;"></i> Add Emergency Contact</h2>
+    <form id="addContactForm">
+      <div class="sos-form-group">
+        <label>Full Name</label>
+        <input type="text" id="contactName" placeholder="e.g. Mom, Dr. Sharma" required />
+      </div>
+      <div class="sos-form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="contactPhone" placeholder="+91 9876543210" required />
+      </div>
+      <div class="sos-form-group">
+        <label>Relationship</label>
+        <select id="contactRelation">
+          <option value="Parent">Parent</option>
+          <option value="Mentor">Mentor</option>
+          <option value="Counselor">Counselor</option>
+          <option value="Friend">Friend</option>
+          <option value="Teacher">Teacher</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="sos-form-group">
+        <label>Email (optional)</label>
+        <input type="email" id="contactEmail" placeholder="contact@email.com" />
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem;">
+        <i data-lucide="plus" style="width:16px;height:16px;"></i> Add Contact
+      </button>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">MindBridge</div>
+      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#" class="crisis">Crisis Resources</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="sos-monitor.js"></script>
+<script>
+// Sidebar Emotion Detector tab logic
+document.addEventListener('DOMContentLoaded', function() {
+  const emoTab = document.getElementById('emotionTabLink');
+  if (emoTab) {
+    emoTab.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = 'index.html#page-emotion';
+    });
+  }
+});
+</script>
+<script>
+// ═══════════════════════════════════════
+// SOS Page — Emergency Alarm Logic
+// ═══════════════════════════════════════
+
+// --- Default Contacts ---
+const defaultContacts = [
+  { id: 1, name: 'Dr. Priya Sharma', phone: '+91 98765 43210', relation: 'Counselor', email: 'priya.sharma@niet.edu' },
+  { id: 2, name: 'Parents (Home)', phone: '+91 87654 32100', relation: 'Parent', email: '' },
+  { id: 3, name: 'Prof. Marcus J.', phone: '+91 76543 21000', relation: 'Mentor', email: 'marcus.j@niet.edu' }
+];
+
+function getContacts() {
+  let contacts = localStorage.getItem('sosContacts');
+  if (contacts) return JSON.parse(contacts);
+  localStorage.setItem('sosContacts', JSON.stringify(defaultContacts));
+  return defaultContacts;
+}
+function saveContacts(contacts) {
+  localStorage.setItem('sosContacts', JSON.stringify(contacts));
+}
+function getAlertHistory() {
+  return JSON.parse(localStorage.getItem('sosAlertHistory') || '[]');
+}
+function saveAlertHistory(history) {
+  localStorage.setItem('sosAlertHistory', JSON.stringify(history));
+}
+
+// --- Render Contacts ---
+function renderContacts() {
+  const contacts = getContacts();
+  const list = document.getElementById('sosContactsList');
+  if (!contacts.length) {
+    list.innerHTML = '<div class="sos-no-contacts"><i data-lucide="user-x" style="width:32px;height:32px;opacity:.4;"></i><p>No emergency contacts added yet.</p></div>';
+    lucide.createIcons();
+    return;
+  }
+  list.innerHTML = contacts.map(c => `
+    <div class="sos-contact-item">
+      <div class="sos-contact-avatar">${c.name.charAt(0)}</div>
+      <div class="sos-contact-info">
+        <div class="sos-contact-name">${c.name}</div>
+        <div class="sos-contact-meta">${c.relation} • ${c.phone}${c.email ? ' • ' + c.email : ''}</div>
+      </div>
+      <button class="sos-contact-remove" onclick="removeContact(${c.id})" title="Remove contact">
+        <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
+      </button>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+// --- Remove Contact ---
+window.removeContact = function(id) {
+  let contacts = getContacts();
+  contacts = contacts.filter(c => c.id !== id);
+  saveContacts(contacts);
+  renderContacts();
+};
+
+// --- Add Contact Modal ---
+document.getElementById('addContactBtn').addEventListener('click', () => {
+  document.getElementById('addContactModal').classList.add('open');
+});
+document.getElementById('closeContactModal').addEventListener('click', () => {
+  document.getElementById('addContactModal').classList.remove('open');
+});
+document.getElementById('addContactModal').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('open');
+});
+document.getElementById('addContactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('contactName').value.trim();
+  const phone = document.getElementById('contactPhone').value.trim();
+  const relation = document.getElementById('contactRelation').value;
+  const email = document.getElementById('contactEmail').value.trim();
+  if (!name || !phone) return;
+  const contacts = getContacts();
+  contacts.push({ id: Date.now(), name, phone, relation, email });
+  saveContacts(contacts);
+  renderContacts();
+  this.reset();
+  document.getElementById('addContactModal').classList.remove('open');
+});
+
+// --- Render Alert History ---
+function renderHistory() {
+  const history = getAlertHistory();
+  const list = document.getElementById('sosHistoryList');
+  if (!history.length) {
+    list.innerHTML = '<div class="sos-no-history"><p>No alerts have been triggered yet. That\'s a good thing!</p></div>';
+    return;
+  }
+  list.innerHTML = history.slice(0, 10).map(h => `
+    <div class="sos-history-item ${h.auto ? 'sos-history-auto' : ''}">
+      <div class="sos-history-icon">${h.auto ? '🤖' : '🚨'}</div>
+      <div class="sos-history-info">
+        <div class="sos-history-title">${h.auto ? 'Auto-Detected Alert' : 'Manual Alarm'}</div>
+        <div class="sos-history-meta">${h.reason || 'Triggered by user'}</div>
+        <div class="sos-history-time">${h.time}</div>
+      </div>
+      <div class="sos-history-badge ${h.dismissed ? 'dismissed' : 'sent'}">
+        ${h.dismissed ? 'Dismissed' : 'Sent'}
+      </div>
+    </div>
+  `).join('');
+}
+
+// --- SOS Toggle ---
+const sosToggle = document.getElementById('sosToggle');
+const sosAidDetails = document.getElementById('sosAidDetails');
+const sosAidStatus = document.getElementById('sosAidStatus');
+const sosAidPulse = document.getElementById('sosAidPulse');
+
+function updateToggleUI() {
+  const isOn = localStorage.getItem('sosEmergencyMode') === 'true';
+  sosToggle.checked = isOn;
+  sosAidDetails.style.display = isOn ? 'block' : 'none';
+  sosAidStatus.innerHTML = isOn
+    ? 'Currently <strong style="color:#2e7d32;">ON</strong> — Your contacts will be alerted in case of emergency.'
+    : 'Currently <strong>OFF</strong> — Enable to instantly alert your trusted contacts when you need help.';
+  if (isOn) {
+    sosAidPulse.classList.add('active');
+  } else {
+    sosAidPulse.classList.remove('active');
+  }
+}
+
+sosToggle.addEventListener('change', function() {
+  localStorage.setItem('sosEmergencyMode', this.checked ? 'true' : 'false');
+  updateToggleUI();
+});
+
+// --- Panic Button (hold 2s) ---
+let panicTimer = null;
+let panicHeld = false;
+const panicBtn = document.getElementById('sosPanicBtn');
+panicBtn.addEventListener('mousedown', startPanic);
+panicBtn.addEventListener('touchstart', startPanic, { passive: true });
+panicBtn.addEventListener('mouseup', cancelPanic);
+panicBtn.addEventListener('touchend', cancelPanic);
+panicBtn.addEventListener('mouseleave', cancelPanic);
+
+function startPanic(e) {
+  panicHeld = true;
+  panicBtn.classList.add('pressing');
+  panicTimer = setTimeout(() => {
+    if (panicHeld) {
+      panicBtn.classList.remove('pressing');
+      triggerSOSAlarm('Manual alarm activated by user.');
+    }
+  }, 2000);
+}
+function cancelPanic() {
+  panicHeld = false;
+  panicBtn.classList.remove('pressing');
+  if (panicTimer) clearTimeout(panicTimer);
+}
+
+// --- Trigger Alarm ---
+window.triggerSOSAlarm = function(reason, auto = false) {
+  const overlay = document.getElementById('sosAlarmOverlay');
+  const reasonEl = document.getElementById('sosAlarmReason');
+  const contactsEl = document.getElementById('sosAlarmContacts');
+  const statusEl = document.getElementById('sosAlarmStatus');
+
+  reasonEl.textContent = reason || 'Emergency alarm triggered.';
+  overlay.classList.add('open');
+
+  // Show contacts being notified
+  const contacts = getContacts();
+  contactsEl.innerHTML = contacts.map(c => `
+    <div class="sos-alarm-contact-row">
+      <span class="sos-alarm-contact-badge">${c.relation}</span>
+      <span class="sos-alarm-contact-name">${c.name}</span>
+      <span class="sos-alarm-contact-status sending">Sending...</span>
+    </div>
+  `).join('');
+
+  // Simulate sending (replace with real API in production)
+  setTimeout(() => {
+    document.querySelectorAll('.sos-alarm-contact-status').forEach(el => {
+      el.textContent = '✓ Sent';
+      el.classList.remove('sending');
+      el.classList.add('sent');
+    });
+    statusEl.innerHTML = '<div class="sos-alarm-sent"><i data-lucide="check-circle" style="width:18px;height:18px;color:#2e7d32;"></i><span>All emergency contacts have been notified.</span></div>';
+    lucide.createIcons();
+  }, 2500);
+
+  // Log to history
+  const history = getAlertHistory();
+  history.unshift({
+    time: new Date().toLocaleString(),
+    reason: reason,
+    auto: auto,
+    dismissed: false
+  });
+  saveAlertHistory(history);
+  renderHistory();
+
+  // Play alarm sound (browser-safe)
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function beep(freq, start, dur) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.frequency.value = freq; osc.type = 'sine';
+      gain.gain.value = 0.3;
+      osc.start(audioCtx.currentTime + start);
+      osc.stop(audioCtx.currentTime + start + dur);
+    }
+    for (let i = 0; i < 6; i++) {
+      beep(800, i * 0.4, 0.15);
+      beep(1200, i * 0.4 + 0.15, 0.15);
+    }
+  } catch(e) {}
+};
+
+// --- Dismiss Alarm ---
+window.dismissAlarm = function() {
+  document.getElementById('sosAlarmOverlay').classList.remove('open');
+  // Mark last alert as dismissed
+  const history = getAlertHistory();
+  if (history.length) {
+    history[0].dismissed = true;
+    saveAlertHistory(history);
+    renderHistory();
+  }
+};
+
+// --- Init ---
+document.addEventListener('DOMContentLoaded', function() {
+  updateToggleUI();
+  renderContacts();
+  renderHistory();
+});
+</script>
+</body>
+</html>

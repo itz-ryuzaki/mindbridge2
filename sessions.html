@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MindBridge — My Sessions</title>
+  <title>MindBridge â€” My Sessions</title>
   <link rel="stylesheet" href="stylesheet.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -50,6 +50,8 @@
     <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
     <a href="sessions.html" class="sidebar-link active"><i data-lucide="calendar"></i> Sessions</a>
     <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+    <a href="mentors.html" class="sidebar-link"><i data-lucide="users"></i> Mentors</a>
+    <a href="sos.html" class="sidebar-link sos-link"><i data-lucide="shield-alert"></i> SOS Emergency</a>
     <a href="#" class="sidebar-link" id="emotionTabLink"><i data-lucide="smile"></i> Emotion Detector</a>
   </nav>
   <!-- Sidebar Advertisement Blocks -->
@@ -66,117 +68,25 @@
 <main class="main-content">
   <div id="page-sessions" class="page active">
     <div class="page-inner" style="max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;">
-
-      <!-- Header -->
       <div class="sessions-header fade-up">
         <div>
           <h1>My Sessions</h1>
           <p>Manage your upcoming wellness appointments and workshops.</p>
         </div>
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" id="bookSessionBtn">
           <i data-lucide="plus" style="width:18px;height:18px;"></i> Book Session
         </button>
       </div>
-
-      <!-- Upcoming -->
+      <div class="session-stats-row fade-up delay-1" id="sessionStats"></div>
       <div style="margin-bottom:3rem;">
-        <div class="upcoming-label fade-up delay-1">
-          <span class="pulse-dot"></span> Upcoming
-        </div>
-
-        <div class="upcoming-card fade-up delay-1">
-          <div class="upcoming-date-box">
-            <span class="upcoming-month">Oct</span>
-            <span class="upcoming-day">14</span>
-          </div>
-          <div class="upcoming-content">
-            <div class="upcoming-type-row">
-              <span class="upcoming-type">Workshop</span>
-              <span class="confirmed-badge"><i data-lucide="check-circle-2" style="width:10px;height:10px;"></i> CONFIRMED</span>
-            </div>
-            <div class="upcoming-title">Academic Anxiety Workshop</div>
-            <div class="upcoming-details">
-              <div class="upcoming-detail"><i data-lucide="clock"></i> 14:00 – 15:30</div>
-              <div class="upcoming-detail"><i data-lucide="video"></i> Virtual Meeting</div>
-            </div>
-          </div>
-          <div class="upcoming-side">
-            <div>
-              <div class="faculty-label">Faculty</div>
-              <div class="faculty-name">Dr. Sarah Miller</div>
-            </div>
-            <button class="icon-btn"><i data-lucide="more-vertical"></i></button>
-          </div>
-        </div>
-
-        <div class="upcoming-card fade-up delay-2">
-          <div class="upcoming-date-box">
-            <span class="upcoming-month">Oct</span>
-            <span class="upcoming-day">17</span>
-          </div>
-          <div class="upcoming-content">
-            <div class="upcoming-type-row">
-              <span class="upcoming-type">Counseling</span>
-            </div>
-            <div class="upcoming-title">1-on-1 Peer Counseling</div>
-            <div class="upcoming-details">
-              <div class="upcoming-detail"><i data-lucide="clock"></i> 10:00 – 10:45</div>
-              <div class="upcoming-detail"><i data-lucide="video"></i> Virtual Meeting</div>
-            </div>
-          </div>
-          <div class="upcoming-side">
-            <div>
-              <div class="faculty-label">Faculty</div>
-              <div class="faculty-name">Marcus J.</div>
-            </div>
-            <button class="icon-btn"><i data-lucide="more-vertical"></i></button>
-          </div>
-        </div>
+        <div class="upcoming-label fade-up delay-1"><span class="pulse-dot"></span> Upcoming</div>
+        <div id="upcomingContainer"></div>
       </div>
-
-      <!-- Past -->
       <div>
         <div class="history-label fade-up">History</div>
-
-        <div class="past-session fade-up delay-1" id="past-session-3">
-          <div class="past-left">
-            <span class="past-date">Oct 05</span>
-            <div>
-              <div class="past-title">Time Management Essentials</div>
-              <div class="past-subtitle">Workshop • Prof. David K.</div>
-            </div>
-          </div>
-          <div class="past-right">
-            <div id="rating-3">
-              <button class="rate-btn" onclick="openFeedback(3)">Rate Session</button>
-            </div>
-            <button class="notes-btn" onclick="downloadNotes(3, 'Time Management Essentials', 'Oct 05', 'Workshop', 'Prof. David K.', 'Discussed the Pomodoro technique and the importance of prioritizing tasks based on urgency and importance. Set a goal to use a digital planner for the next week.')">
-              <i data-lucide="download"></i> Notes
-            </button>
-          </div>
-        </div>
-
-        <div class="past-session fade-up delay-2" id="past-session-4">
-          <div class="past-left">
-            <span class="past-date">Sep 28</span>
-            <div>
-              <div class="past-title">Stress Management Circle</div>
-              <div class="past-subtitle">Peer Group • Online Circle</div>
-            </div>
-          </div>
-          <div class="past-right">
-            <div id="rating-4">
-              <button class="rate-btn" onclick="openFeedback(4)">Rate Session</button>
-            </div>
-            <button class="notes-btn" onclick="downloadNotes(4, 'Stress Management Circle', 'Sep 28', 'Peer Group', 'Online Circle', 'Shared personal experiences with exam stress. Practiced guided imagery and collective breathing exercises. Feeling more connected with peers after sharing.')">
-              <i data-lucide="download"></i> Notes
-            </button>
-          </div>
-        </div>
+        <div id="pastContainer"></div>
       </div>
-
-      <!-- Archive CTA -->
-      <div class="session-archive-cta fade-up">
+      <div class="session-archive-cta fade-up" id="archiveCta" style="cursor:pointer;">
         <div class="cta-icon"><i data-lucide="calendar"></i></div>
         <div class="cta-text">
           <h3>Missed a session?</h3>
@@ -184,7 +94,6 @@
         </div>
         <div class="cta-arrow"><i data-lucide="arrow-right"></i></div>
       </div>
-
     </div>
   </div>
 </main>
@@ -195,7 +104,7 @@
     <button class="modal-close" onclick="closeFeedback()"><i data-lucide="x"></i></button>
     <div class="modal-icon"><i data-lucide="message-square" style="width:30px;height:30px;"></i></div>
     <h2>How was your session?</h2>
-    <p class="modal-desc">Your feedback helps us match you with the best facilitators and improve the quality of our wellness community.</p>
+    <p class="modal-desc">Your feedback helps us improve.</p>
     <div class="star-row" id="starRow">
       <button class="star-btn" data-star="1" onclick="selectStar(1)" onmouseenter="hoverStar(1)" onmouseleave="hoverStar(0)"><i data-lucide="star" style="width:40px;height:40px;"></i></button>
       <button class="star-btn" data-star="2" onclick="selectStar(2)" onmouseenter="hoverStar(2)" onmouseleave="hoverStar(0)"><i data-lucide="star" style="width:40px;height:40px;"></i></button>
@@ -203,8 +112,71 @@
       <button class="star-btn" data-star="4" onclick="selectStar(4)" onmouseenter="hoverStar(4)" onmouseleave="hoverStar(0)"><i data-lucide="star" style="width:40px;height:40px;"></i></button>
       <button class="star-btn" data-star="5" onclick="selectStar(5)" onmouseenter="hoverStar(5)" onmouseleave="hoverStar(0)"><i data-lucide="star" style="width:40px;height:40px;"></i></button>
     </div>
-    <textarea class="feedback-textarea" placeholder="Any specific thoughts on what helped or what could be better? (Optional)"></textarea>
+    <textarea class="feedback-textarea" id="feedbackText" placeholder="Any thoughts? (Optional)"></textarea>
     <button class="submit-feedback disabled" id="submitFeedback" onclick="submitFeedback()">Submit Feedback</button>
+  </div>
+</div>
+
+<!-- Book Session Modal -->
+<div class="modal-overlay" id="bookModal">
+  <div class="modal-card" style="max-width:480px;">
+    <button class="modal-close" id="closeBookModal"><i data-lucide="x"></i></button>
+    <div class="modal-icon" style="background:var(--primary-container);color:var(--primary);"><i data-lucide="calendar-plus" style="width:30px;height:30px;"></i></div>
+    <h2>Book a New Session</h2>
+    <form id="bookForm">
+      <div class="sos-form-group"><label>Session Type</label>
+        <select id="bookType" required><option value="Workshop">Workshop</option><option value="Counseling">1-on-1 Counseling</option><option value="Peer Group">Peer Group Circle</option><option value="Meditation">Guided Meditation</option></select>
+      </div>
+      <div class="sos-form-group"><label>Title</label><input type="text" id="bookTitle" placeholder="e.g. Exam Anxiety Workshop" required /></div>
+      <div class="sos-form-group"><label>Date</label><input type="date" id="bookDate" required /></div>
+      <div style="display:flex;gap:.75rem;">
+        <div class="sos-form-group" style="flex:1;"><label>Start</label><input type="time" id="bookStart" required /></div>
+        <div class="sos-form-group" style="flex:1;"><label>End</label><input type="time" id="bookEnd" required /></div>
+      </div>
+      <div class="sos-form-group"><label>Facilitator</label>
+        <select id="bookFaculty"><option>Dr. Sarah Miller</option><option>Marcus J.</option><option>Prof. David K.</option><option>Dr. Priya Sharma</option></select>
+      </div>
+      <div class="sos-form-group"><label>Mode</label>
+        <select id="bookMode"><option value="Virtual Meeting">Virtual Meeting</option><option value="In-Person">In-Person</option></select>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.75rem;"><i data-lucide="check" style="width:16px;height:16px;"></i> Confirm Booking</button>
+    </form>
+  </div>
+</div>
+
+<!-- Reschedule Modal -->
+<div class="modal-overlay" id="rescheduleModal">
+  <div class="modal-card" style="max-width:400px;">
+    <button class="modal-close" id="closeRescheduleModal"><i data-lucide="x"></i></button>
+    <div class="modal-icon" style="background:#e3f2fd;color:#1565c0;"><i data-lucide="calendar-clock" style="width:30px;height:30px;"></i></div>
+    <h2>Reschedule Session</h2>
+    <p class="modal-desc" id="rescheduleDesc"></p>
+    <form id="rescheduleForm">
+      <div class="sos-form-group"><label>New Date</label><input type="date" id="rescheduleDate" required /></div>
+      <div style="display:flex;gap:.75rem;">
+        <div class="sos-form-group" style="flex:1;"><label>Start</label><input type="time" id="rescheduleStart" required /></div>
+        <div class="sos-form-group" style="flex:1;"><label>End</label><input type="time" id="rescheduleEnd" required /></div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.75rem;"><i data-lucide="check" style="width:16px;height:16px;"></i> Reschedule</button>
+    </form>
+  </div>
+</div>
+
+<!-- Archive Modal -->
+<div class="modal-overlay" id="archiveModal">
+  <div class="modal-card" style="max-width:520px;">
+    <button class="modal-close" id="closeArchiveModal"><i data-lucide="x"></i></button>
+    <div class="modal-icon" style="background:var(--secondary-container);color:var(--secondary);"><i data-lucide="archive" style="width:30px;height:30px;"></i></div>
+    <h2>Session Archives</h2>
+    <div id="archiveList" style="max-height:350px;overflow-y:auto;margin-top:1rem;"></div>
+  </div>
+</div>
+
+<!-- Session Detail Modal -->
+<div class="modal-overlay" id="sessionDetailModal">
+  <div class="modal-card" style="max-width:500px;">
+    <button class="modal-close" id="closeDetailModal"><i data-lucide="x"></i></button>
+    <div id="sessionDetailContent"></div>
   </div>
 </div>
 
@@ -212,7 +184,7 @@
   <div class="footer-inner">
     <div>
       <div class="footer-brand">MindBridge</div>
-      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+      <p class="footer-copy">&copy; 2024 MindBridge. Supporting student mental health with academic clarity.</p>
     </div>
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
@@ -224,100 +196,367 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="sos-monitor.js"></script>
+<script src="xp-tracker.js"></script>`n<script src="wellness-popup.js"></script>
 <script>
 // Sidebar Emotion Detector tab logic
 document.addEventListener('DOMContentLoaded', function() {
   const emoTab = document.getElementById('emotionTabLink');
-  if (emoTab) {
-    emoTab.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.location.href = 'index.html#page-emotion';
-    });
-  }
+  if (emoTab) emoTab.addEventListener('click', function(e) { e.preventDefault(); window.location.href = 'index.html#page-emotion'; });
 });
 </script>
 <script>
-let currentFeedbackId = null;
-let selectedRating = 0;
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// SESSIONS PAGE â€” Full Working Logic
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
-function openFeedback(id) {
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+// â”€â”€ Default Data â”€â”€
+const defaultUpcoming = [
+  { id: 1, type: 'Workshop', title: 'Academic Anxiety Workshop', date: '2025-10-14', start: '14:00', end: '15:30', mode: 'Virtual Meeting', venue: 'Zoom â€” Meeting ID: 845 2210 3901', faculty: 'Dr. Sarah Miller', confirmed: true, description: 'A guided workshop focusing on techniques to manage academic anxiety, including mindfulness, breathing exercises, and cognitive restructuring.' },
+  { id: 2, type: 'Counseling', title: '1-on-1 Peer Counseling', date: '2025-10-17', start: '10:00', end: '10:45', mode: 'In-Person', venue: 'Wellness Center, Room 204, Block-C', faculty: 'Marcus J.', confirmed: false, description: 'A private counseling session with a trained peer mentor to discuss personal challenges and develop coping strategies.' }
+];
+const defaultPast = [
+  { id: 3, type: 'Workshop', title: 'Time Management Essentials', date: '2025-10-05', faculty: 'Prof. David K.', notes: 'Discussed the Pomodoro technique and the importance of prioritizing tasks based on urgency and importance. Set a goal to use a digital planner for the next week.', rating: 0 },
+  { id: 4, type: 'Peer Group', title: 'Stress Management Circle', date: '2025-09-28', faculty: 'Online Circle', notes: 'Shared personal experiences with exam stress. Practiced guided imagery and collective breathing exercises. Feeling more connected with peers after sharing.', rating: 0 }
+];
+
+function getUpcoming() { let d = localStorage.getItem('sessionsUpcoming'); if (d) return JSON.parse(d); localStorage.setItem('sessionsUpcoming', JSON.stringify(defaultUpcoming)); return [...defaultUpcoming]; }
+function getPast() { let d = localStorage.getItem('sessionsPast'); if (d) return JSON.parse(d); localStorage.setItem('sessionsPast', JSON.stringify(defaultPast)); return [...defaultPast]; }
+function saveUpcoming(arr) { localStorage.setItem('sessionsUpcoming', JSON.stringify(arr)); }
+function savePast(arr) { localStorage.setItem('sessionsPast', JSON.stringify(arr)); }
+function getFeedbackData() { return JSON.parse(localStorage.getItem('sessionsFeedback') || '{}'); }
+function saveFeedbackData(d) { localStorage.setItem('sessionsFeedback', JSON.stringify(d)); }
+
+function fmtDate(dateStr) { const d = new Date(dateStr + 'T00:00:00'); return MONTHS[d.getMonth()] + ' ' + String(d.getDate()).padStart(2, '0'); }
+function fmtTime(t) { const [h, m] = t.split(':'); const hr = parseInt(h); return (hr > 12 ? hr - 12 : hr || 12) + ':' + m + (hr >= 12 ? ' PM' : ' AM'); }
+
+// â”€â”€ Render Stats â”€â”€
+function renderStats() {
+  const up = getUpcoming(), past = getPast(), fb = getFeedbackData();
+  let totalRated = 0, ratingSum = 0;
+  past.forEach(p => { const r = fb[p.id]; if (r && r.rating) { totalRated++; ratingSum += r.rating; } });
+  const avgRating = totalRated ? (ratingSum / totalRated).toFixed(1) : 'â€”';
+  document.getElementById('sessionStats').innerHTML = `
+    <div class="stat-chip"><i data-lucide="calendar-check" style="width:16px;height:16px;"></i><span>${up.length}</span> Upcoming</div>
+    <div class="stat-chip"><i data-lucide="history" style="width:16px;height:16px;"></i><span>${past.length}</span> Completed</div>
+    <div class="stat-chip"><i data-lucide="star" style="width:16px;height:16px;"></i><span>${avgRating}</span> Avg Rating</div>
+  `;
+  lucide.createIcons();
+}
+
+// â”€â”€ Render Upcoming â”€â”€
+function renderUpcoming() {
+  const upcoming = getUpcoming();
+  const container = document.getElementById('upcomingContainer');
+  if (!upcoming.length) {
+    container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--outline);font-size:.9rem;">No upcoming sessions. Book one above!</div>';
+    return;
+  }
+  container.innerHTML = upcoming.map(s => {
+    const d = new Date(s.date + 'T00:00:00');
+    const month = isNaN(d.getTime()) ? s.date.slice(5,7) : MONTHS[d.getMonth()];
+    const day = isNaN(d.getTime()) ? s.date.slice(8,10) : d.getDate();
+    return `<div class="upcoming-card fade-up" data-id="${s.id}" onclick="showSessionDetail(${s.id})" style="cursor:pointer;">
+      <div class="upcoming-date-box">
+        <span class="upcoming-month">${month}</span>
+        <span class="upcoming-day">${day}</span>
+      </div>
+      <div class="upcoming-content">
+        <div class="upcoming-type-row">
+          <span class="upcoming-type">${s.type}</span>
+          ${s.confirmed ? '<span class="confirmed-badge"><i data-lucide="check-circle-2" style="width:10px;height:10px;"></i> CONFIRMED</span>' : '<span class="confirmed-badge" style="background:#fff3e0;color:#e65100;">PENDING</span>'}
+        </div>
+        <div class="upcoming-title">${s.title}</div>
+        <div class="upcoming-details">
+          <div class="upcoming-detail"><i data-lucide="clock"></i> ${s.start} â€“ ${s.end}</div>
+          <div class="upcoming-detail"><i data-lucide="${s.mode === 'Virtual Meeting' ? 'video' : 'map-pin'}"></i> ${s.mode}</div>
+        </div>
+      </div>
+      <div class="upcoming-side">
+        <div>
+          <div class="faculty-label">Faculty</div>
+          <div class="faculty-name">${s.faculty}</div>
+        </div>
+        <div class="session-actions-wrap" style="position:relative;">
+          <button class="icon-btn" onclick="event.stopPropagation();toggleActionMenu(${s.id})"><i data-lucide="more-vertical"></i></button>
+          <div class="session-action-menu" id="actionMenu-${s.id}">
+            <button onclick="event.stopPropagation();rescheduleSession(${s.id})"><i data-lucide="calendar-clock" style="width:14px;height:14px;"></i> Reschedule</button>
+            <button onclick="event.stopPropagation();cancelSession(${s.id})" style="color:#dc2626;"><i data-lucide="x-circle" style="width:14px;height:14px;"></i> Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  lucide.createIcons();
+}
+
+// â”€â”€ Render Past â”€â”€
+function renderPast() {
+  const past = getPast(), fb = getFeedbackData();
+  const container = document.getElementById('pastContainer');
+  if (!past.length) {
+    container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--outline);font-size:.9rem;">No past sessions yet.</div>';
+    return;
+  }
+  container.innerHTML = past.map(p => {
+    const rated = fb[p.id] && fb[p.id].rating;
+    return `<div class="past-session fade-up" id="past-session-${p.id}">
+      <div class="past-left">
+        <span class="past-date">${fmtDate(p.date)}</span>
+        <div>
+          <div class="past-title">${p.title}</div>
+          <div class="past-subtitle">${p.type} &bull; ${p.faculty}</div>
+        </div>
+      </div>
+      <div class="past-right">
+        <div id="rating-${p.id}">
+          ${rated ? '<div class="rated-badge"><i data-lucide="star" style="width:12px;height:12px;"></i>' + fb[p.id].rating + '/5 Rated</div>' : '<button class="rate-btn" onclick="openFeedback(' + p.id + ')">Rate Session</button>'}
+        </div>
+        <button class="notes-btn" onclick="downloadNotes(${p.id})"><i data-lucide="download"></i> Notes</button>
+      </div>
+    </div>`;
+  }).join('');
+  lucide.createIcons();
+}
+
+// â”€â”€ Action Menu â”€â”€
+window.toggleActionMenu = function(id) {
+  document.querySelectorAll('.session-action-menu').forEach(m => { if (m.id !== 'actionMenu-' + id) m.classList.remove('open'); });
+  document.getElementById('actionMenu-' + id).classList.toggle('open');
+};
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.session-actions-wrap')) document.querySelectorAll('.session-action-menu').forEach(m => m.classList.remove('open'));
+});
+
+// â”€â”€ Cancel Session â”€â”€
+window.cancelSession = function(id) {
+  if (!confirm('Are you sure you want to cancel this session?')) return;
+  let up = getUpcoming();
+  up = up.filter(s => s.id !== id);
+  saveUpcoming(up);
+  renderUpcoming();
+  renderStats();
+};
+
+// â”€â”€ Reschedule Session â”€â”€
+let rescheduleId = null;
+window.rescheduleSession = function(id) {
+  rescheduleId = id;
+  const s = getUpcoming().find(x => x.id === id);
+  if (!s) return;
+  document.getElementById('rescheduleDesc').textContent = 'Rescheduling: ' + s.title;
+  document.getElementById('rescheduleDate').value = s.date;
+  document.getElementById('rescheduleStart').value = s.start;
+  document.getElementById('rescheduleEnd').value = s.end;
+  document.getElementById('rescheduleModal').classList.add('open');
+  document.querySelectorAll('.session-action-menu').forEach(m => m.classList.remove('open'));
+  lucide.createIcons();
+};
+document.getElementById('rescheduleForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  let up = getUpcoming();
+  const idx = up.findIndex(s => s.id === rescheduleId);
+  if (idx === -1) return;
+  up[idx].date = document.getElementById('rescheduleDate').value;
+  up[idx].start = document.getElementById('rescheduleStart').value;
+  up[idx].end = document.getElementById('rescheduleEnd').value;
+  saveUpcoming(up);
+  renderUpcoming();
+  document.getElementById('rescheduleModal').classList.remove('open');
+});
+document.getElementById('closeRescheduleModal').onclick = () => document.getElementById('rescheduleModal').classList.remove('open');
+document.getElementById('rescheduleModal').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
+
+// â”€â”€ Book Session â”€â”€
+document.getElementById('bookSessionBtn').addEventListener('click', function() {
+  document.getElementById('bookModal').classList.add('open');
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+  document.getElementById('bookDate').value = tomorrow.toISOString().split('T')[0];
+  document.getElementById('bookStart').value = '10:00';
+  document.getElementById('bookEnd').value = '11:00';
+  lucide.createIcons();
+});
+document.getElementById('closeBookModal').onclick = () => document.getElementById('bookModal').classList.remove('open');
+document.getElementById('bookModal').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
+
+document.getElementById('bookForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const session = {
+    id: Date.now(),
+    type: document.getElementById('bookType').value,
+    title: document.getElementById('bookTitle').value.trim(),
+    date: document.getElementById('bookDate').value,
+    start: document.getElementById('bookStart').value,
+    end: document.getElementById('bookEnd').value,
+    mode: document.getElementById('bookMode').value,
+    venue: document.getElementById('bookMode').value === 'Virtual Meeting' ? 'Zoom â€” Link will be emailed' : 'Wellness Center, Main Campus',
+    faculty: document.getElementById('bookFaculty').value,
+    confirmed: true,
+    description: 'Session booked by you.'
+  };
+  const up = getUpcoming();
+  up.push(session);
+  up.sort((a, b) => a.date.localeCompare(b.date));
+  saveUpcoming(up);
+  renderUpcoming();
+  renderStats();
+  this.reset();
+  document.getElementById('bookModal').classList.remove('open');
+  // Award XP for booking
+  if (typeof awardXP === 'function') awardXP(5, 'Booked a session');
+});
+
+// â”€â”€ Feedback (Rating) â”€â”€
+let currentFeedbackId = null, selectedRating = 0;
+
+window.openFeedback = function(id) {
   currentFeedbackId = id;
   selectedRating = 0;
   updateStars(0);
+  document.getElementById('feedbackText').value = '';
   document.getElementById('submitFeedback').className = 'submit-feedback disabled';
   document.getElementById('feedbackModal').classList.add('open');
-}
-
-function closeFeedback() {
+};
+window.closeFeedback = function() {
   document.getElementById('feedbackModal').classList.remove('open');
-  currentFeedbackId = null;
-  selectedRating = 0;
-}
-
-function selectStar(n) {
+};
+window.selectStar = function(n) {
   selectedRating = n;
   updateStars(n);
-  const btn = document.getElementById('submitFeedback');
-  btn.className = 'submit-feedback ready';
-}
-
-function hoverStar(n) {
-  updateStars(n || selectedRating);
-}
+  document.getElementById('submitFeedback').className = 'submit-feedback ready';
+};
+window.hoverStar = function(n) { updateStars(n || selectedRating); };
 
 function updateStars(n) {
   document.querySelectorAll('.star-btn').forEach(btn => {
-    const s = parseInt(btn.dataset.star);
-    const svg = btn.querySelector('svg');
-    if (s <= n) {
-      svg.style.color = 'var(--tertiary)';
-      svg.style.fill = 'var(--tertiary)';
-    } else {
-      svg.style.color = 'var(--surface-dim)';
-      svg.style.fill = 'none';
-    }
+    const s = parseInt(btn.dataset.star), svg = btn.querySelector('svg');
+    if (s <= n) { svg.style.color = 'var(--tertiary)'; svg.style.fill = 'var(--tertiary)'; }
+    else { svg.style.color = 'var(--surface-dim)'; svg.style.fill = 'none'; }
   });
 }
 
-function submitFeedback() {
+window.submitFeedback = function() {
   if (selectedRating === 0) return;
-  const id = currentFeedbackId;
-  const ratingEl = document.getElementById('rating-' + id);
-  ratingEl.innerHTML = `<div class="rated-badge"><i data-lucide="star" style="width:12px;height:12px;"></i>${selectedRating}/5 Rated</div>`;
-  lucide.createIcons();
+  const fb = getFeedbackData();
+  fb[currentFeedbackId] = { rating: selectedRating, comment: document.getElementById('feedbackText').value.trim(), time: new Date().toLocaleString() };
+  saveFeedbackData(fb);
+  renderPast();
+  renderStats();
   closeFeedback();
-}
+  // Award XP for rating
+  if (typeof awardXP === 'function') awardXP(5, 'Rated a session');
+};
 
-// Download notes as plain text file (no external libs needed)
-function downloadNotes(id, title, date, type, faculty, notes) {
+// â”€â”€ Download Notes â”€â”€
+window.downloadNotes = function(id) {
+  const past = getPast();
+  const s = past.find(p => p.id === id);
+  if (!s) return;
+  const fb = getFeedbackData();
   const content = [
-    'MindBridge Session Notes',
-    '========================',
-    '',
-    'Session: ' + title,
-    'Date: ' + date,
-    'Type: ' + type,
-    'Facilitator: ' + faculty,
-    '',
-    'Key Takeaways & Notes',
-    '---------------------',
-    notes,
-    '',
-    '© 2024 MindBridge Wellness Hub'
+    'MindBridge Session Notes', '========================', '',
+    'Session: ' + s.title, 'Date: ' + fmtDate(s.date), 'Type: ' + s.type, 'Facilitator: ' + s.faculty, '',
+    'Key Takeaways & Notes', '---------------------', s.notes || 'No notes available.',
+    '', fb[id] ? 'Your Rating: ' + fb[id].rating + '/5' + (fb[id].comment ? '\nFeedback: ' + fb[id].comment : '') : '',
+    '', '&copy; 2024 MindBridge Wellness Hub'
   ].join('\n');
-
   const blob = new Blob([content], { type: 'text/plain' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'MindBridge_Notes_' + title.replace(/\s+/g, '_') + '.txt';
+  a.download = 'MindBridge_Notes_' + s.title.replace(/\s+/g, '_') + '.txt';
   a.click();
   URL.revokeObjectURL(a.href);
-}
+};
 
-// Close modal on overlay click
-document.getElementById('feedbackModal').addEventListener('click', function(e) {
-  if (e.target === this) closeFeedback();
+// â”€â”€ Archive Modal â”€â”€
+document.getElementById('archiveCta').addEventListener('click', function() {
+  const past = getPast(), fb = getFeedbackData();
+  const list = document.getElementById('archiveList');
+  if (!past.length) { list.innerHTML = '<p style="text-align:center;color:var(--outline);padding:2rem;">No archived sessions yet.</p>'; }
+  else {
+    list.innerHTML = past.map(p => {
+      const r = fb[p.id];
+      return `<div style="display:flex;align-items:center;gap:.75rem;padding:.75rem;border-radius:.75rem;background:var(--surface-container-low);margin-bottom:.5rem;">
+        <div style="flex:1;">
+          <div style="font-weight:700;font-size:.875rem;">${p.title}</div>
+          <div style="font-size:.75rem;color:var(--outline);">${fmtDate(p.date)} &bull; ${p.type} &bull; ${p.faculty}</div>
+        </div>
+        ${r ? '<span style="font-size:.7rem;font-weight:700;color:var(--tertiary);">â˜… ' + r.rating + '/5</span>' : ''}
+        <button class="notes-btn" onclick="downloadNotes(${p.id})" style="font-size:.7rem;"><i data-lucide="download" style="width:12px;height:12px;"></i> Notes</button>
+      </div>`;
+    }).join('');
+  }
+  document.getElementById('archiveModal').classList.add('open');
+  lucide.createIcons();
+});
+document.getElementById('closeArchiveModal').onclick = () => document.getElementById('archiveModal').classList.remove('open');
+document.getElementById('archiveModal').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
+document.getElementById('feedbackModal').addEventListener('click', function(e) { if (e.target === this) closeFeedback(); });
+
+// â”€â”€ Session Detail Modal â”€â”€
+window.showSessionDetail = function(id) {
+  const s = getUpcoming().find(x => x.id === id);
+  if (!s) return;
+  const d = new Date(s.date + 'T00:00:00');
+  const dateStr = isNaN(d.getTime()) ? s.date : d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const modeIcon = s.mode === 'Virtual Meeting' ? 'video' : 'map-pin';
+  const modeColor = s.mode === 'Virtual Meeting' ? '#1565c0' : '#2e7d32';
+  const modeBg = s.mode === 'Virtual Meeting' ? '#e3f2fd' : '#e8f5e9';
+  document.getElementById('sessionDetailContent').innerHTML = `
+    <div style="text-align:center;margin-bottom:1.25rem;">
+      <div style="width:56px;height:56px;border-radius:1rem;background:${modeBg};color:${modeColor};display:inline-flex;align-items:center;justify-content:center;margin-bottom:.75rem;"><i data-lucide="${modeIcon}" style="width:28px;height:28px;"></i></div>
+      <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--outline);margin-bottom:.25rem;">${s.type}</div>
+      <h2 style="font-size:1.375rem;margin-bottom:.25rem;">${s.title}</h2>
+      <span style="display:inline-flex;align-items:center;gap:.25rem;font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:9999px;${s.confirmed ? 'background:#dcfce7;color:#166534;' : 'background:#fff3e0;color:#e65100;'}">
+        <i data-lucide="${s.confirmed ? 'check-circle-2' : 'clock'}" style="width:10px;height:10px;"></i> ${s.confirmed ? 'CONFIRMED' : 'PENDING'}
+      </span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem;">
+      <div style="padding:.75rem;background:var(--surface-container-low);border-radius:.75rem;">
+        <div style="font-size:.65rem;font-weight:700;color:var(--outline);text-transform:uppercase;margin-bottom:.25rem;">Date</div>
+        <div style="font-size:.875rem;font-weight:600;">${dateStr}</div>
+      </div>
+      <div style="padding:.75rem;background:var(--surface-container-low);border-radius:.75rem;">
+        <div style="font-size:.65rem;font-weight:700;color:var(--outline);text-transform:uppercase;margin-bottom:.25rem;">Time</div>
+        <div style="font-size:.875rem;font-weight:600;">${s.start} â€“ ${s.end}</div>
+      </div>
+      <div style="padding:.75rem;background:var(--surface-container-low);border-radius:.75rem;">
+        <div style="font-size:.65rem;font-weight:700;color:var(--outline);text-transform:uppercase;margin-bottom:.25rem;">Mode</div>
+        <div style="font-size:.875rem;font-weight:600;display:flex;align-items:center;gap:.3rem;"><i data-lucide="${modeIcon}" style="width:14px;height:14px;color:${modeColor}"></i> ${s.mode}</div>
+      </div>
+      <div style="padding:.75rem;background:var(--surface-container-low);border-radius:.75rem;">
+        <div style="font-size:.65rem;font-weight:700;color:var(--outline);text-transform:uppercase;margin-bottom:.25rem;">Facilitator</div>
+        <div style="font-size:.875rem;font-weight:600;">${s.faculty}</div>
+      </div>
+    </div>
+    <div style="padding:.75rem;background:var(--surface-container-low);border-radius:.75rem;margin-bottom:1rem;">
+      <div style="font-size:.65rem;font-weight:700;color:var(--outline);text-transform:uppercase;margin-bottom:.25rem;"><i data-lucide="map-pin" style="width:12px;height:12px;display:inline;"></i> Venue</div>
+      <div style="font-size:.875rem;font-weight:600;">${s.venue || 'To be announced'}</div>
+    </div>
+    ${s.description ? '<div style="font-size:.8125rem;color:var(--on-surface-variant);line-height:1.6;padding:.75rem;background:var(--surface-container-low);border-radius:.75rem;margin-bottom:1rem;"><strong style="font-size:.65rem;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:.25rem;color:var(--outline);">About this session</strong>' + s.description + '</div>' : ''}
+    <div style="display:flex;gap:.5rem;">
+      <button class="btn btn-primary" style="flex:1;justify-content:center;font-size:.8rem;" onclick="event.stopPropagation();rescheduleSession(${s.id});document.getElementById('sessionDetailModal').classList.remove('open');"><i data-lucide="calendar-clock" style="width:14px;height:14px;"></i> Reschedule</button>
+      <button class="btn" style="flex:1;justify-content:center;font-size:.8rem;color:#dc2626;border:1px solid #fca5a5;background:#fff5f5;" onclick="event.stopPropagation();cancelSession(${s.id});document.getElementById('sessionDetailModal').classList.remove('open');"><i data-lucide="x-circle" style="width:14px;height:14px;"></i> Cancel</button>
+    </div>
+  `;
+  document.getElementById('sessionDetailModal').classList.add('open');
+  lucide.createIcons();
+};
+document.getElementById('closeDetailModal').onclick = () => document.getElementById('sessionDetailModal').classList.remove('open');
+document.getElementById('sessionDetailModal').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
+
+// â”€â”€ Init â”€â”€
+document.addEventListener('DOMContentLoaded', function() {
+  renderStats();
+  renderUpcoming();
+  renderPast();
 });
 </script>
 </body>
 </html>
+
+
+
+

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MindBridge — XP & Badges</title>
+  <title>MindBridge â€” XP & Badges</title>
   <link rel="stylesheet" href="stylesheet.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -50,6 +50,8 @@
     <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
     <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
     <a href="xp.html" class="sidebar-link active"><i data-lucide="trophy"></i> XP</a>
+    <a href="mentors.html" class="sidebar-link"><i data-lucide="users"></i> Mentors</a>
+    <a href="sos.html" class="sidebar-link sos-link"><i data-lucide="shield-alert"></i> SOS Emergency</a>
     <a href="#" class="sidebar-link" id="emotionTabLink"><i data-lucide="smile"></i> Emotion Detector</a>
   </nav>
   <!-- Sidebar Advertisement Blocks -->
@@ -80,23 +82,23 @@
           <div class="level-card-top">
             <div>
               <div class="level-rank-badge">Current Rank</div>
-              <div class="level-title">Level 12 Wellness Explorer</div>
+              <div class="level-title" id="xpLevelTitle">Loading...</div>
             </div>
             <div style="text-align:right;">
-              <div class="level-xp-val">2,450</div>
+              <div class="level-xp-val" id="xpValue">â€”</div>
               <div class="level-xp-unit">Total XP</div>
             </div>
           </div>
           <div style="position:relative;z-index:2;">
             <div class="progress-labels">
-              <span class="prog-chip inactive">Supporter</span>
-              <span class="prog-chip active">Mentor</span>
-              <span class="prog-chip future">Champion</span>
+              <span class="prog-chip inactive" id="rankChip0">Supporter</span>
+              <span class="prog-chip future" id="rankChip1">Mentor</span>
+              <span class="prog-chip future" id="rankChip2">Champion</span>
             </div>
-            <div class="prog-track"><div class="prog-fill"></div></div>
-            <div class="prog-sub">
-              <span>Rank: Supporter</span>
-              <span class="next">Next Rank: Mentor (550 XP remaining)</span>
+            <div class="prog-track"><div class="prog-fill" id="xpProgFill" style="width:0%"></div></div>
+            <div class="prog-sub" id="xpProgSub">
+              <span>Rank: â€”</span>
+              <span class="next">Loading...</span>
             </div>
           </div>
         </div>
@@ -107,15 +109,15 @@
           <div>
             <div class="stat-row">
               <span class="stat-label">Weekly Streak</span>
-              <span class="stat-val tertiary">7 Days <i data-lucide="flame"></i></span>
+              <span class="stat-val tertiary" id="xpStreakVal">â€” Days <i data-lucide="flame"></i></span>
             </div>
             <div class="stat-row">
               <span class="stat-label">Sessions Completed</span>
-              <span class="stat-val primary">24 Sessions</span>
+              <span class="stat-val primary" id="xpActionsVal">â€” Actions</span>
             </div>
             <div class="stat-row">
               <span class="stat-label">Helping Actions</span>
-              <span class="stat-val secondary">112 Points</span>
+              <span class="stat-val secondary" id="xpHelpingVal">â€” Points</span>
             </div>
           </div>
           <button class="btn btn-tertiary" style="width:100%;justify-content:center;margin-top:2rem;font-size:.75rem;letter-spacing:.1em;">
@@ -163,7 +165,7 @@
               <div class="badge-name">Daily Spark</div>
               <div class="badge-desc">Positive Energy</div>
             </div>
-            <!-- Badge 6 — locked -->
+            <!-- Badge 6 â€” locked -->
             <div class="badge-card locked fade-up delay-3">
               <div class="badge-icon" style="background:var(--surface-dim);"><i data-lucide="lock" style="width:28px;height:28px;color:var(--outline);"></i></div>
               <div class="badge-name">Master Mentor</div>
@@ -248,7 +250,7 @@
   <div class="footer-inner">
     <div>
       <div class="footer-brand">MindBridge</div>
-      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+      <p class="footer-copy">&copy; 2024 MindBridge. Supporting student mental health with academic clarity.</p>
     </div>
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
@@ -260,17 +262,120 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="sos-monitor.js"></script>
+<script src="xp-tracker.js"></script>`n<script src="wellness-popup.js"></script>
 <script>
 // Sidebar Emotion Detector tab logic
 document.addEventListener('DOMContentLoaded', function() {
   const emoTab = document.getElementById('emotionTabLink');
-  if (emoTab) {
-    emoTab.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.location.href = 'index.html#page-emotion';
+  if (emoTab) emoTab.addEventListener('click', function(e) { e.preventDefault(); window.location.href = 'index.html#page-emotion'; });
+
+  // â”€â”€ Award XP for visiting the XP page (once per day) â”€â”€
+  const todayKey = 'xp_visit_xp_' + new Date().toLocaleDateString();
+  if (!localStorage.getItem(todayKey)) {
+    localStorage.setItem(todayKey, '1');
+    if (typeof awardXP === 'function') setTimeout(() => awardXP(5, 'Visited XP & Badges page'), 400);
+  }
+
+  // â”€â”€ Dynamic XP Display â”€â”€
+  function refreshXPPage() {
+    if (typeof getXPInfo !== 'function') return;
+    const info = getXPInfo();
+    const { xp, level, rank, remaining, progress, log } = info;
+
+    // Level card
+    const xpValEl = document.getElementById('xpValue') || document.querySelector('.level-xp-val');
+    if (xpValEl) xpValEl.textContent = xp.toLocaleString();
+
+    const titleEl = document.getElementById('xpLevelTitle') || document.querySelector('.level-title');
+    if (titleEl) titleEl.textContent = 'Level ' + level + ' Wellness ' + rank;
+
+    // Progress bar
+    const fillEl = document.getElementById('xpProgFill') || document.querySelector('.prog-fill');
+    if (fillEl) fillEl.style.width = progress + '%';
+
+    // Rank sub label
+    const NEXT_RANKS = { 'Newcomer': 'Supporter', 'Supporter': 'Mentor', 'Mentor': 'Champion', 'Champion': null };
+    const nextRankName = NEXT_RANKS[rank] || 'Max Rank';
+    const progSubEl = document.getElementById('xpProgSub') || document.querySelector('.prog-sub');
+    if (progSubEl) {
+      progSubEl.innerHTML = '<span>Rank: ' + rank + '</span><span class="next">Next Rank: ' + nextRankName + ' (' + (remaining > 0 ? remaining + ' XP remaining' : 'Achieved!') + ')</span>';
+    }
+
+    // Rank chips
+    const rankOrder = ['Supporter', 'Mentor', 'Champion'];
+    const rankIdx = rankOrder.indexOf(rank);
+    rankOrder.forEach((rName, i) => {
+      const chipEl = document.getElementById('rankChip' + i) || document.querySelectorAll('.prog-chip')[i];
+      if (!chipEl) return;
+      if (i < rankIdx) chipEl.className = 'prog-chip inactive';
+      else if (i === rankIdx) chipEl.className = 'prog-chip active';
+      else chipEl.className = 'prog-chip future';
+    });
+
+    // Activity stats
+    const todayStr = new Date().toLocaleDateString();
+    const todayXP = log.filter(e => e.time && e.time.includes(todayStr)).reduce((sum, e) => sum + e.xp, 0);
+    const commentCount = log.filter(e => e.reason && e.reason.toLowerCase().includes('comment')).length;
+    const activityCount = log.filter(e => e.reason && !e.reason.toLowerCase().includes('comment')).length;
+    const helpingPoints = commentCount * 10 + activityCount * 5;
+
+    const streakEl = document.getElementById('xpStreakVal');
+    if (streakEl) streakEl.innerHTML = (log.length > 0 ? 'ðŸ”¥ Active' : '0 Days');
+
+    const actionsEl = document.getElementById('xpActionsVal');
+    if (actionsEl) actionsEl.textContent = (commentCount + activityCount) + ' Actions';
+
+    const helpingEl = document.getElementById('xpHelpingVal');
+    if (helpingEl) helpingEl.textContent = helpingPoints + ' Points';
+
+    // Update leaderboard "You" row
+    const youXPEl = document.querySelector('.lb-divider .lb-xp');
+    if (youXPEl) youXPEl.textContent = xp >= 1000 ? (xp / 1000).toFixed(1) + 'k XP' : xp + ' XP';
+    const youSubEl = document.querySelector('.lb-divider .lb-sub');
+    if (youSubEl) youSubEl.textContent = todayXP + ' XP today';
+    const youNameEl = document.querySelector('.lb-name.you');
+    if (youNameEl) youNameEl.textContent = 'You (Rakesh)';
+
+    // Reward bar progress (to Level 15)
+    const rewardFill = document.querySelector('.reward-bar-fill');
+    const rewardPct = document.querySelector('.reward-bar-pct');
+    const pct = Math.min(Math.round((level / 15) * 100), 100);
+    if (rewardFill) rewardFill.style.width = pct + '%';
+    if (rewardPct) rewardPct.textContent = pct + '%';
+  }
+
+  refreshXPPage();
+
+  // â”€â”€ View History Button â”€â”€
+  const historyBtn = document.querySelector('.btn-tertiary');
+  if (historyBtn) {
+    historyBtn.addEventListener('click', function() {
+      const log = typeof getXPInfo === 'function' ? getXPInfo().log : [];
+      if (!log.length) { alert('No activity history yet! Start by posting, commenting, or chatting.'); return; }
+      let html = '<div style="max-height:400px;overflow-y:auto;">';
+      log.slice(0, 30).forEach(e => {
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--surface-dim);">';
+        html += '<div><div style="font-weight:600;font-size:.8125rem;">' + e.reason + '</div><div style="font-size:.7rem;color:var(--outline);">' + e.time + '</div></div>';
+        html += '<span style="font-weight:800;color:#166534;font-size:.875rem;">+' + e.xp + ' XP</span>';
+        html += '</div>';
+      });
+      html += '</div>';
+      const overlay = document.createElement('div');
+      overlay.className = 'modal-overlay open';
+      overlay.style.cssText = 'display:flex;position:fixed;inset:0;background:rgba(45,50,46,.55);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;';
+      overlay.innerHTML = '<div class="modal-card" style="max-width:480px;max-height:90vh;"><button class="modal-close" id="closeHistoryModal"><i data-lucide="x"></i></button><div class="modal-icon" style="background:var(--primary-container);color:var(--primary);"><i data-lucide="history" style="width:30px;height:30px;"></i></div><h2>XP Activity History</h2>' + html + '</div>';
+      document.body.appendChild(overlay);
+      lucide.createIcons();
+      overlay.querySelector('#closeHistoryModal').onclick = () => overlay.remove();
+      overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
     });
   }
 });
 </script>
 </body>
 </html>
+
+
+
+

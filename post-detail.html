@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MindBridge — Post Thread</title>
+  <title>MindBridge â€” Post Thread</title>
   <link rel="stylesheet" href="stylesheet.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -50,6 +50,8 @@
     <a href="chat.html" class="sidebar-link"><i data-lucide="brain-circuit"></i> AI Chat</a>
     <a href="sessions.html" class="sidebar-link"><i data-lucide="calendar"></i> Sessions</a>
     <a href="xp.html" class="sidebar-link"><i data-lucide="trophy"></i> XP</a>
+    <a href="mentors.html" class="sidebar-link"><i data-lucide="users"></i> Mentors</a>
+    <a href="sos.html" class="sidebar-link sos-link"><i data-lucide="shield-alert"></i> SOS Emergency</a>
   </nav>
   <div class="sidebar-ads">
     <div class="ad-card ad-card--vertical" role="region" aria-label="Advertisement">
@@ -99,7 +101,7 @@
   <div class="footer-inner">
     <div>
       <div class="footer-brand">MindBridge</div>
-      <p class="footer-copy">© 2024 MindBridge. Supporting student mental health with academic clarity.</p>
+      <p class="footer-copy">&copy; 2024 MindBridge. Supporting student mental health with academic clarity.</p>
     </div>
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
@@ -111,6 +113,8 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="sos-monitor.js"></script>
+<script src="xp-tracker.js"></script>`n<script src="wellness-popup.js"></script>
 <script>
 // --- Post Detail Page Logic (sync with feed.html and script.js) ---
 function getCurrentUser() {
@@ -205,7 +209,7 @@ function renderPost(post) {
         <img class="post-card-avatar" src="${post.avatar}" alt="${post.author}" />
         <div>
           <div class="post-card-author">${post.author}</div>
-          <div class="post-card-meta">${post.time} • ${post.major}</div>
+          <div class="post-card-meta">${post.time} &bull; ${post.major}</div>
         </div>
         <button class="more-btn"><i data-lucide="more-horizontal"></i></button>
       </div>
@@ -283,6 +287,41 @@ document.addEventListener('DOMContentLoaded', async function() {
     e.preventDefault();
     const text = document.getElementById('commentText').value.trim();
     if (!text) return;
+
+    // â”€â”€ SOS: Check for harmful/distress keywords â”€â”€
+    var harmfulWords = ['die', 'kill', 'suicide', 'suicidal', 'murder', 'self harm', 'self-harm',
+      'end my life', 'want to die', 'wanna die', 'kill myself', 'hurt myself', 'cut myself',
+      'hang myself', 'overdose', 'hopeless', 'no reason to live', 'better off dead',
+      'end it all', 'take my own life', 'not worth living', 'wish i was dead',
+      'nothing to live for', 'planning to die', 'ready to die', 'painless death',
+      'i dont want to live', 'give up on life', 'no way out', 'nobody cares'];
+    var lowerText = text.toLowerCase();
+    var flaggedWord = null;
+
+    for (var i = 0; i < harmfulWords.length; i++) {
+      if (lowerText.includes(harmfulWords[i])) {
+        flaggedWord = harmfulWords[i];
+        break;
+      }
+    }
+
+    if (flaggedWord !== null) {
+      var alertHistory = JSON.parse(localStorage.getItem('sosAlertHistory') || '[]');
+      alertHistory.unshift({
+        time: new Date().toLocaleString(),
+        reason: 'Harmful word "' + flaggedWord + '" detected in Comment',
+        auto: true,
+        dismissed: false
+      });
+      localStorage.setItem('sosAlertHistory', JSON.stringify(alertHistory));
+      window.location.href = 'sos.html?autoalarm=1&reason=' + encodeURIComponent('Harmful word "' + flaggedWord + '" detected in Comment');
+      return;
+    }
+    // â”€â”€ End SOS Check â”€â”€
+
+    // Award XP for commenting
+    if (typeof awardXP === 'function') awardXP(10, 'Posted a comment');
+
     const author = getCurrentUser();
     const now = new Date();
     const time = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' ' + now.toLocaleDateString();
@@ -297,3 +336,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 </script>
 </body>
 </html>
+
+
+
+
